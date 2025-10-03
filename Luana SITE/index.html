@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loguin</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/media-query.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
+    
+</head>
+<body>
+    <main>
+        <section id="login">
+            <div id="img">
+                <!-- Imagem de login nas CSS-->
+            </div>
+            <div id="form">
+                <h1>LOGIN</h1>
+                <p>Seja bem vindo! </p>
+                <p>Identifique-se para acessar meu currículo! </p>
+            </div>
+            <form action="login.php" method="post" autocomplete="on">
+                <div class="campo">
+                     <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    <input type="text" name="usuario" id="usuario" placeholder="Digite seu nome" required autocomplete="name">
+                    <label for="usuario">Usuário</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm-160 80h-80v440h80v-440Zm400 440v-440H320v440h320Zm80-440v440h80v-440h-80ZM480-420Z"/></svg>
+                    <input type="text" name="empresa" id="empresa" placeholder="Digite sua empresa" required>
+                    <label for="empresa">Empresa</label>
+
+                </div>
+                <input type="submit" value="Entrar">
+                <input type="reset" value="Limpar">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

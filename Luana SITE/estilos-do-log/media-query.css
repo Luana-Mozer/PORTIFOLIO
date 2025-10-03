@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+
+/* Media Query para telas entre 768px e 992px (tablets) */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    body {
+        background-image: linear-gradient(to top left, #910074 0%, #333399 100%);
+    }
+    section#login {
+        width: 80%;
+        height: 300px; /* Altura mantida no tablet */
+    }
+    section#login > div#img {
+        float: left;
+        width: 30%;
+        height: 100%;
+    }
+    section#login > div#form {
+        float: right;
+        width: 70%;
+        /* Altura reduzida para sobrar espaço para o formulário */
+        height: 40%;
+    }
+    /* CORREÇÃO: Flutua o formulário para se encaixar ao lado da imagem e abaixo do cabeçalho */
+    section#login > form {
+        float: right;
+        width: 70%;
+        padding: 10px; 
+        clear: right; /* Garante que comece abaixo da div#form */
+    }
+    /* Campos na tela pequena: um embaixo do outro (comportamento padrão de flexbox sem wrap) */
+}
+
+/* Media Query para telas a partir de 992px (desktops) */
+@media screen and (min-width: 992px) {
+    body {
+        background-image: linear-gradient(to top left, #910074 0%, #333399 100%);
+    }
+    section#login {
+        width: 950px;
+        height: 300px; /* Altura ajustada no desktop */
+    }
+    section#login > div#img {
+        float: left;
+        width: 40%;
+        height: 100%;
+    }
+    section#login > div#form {
+        float: right;
+        width: 60%;
+        /* CORREÇÃO: Altura MUITO reduzida para caber o título/parágrafo e sobrar espaço para o formulário */
+        height: 30%; 
+    }
+    div#form > p {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: black;
+        font-size: 1.2em;
+    }
+    div#form > h1 {
+        font-size: 2em;
+    }
+    
+    /* CORREÇÃO: Flutua o formulário para se encaixar ao lado da imagem e abaixo do cabeçalho */
+    section#login > form {
+        float: right;
+        width: 60%;
+        padding: 30px;
+        clear: right; /* Garante que comece abaixo da div#form */
+        
+        /* CORREÇÃO: Flexbox para colocar os campos lado a lado */
+        display: flex;
+        flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+        justify-content: space-between; /* Distribui o espaço entre os itens */
+    }
+
+    /* CORREÇÃO: Os primeiros dois campos lado a lado, com 48% para sobrar espaço para o 'gap' */
+    section#login > form .campo:nth-child(1),
+    section#login > form .campo:nth-child(2) {
+        width: 100%; /* Ocupa metade da largura do formulário (48% + 48% = 96%, sobram 4% para espaço) */
+        display: flex; /* Garante que o conteúdo do campo mantenha o flex (ícone + input) */
+    }
+    /* O último campo (senha) e os botões ocupam a largura total (100%) */
+    section#login > form .campo:nth-child(3),
+    section#login > form input[type=submit],
+    section#login > form input[type=reset] {
+        width: 100%;
+    }
+}
