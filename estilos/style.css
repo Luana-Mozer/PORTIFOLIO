@@ -102,7 +102,7 @@ article {
 }
 article h2 {
   color: var(--destaque);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   position: relative;
 }
 #video-container {
@@ -148,9 +148,37 @@ div#video-container  iframe{
   background-color: var(--destaque-inverso);
   border-radius: 4px;
 }
+#forma-container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+}
+#forma-container #curso {
+  background-color: var(--fundo-principal);
+  gap: 15px;
+  border-radius: 8px;
+  border-left: 20px solid var(--destaque-inverso);
+  border-right: 20px solid var(--destaque-inverso);
+  padding-left: 8px;
+}
+#forma-container #curso:hover {
+  border-left-width: 10px solid var(--destaque);
+  border-right-width: 10px solid var(--destaque);
+  transition: border-width 0.5s, border-color 0.5s;
+  cursor: pointer;
+}
+#forma-container #curso p {
+  color: var(--texto);
+  font-size: 0.8em;
+}
+#forma-container #curso h3 {
+  color: var(--texto);
+  text-decoration: dashed;
+}
 @media screen and (min-width: 768px) {
   #skill-container {
     grid-template-columns: 1fr 1fr;
+    
   }
   
 }
