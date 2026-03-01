@@ -24,28 +24,34 @@ body {
 header {
   background-color: var(--destaque);
   color: var(--texto);
-  padding: 10px;
+  padding: 3px;
   text-align: center;
   display: flex;
   justify-content: flex-end;
   align-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 #menu ul {
   list-style: none;
   display: flex;
-  gap: 50px;
+  justify-content: center;
+  gap: 80px;
 }
 #menu a {
   text-decoration: none;
   color: var(--texto-inverso);
   font-weight: 600px;
-  padding: 12px 15px;
+  padding: 5px;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
+
 }
 #menu a:hover {
   background-color: var(--destaque-inverso);
   color: var(--destaque);
+  padding: 5px;
 }
 main {
   display: grid;
@@ -255,5 +261,8 @@ footer a {
   #projeto img {
   aspect-ratio: 1/1;
   max-width: 20%;
+}
+#menu ul {
+  gap: 250px;
 }
 }
