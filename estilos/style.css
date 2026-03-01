@@ -105,6 +105,11 @@ article h2 {
   margin-bottom: 20px;
   position: relative;
 }
+article #forma-container #curso {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 #video-container {
   position: relative;
   width: 100%;
@@ -160,25 +165,95 @@ div#video-container  iframe{
   border-left: 20px solid var(--destaque-inverso);
   border-right: 20px solid var(--destaque-inverso);
   padding-left: 8px;
+  font-size: 1.1em;
 }
 #forma-container #curso:hover {
   border-left-width: 10px solid var(--destaque);
   border-right-width: 10px solid var(--destaque);
   transition: border-width 0.5s, border-color 0.5s;
-  cursor: pointer;
+  cursor: none;
+  font-size: 1.3em;
 }
 #forma-container #curso p {
   color: var(--texto);
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 #forma-container #curso h3 {
   color: var(--texto);
   text-decoration: dashed;
 }
+#projeto-container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+}
+#projeto-container #projeto {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--fundo-principal);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 5px solid var(--destaque-inverso);
+  transition: border-color 0.5s, border-width 0.5s;
+}
+#projeto-container #projeto:hover {
+  border-left: 15px solid var(--destaque);
+  cursor: pointer;
+}
+#projeto img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 8px;
+}
+#projetos #projeto #info a {
+  color: var(--destaque);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+  border-radius: 8px;
+  padding: 5px 10px;
+  gap: 5px;
+  background-color: var(--fundo-principal);
+}
+#projetos #projeto details a {
+  color: var(--destaque);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+  border-radius: 8px;
+  padding: 5px 10px;
+  gap: 5px;
+  background-color: var(--fundo-principal);
+}
+footer {
+  background-color: var(--destaque);
+  color: var(--texto-inverso);
+  text-align: center;
+  padding: 3px;
+  margin-top: 3px;
+}
+footer a {
+  color: var(--texto-inverso);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
 @media screen and (min-width: 768px) {
   #skill-container {
     grid-template-columns: 1fr 1fr;
-    
   }
-  
+  #projeto-container #projeto {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  #projeto-container #projeto #info {
+  max-width: 80%;
+}
+  #projeto img {
+  aspect-ratio: 1/1;
+  max-width: 20%;
+}
 }
