@@ -248,6 +248,18 @@ footer a {
   transition: color 0.3s;
 }
 @media screen and (min-width: 768px) {
+  main {
+    grid-template-columns: auto 300PX 1fr auto;
+  }
+  section#ficha {
+    grid-column: 2 / 3;
+    height: fit-content;
+    position: sticky;
+    top: 45px;
+  }
+  section#detalhes {
+    grid-column: 3 / 4;
+  }
   #skill-container {
     grid-template-columns: 1fr 1fr;
   }
