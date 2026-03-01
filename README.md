@@ -3,7 +3,7 @@
 
 <img width="1344" height="601" alt="Image" src="https://github.com/user-attachments/assets/f32e4598-554e-49d4-aea2-75c31d9a55f6" />
 
-[acesse](https://luana-mozer.github.io/PORTIFOLIO/)
+# [acesse](https://luana-mozer.github.io/PORTIFOLIO/)
 
 Nele eu organizei:
 
@@ -19,7 +19,7 @@ Meus principais projetos com descrição, links e detalhes expansíveis.
 
 Também implementei design responsivo e modo claro/escuro para melhorar a experiência do usuário.
 
-🛠 Como foi criado
+### 🛠 Como foi criado
 
 Eu desenvolvi o projeto utilizando:
 
@@ -41,7 +41,7 @@ Font Awesome para os ícones.
 
 localStorage para salvar a preferência de tema do usuário.
 
-💻 Explicando a codificação
+### 💻 Explicando a codificação
 
 Eu organizei o HTML em seções principais:
 
@@ -62,11 +62,13 @@ Criei uma função para alternar o tema.
 
 Troco o ícone do botão entre sol e lua.
 
+<img width="1344" height="608" alt="Image" src="https://github.com/user-attachments/assets/2a006241-7eee-42ce-9dd6-2d6e13a5d431" />
+
 Salvo a escolha do usuário no localStorage.
 
 Implementei scroll suave no menu de navegação, calculando a altura do header para posicionamento correto.
 
-📚 O que eu aprendi
+### 📚 O que eu aprendi
 
 Com esse projeto eu aprendi e consolidei:
 
@@ -84,7 +86,7 @@ Organização de código de forma mais profissional.
 
 Pensar na experiência do usuário (UX).
 
-🎯 Conclusão
+### 🎯 Conclusão
 
 Esse projeto representa uma evolução importante na minha jornada como desenvolvedora. Eu consegui unir estrutura, design e interatividade em um único site funcional e organizado.
 
