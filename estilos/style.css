@@ -21,6 +21,14 @@ body {
   background-color: var(--fundo-principal);
   color: var(--texto);
 }
+body.escuro {
+  --fundo-principal: #222222;
+  --texto: #f5f5f5;
+  --texto-inverso: #222222;
+  --destaque: #fd9be0d0;
+  --destaque-inverso: #641052ce;
+  --fundo-card: #333333;
+}
 header {
   background-color: var(--destaque);
   color: var(--texto);
@@ -87,8 +95,9 @@ main {
   justify-content: center;
   align-items: center;
   font-size: 1.7em;
-  gap: 100px;
-  margin-top: 15px;
+  gap: 90px;
+  padding: 0px 10px;
+  margin: 5px;
 }
 #social a {
   color: var(--destaque);
@@ -260,8 +269,8 @@ footer a {
   section#detalhes {
     grid-column: 3 / 4;
   }
-  #skill-container {
-    grid-template-columns: 1fr 1fr;
+  #skill-container{
+  grid-template-columns: 1fr 1fr;
   }
   #projeto-container #projeto {
     flex-direction: row-reverse;
