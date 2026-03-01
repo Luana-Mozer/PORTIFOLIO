@@ -1,4 +1,4 @@
-# PORTIFOLIO
+# PORTIFÓLIO
 ## Este é o meu site de portfólio pessoal, desenvolvido para apresentar quem eu sou, minha trajetória, minhas habilidades e meus projetos na área de tecnologia.
 
 <img width="1344" height="601" alt="Image" src="https://github.com/user-attachments/assets/f32e4598-554e-49d4-aea2-75c31d9a55f6" />
