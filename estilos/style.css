@@ -71,6 +71,7 @@ main {
  padding: 20px;
  border-radius: 8px;
  grid-column: 2;
+ position: relative;
 }
 #ficha img {
   width: 200px;
@@ -95,9 +96,13 @@ main {
   background-color: var(--destaque);
   border-radius: 5px;
   box-shadow: black 1px 1px 5px;
-  padding: 3px;
+  padding: 2px;
+  margin: 0px;
   font-weight: bold;
   cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 10px;
   /* Redes Sociais */
 }
 #social {
