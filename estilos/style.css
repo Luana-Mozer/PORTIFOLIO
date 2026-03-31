@@ -135,11 +135,6 @@ article h2 {
   margin-bottom: 20px;
   position: relative;
 }
-article #forma-container #curso {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
 /* Video */
 #video-container {
   position: relative;
@@ -189,6 +184,9 @@ div#video-container  iframe{
   font-weight: bolder;
   color: var(--texto);
 }
+summary {
+  cursor: pointer;
+}
 span.nivel {
   font-size: 0.9em;
   padding: 5px 10px;
@@ -218,13 +216,16 @@ span.nivel {
   border-right: 20px solid var(--destaque-inverso);
   padding-left: 8px;
   font-size: 1.1em;
+  min-height: 100px; /* Garante que todos tenham o mesmo tamanho inicial */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 #forma-container #curso:hover {
   border-left-width: 10px solid var(--destaque);
   border-right-width: 10px solid var(--destaque);
   transition: border-width 0.5s, border-color 0.5s;
-  cursor: none;
-  font-size: 1.3em;
+  cursor: pointer;
 }
 #forma-container #curso p {
   color: var(--texto);
@@ -325,5 +326,11 @@ footer a {
 }
 #menu ul {
   gap: 250px;
+}
+#Cursos #forma-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start; /* Faz com que apenas o curso clicado expanda sozinho */
 }
 }
