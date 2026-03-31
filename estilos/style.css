@@ -185,6 +185,25 @@ div#video-container  iframe{
   background-color: var(--destaque-inverso);
   border-radius: 4px;
 }
+.soft-item {
+  font-weight: bolder;
+  color: var(--texto);
+}
+span.nivel {
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: var(--fundo-principal);
+}
+#select-ruim {
+  color: red;
+}
+#select-regular {
+  color: orange;
+}
+#select-bom {
+  color: green;
+}
 /* Formação */
 #forma-container {
   display: flex;
