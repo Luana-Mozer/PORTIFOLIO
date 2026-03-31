@@ -134,11 +134,13 @@ article h2 {
   color: var(--destaque);
   margin-bottom: 20px;
   position: relative;
+  text-align: center;
 }
 /* Video */
 #video-container {
   position: relative;
-  width: 100%;
+  width: 80%;
+  max-width: 500px;
   margin: auto;
   aspect-ratio: 16/9;
 }
