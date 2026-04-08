@@ -220,7 +220,7 @@ span.nivel {
   font-size: 1.1em;
   min-height: 100px; /* Garante que todos tenham o mesmo tamanho inicial */
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center;
   
 }
