@@ -222,20 +222,24 @@ span.nivel {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
 #forma-container #curso:hover {
   border-left-width: 10px solid var(--destaque);
   border-right-width: 10px solid var(--destaque);
   transition: border-width 0.5s, border-color 0.5s;
   cursor: pointer;
+  
 }
 #forma-container #curso p {
   color: var(--texto);
   font-size: 0.7em;
+  padding: 5px;
 }
 #forma-container #curso h3 {
   color: var(--texto);
   text-decoration: dashed;
+  padding: 10px;
 }
 /* Projetos */
 #projeto-container {
