@@ -268,6 +268,54 @@ span.nivel {
   text-decoration: dashed;
   padding: 10px;
 }
+#formacao #forma-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+#formacao #forma-container #curso {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 180px;
+  padding: 24px 22px 20px;
+  border: 1px solid color-mix(in srgb, var(--destaque) 18%, transparent);
+  border-radius: 20px;
+  background: linear-gradient(180deg, var(--fundo-principal) 0%, var(--fundo-card) 100%);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+#formacao #forma-container #curso::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  width: 76px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--destaque), var(--destaque-inverso));
+}
+#formacao #forma-container #curso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+  border-color: color-mix(in srgb, var(--destaque) 36%, transparent);
+}
+#formacao #forma-container #curso h3 {
+  padding: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+#formacao #forma-container #curso p {
+  padding: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+#formacao #forma-container #curso b {
+  color: var(--destaque);
+}
 /* Projetos */
 #projeto-container {
   display: flex;
@@ -397,6 +445,9 @@ footer {
   left: calc(max(20px, calc((100vw - min(var(--main-max), calc(100vw - var(--page-pad)))) / 2)) + 10px);
   bottom: 16px;
   margin: 0;
+}
+#formacao #forma-container {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 #Cursos #forma-container {
   display: grid;
