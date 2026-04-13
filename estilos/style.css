@@ -334,6 +334,29 @@ footer a {
   transition: color 0.3s;
 }
 /* Responsividade */
+@media screen and (max-width: 767px) {
+  main {
+    width: min(var(--main-max), calc(100% - 24px));
+    margin: 20px auto 0;
+  }
+  #ficha,
+  #detalhes,
+  #menu,
+  article {
+    width: 100%;
+  }
+  #menu {
+    margin: 0 auto 20px;
+  }
+  article {
+    margin: 0 auto 20px;
+  }
+  footer {
+    width: min(var(--main-max), calc(100% - 24px));
+    margin: 10px auto 0;
+  }
+}
+
 @media screen and (min-width: 768px) {
   main {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
