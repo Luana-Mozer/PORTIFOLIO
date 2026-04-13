@@ -9,19 +9,6 @@
     <script src="https://kit.fontawesome.com/58c94ad110.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <!-- Menu -->
-        <nav id="menu">
-            <ul>
-                <li><a href="#video" class="link" title="Início"><i class="fa-solid fa-house"></i></a></li>
-                <li><a href="#skills" class="link" title="Minhas habilidades"><i class="fa-solid fa-angles-up"></i></a></li>
-                <li><a href="#formacao" class="link" title="Formação Acadêmica"><i class="fa-solid fa-graduation-cap"></i></a></li>
-                <li><a href="#projetos" class="link" title="Meus Projetos"><i class="fa-solid fa-chalkboard-user"></i></a></li>
-                <li><a href="#" id="botao-tema" class="link" title="Alternar Tema"><i class="fa-solid fa-moon"></i></a></li>
-            </ul>
-        </nav>
-    </header>
-
     <main>
         <!-- Informações Laterais -->
         <section id="ficha">
@@ -39,15 +26,24 @@
             </div>
         </section>
         <section id="detalhes">
+            <nav id="menu" aria-label="Navegação principal">
+                <ul>
+                    <li><button type="button" class="link ativo" data-view="video" title="Início"><i class="fa-solid fa-house"></i></button></li>
+                    <li><button type="button" class="link" data-view="skills" title="Minhas habilidades"><i class="fa-solid fa-angles-up"></i></button></li>
+                    <li><button type="button" class="link" data-view="formacao" title="Formação Acadêmica"><i class="fa-solid fa-graduation-cap"></i></button></li>
+                    <li><button type="button" class="link" data-view="projetos" title="Meus Projetos"><i class="fa-solid fa-chalkboard-user"></i></button></li>
+                    <li><button type="button" id="botao-tema" class="link" title="Alternar tema"><i class="fa-solid fa-moon"></i></button></li>
+                </ul>
+            </nav>
             <!-- Video -->
-            <article id="video">
+            <article id="video" class="painel-conteudo ativo" data-view="video">
                 <h2>Deixa eu me apresentar <i class="fa-regular fa-handshake"></i></h2>
                 <div id="video-container">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/WabSz9taPxA?si=PbRGSaYcsNQ25DdP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </article> <!-- fim article video -->
              <!-- Skills -->
-            <article id="skills">
+            <article id="skills" class="painel-conteudo" data-view="skills">
                 <h2>HARD Skills <i class="fa-solid fa-angles-up"></i></h2>
                 <div id="skill-container">
                     <div id="item">
@@ -215,7 +211,7 @@
                         </div>
                 </div>
             </article><!-- fim article skills -->
-            <article id="softSkills"> <!-- Soft Skills -->
+            <article id="softSkills" class="painel-conteudo" data-view="skills"> <!-- Soft Skills -->
                 <h2>SOFT Skills <i class="fa-solid fa-angles-up"></i></h2>
                 <div id="skill-container">
                     <!-- Liderança -->
@@ -284,7 +280,7 @@
                 </div>
             </article> <!-- fim article softSkills -->
              <!-- Formação -->
-            <article id="formacao">
+            <article id="formacao" class="painel-conteudo" data-view="formacao">
                 <h2>Formação Acadêmica <i class="fa-solid fa-graduation-cap"></i></h2>
                 <div id="forma-container">
                     <div id="curso">
@@ -311,7 +307,7 @@
                 </div>
             </article><!-- fim article formação -->
              <!-- Cursos -->
-            <article id="Cursos">
+            <article id="Cursos" class="painel-conteudo" data-view="formacao">
                 <h2>Cursos extras <i class="fa-solid fa-user-graduate"></i></h2>
                 <div id="forma-container">
                     
@@ -417,7 +413,7 @@
                 </div>
             </article>
              <!-- Projetos -->
-            <article id="projetos">
+            <article id="projetos" class="painel-conteudo" data-view="projetos">
                 <h2>Projetos <i class="fa-solid fa-chalkboard-user"></i></h2>
                 <div id="projeto-container">
                     <div id="projeto"> <!-- Projeto 1 -->

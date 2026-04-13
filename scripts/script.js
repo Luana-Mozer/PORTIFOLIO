@@ -1,5 +1,7 @@
 const botao = document.getElementById('botao-tema');
 const body = document.body;
+const menuBotoes = document.querySelectorAll('#menu .link[data-view]');
+const paineis = document.querySelectorAll('.painel-conteudo');
 
 // Persistência do tema
 const temasalvo = localStorage.getItem('tema');
@@ -22,19 +24,20 @@ botao.addEventListener('click', () => {
   localStorage.setItem('tema', isescuro ? 'escuro' : 'claro');
 });
 
-// Scroll suave para links de navegação
-const navLinks = document.querySelectorAll('#menu ul a.link');
-navLinks.forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const headerHeight = document.querySelector('header').offsetHeight;
-      const targetPosition = target.offsetTop - headerHeight - 20;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
+function exibirPainel(view) {
+  paineis.forEach((painel) => {
+    painel.classList.toggle('ativo', painel.dataset.view === view);
+  });
+
+  menuBotoes.forEach((botaoMenu) => {
+    botaoMenu.classList.toggle('ativo', botaoMenu.dataset.view === view);
+  });
+}
+
+menuBotoes.forEach((botaoMenu) => {
+  botaoMenu.addEventListener('click', () => {
+    exibirPainel(botaoMenu.dataset.view);
   });
 });
+
+exibirPainel('video');
