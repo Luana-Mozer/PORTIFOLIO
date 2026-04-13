@@ -1,549 +1,555 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Luana Mozer</title>
-    <link rel="stylesheet" href="estilos/style.css">
-    <link rel="shortcut icon" href="favicon.svg" type="image/svg">
-    <script src="https://kit.fontawesome.com/58c94ad110.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <main>
-        <!-- Informações Laterais -->
-        <section id="ficha">
-            <img src="imagens/luana perfil.PNG" alt="Luana Mozer">
-            <h1>Luana Mozer</h1>
-            <p>Meu nome é Luana de Oliveira Mozer, tenho 31 anos, sou uma mulher transgênero e resido atualmente em São Paulo, Zona Leste. Sou estudante de Engenharia de Software pela instituição Anhanguera e estou em busca de uma oportunidade na área de Tecnologia, com foco em desenvolvimento.
-            </p>
-            <!-- Curriculo -->
-            <div id="Curriculo"><a title="Download" id="pdf" href="Curriculo/Curriculo 2026.pdf" download><input type="button" value="Curriculo"></a></div>
-            <!-- Redes Sociais -->
-            <div id="social">
-                <a href="https://www.linkedin.com/in/luanamozer/" target="_blank" rel="nofollow" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/Luana-Mozer" target="_blank" rel="nofollow" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.youtube.com/@luanamozer" target="_blank" rel="nofollow" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-        </section>
-        <section id="detalhes">
-            <nav id="menu" aria-label="Navegação principal">
-                <ul>
-                    <li><button type="button" class="link ativo" data-view="video" title="Início"><i class="fa-solid fa-house"></i></button></li>
-                    <li><button type="button" class="link" data-view="skills" title="Minhas habilidades"><i class="fa-solid fa-angles-up"></i></button></li>
-                    <li><button type="button" class="link" data-view="formacao" title="Formação Acadêmica"><i class="fa-solid fa-graduation-cap"></i></button></li>
-                    <li><button type="button" class="link" data-view="projetos" title="Meus Projetos"><i class="fa-solid fa-chalkboard-user"></i></button></li>
-                    <li><button type="button" id="botao-tema" class="link" title="Alternar tema"><i class="fa-solid fa-moon"></i></button></li>
-                </ul>
-            </nav>
-            <!-- Video -->
-            <article id="video" class="painel-conteudo ativo" data-view="video">
-                <h2>Deixa eu me apresentar <i class="fa-regular fa-handshake"></i></h2>
-                <div id="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/WabSz9taPxA?si=PbRGSaYcsNQ25DdP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <head>
+        <!-- Metadados da pagina -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Arquivos de estilo e icone -->
+        <title>Portfólio Luana Mozer</title>
+        <link rel="stylesheet" href="estilos/style.css">
+        <link rel="shortcut icon" href="favicon.svg" type="image/svg">
+        <!-- Biblioteca de icones -->
+        <script src="https://kit.fontawesome.com/58c94ad110.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- Conteudo principal da pagina -->
+        <main>
+            <!-- Informações Laterais -->
+            <section id="ficha">
+                <img src="imagens/luana perfil.PNG" alt="Luana Mozer">
+                <h1>Luana Mozer</h1>
+                <p>Meu nome é Luana de Oliveira Mozer, tenho 31 anos, sou uma mulher transgênero e resido atualmente em São Paulo, Zona Leste. Sou estudante de Engenharia de Software pela instituição Anhanguera e estou em busca de uma oportunidade na área de Tecnologia, com foco em desenvolvimento.
+                </p>
+                <!-- Curriculo -->
+                <div id="Curriculo"><a title="Download" id="pdf" href="Curriculo/Curriculo 2026.pdf" download><input type="button" value="Curriculo"></a></div>
+                <!-- Redes Sociais -->
+                <div id="social">
+                    <a href="https://www.linkedin.com/in/luanamozer/" target="_blank" rel="nofollow" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/Luana-Mozer" target="_blank" rel="nofollow" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.youtube.com/@luanamozer" target="_blank" rel="nofollow" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
-            </article> <!-- fim article video -->
-             <!-- Skills -->
-            <article id="skills" class="painel-conteudo" data-view="skills">
-                <h2>HARD Skills <i class="fa-solid fa-angles-up"></i></h2>
-                <div id="skill-container">
-                    <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-html5"></i> HTML5
-                            </span>
-                            <span id="porcentagem">
-                                80%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 80%;">
-
-                            </div>
-                        </div>
+            </section>
+            <!-- Area de navegacao e conteudos principais -->
+            <section id="detalhes">
+                <nav id="menu" aria-label="Navegação principal">
+                    <ul>
+                        <li><button type="button" class="link ativo" data-view="video" title="Início"><i class="fa-solid fa-house"></i></button></li>
+                        <li><button type="button" class="link" data-view="skills" title="Minhas habilidades"><i class="fa-solid fa-angles-up"></i></button></li>
+                        <li><button type="button" class="link" data-view="formacao" title="Formação Acadêmica"><i class="fa-solid fa-graduation-cap"></i></button></li>
+                        <li><button type="button" class="link" data-view="projetos" title="Meus Projetos"><i class="fa-solid fa-chalkboard-user"></i></button></li>
+                        <li><button type="button" id="botao-tema" class="link" title="Alternar tema"><i class="fa-solid fa-moon"></i></button></li>
+                    </ul>
+                </nav>
+                <!-- Aba inicial com video de apresentacao -->
+                <article id="video" class="painel-conteudo ativo" data-view="video">
+                    <h2>Deixa eu me apresentar <i class="fa-regular fa-handshake"></i></h2>
+                    <div id="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/WabSz9taPxA?si=PbRGSaYcsNQ25DdP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
+                </article> <!-- fim article video -->
+                <!-- Aba com habilidades tecnicas -->
+                <article id="skills" class="painel-conteudo" data-view="skills">
+                    <h2>HARD Skills <i class="fa-solid fa-angles-up"></i></h2>
+                    <div id="skill-container">
                         <div id="item">
                             <div id="info">
                                 <span id="nome">
-                                     <i class="fa-brands fa-css3"></i> CSS3
+                                    <i class="fa-brands fa-html5"></i> HTML5
                                 </span>
-                            <span id="porcentagem">
-                                70%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 70%;">
+                                <span id="porcentagem">
+                                    80%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 80%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                         <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-js"></i> JavaScript
-                            </span>
-                            <span id="porcentagem">
-                                30%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 30%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-css3"></i> CSS3
+                                </span>
+                                <span id="porcentagem">
+                                    70%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 70%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-python"></i> Python
-                            </span>
-                            <span id="porcentagem">
-                                30%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 30%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-js"></i> JavaScript
+                                </span>
+                                <span id="porcentagem">
+                                    30%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 30%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-c"></i> C
-                            </span>
-                            <span id="porcentagem">
-                                20%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 20%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-python"></i> Python
+                                </span>
+                                <span id="porcentagem">
+                                    30%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 30%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-github"></i> Git+GitHub
-                            </span>
-                            <span id="porcentagem">
-                                90%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 90%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-c"></i> C
+                                </span>
+                                <span id="porcentagem">
+                                    20%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 20%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-solid fa-chart-diagram"></i> UML
-                            </span>
-                            <span id="porcentagem">
-                                80%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 80%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-github"></i> Git+GitHub
+                                </span>
+                                <span id="porcentagem">
+                                    90%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 90%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-brands fa-microsoft"></i> Pacote Office
-                            </span>
-                            <span id="porcentagem">
-                                95%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 95%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-solid fa-chart-diagram"></i> UML
+                                </span>
+                                <span id="porcentagem">
+                                    80%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 80%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div id="item">
-                        <div id="info">
-                            <span id="nome">
-                               <i class="fa-solid fa-language"></i> English (B1)
-                            </span>
-                            <span id="porcentagem">
-                                50%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 50%;">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-brands fa-microsoft"></i> Pacote Office
+                                </span>
+                                <span id="porcentagem">
+                                    95%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 95%;">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                        
-                      <div id="item">
-                      <div id="info">
-                            <span id="nome">
-                               <i class="fa-solid fa-computer"></i> Hardware
-                            </span>
-                            <span id="porcentagem">
-                                90%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 90%;">
+                        <div id="item">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-solid fa-language"></i> English (B1)
+                                </span>
+                                <span id="porcentagem">
+                                    50%
+                                </span>
                             </div>
-                         </div>
-                    </div>
-                          <div id="item">
-                      <div id="info">
-                            <span id="nome">
-                              <i class="fa-solid fa-tower-broadcast"></i> REDE
-                            </span>
-                            <span id="porcentagem">
-                                60%
-                            </span>
-                        </div>
-                        <div id="barra">
-                            <div id="progresso" style="width: 60%;">
+                            <div id="barra">
+                                <div id="progresso" style="width: 50%;">
+
+                                </div>
                             </div>
                         </div>
-                </div>
-            </article><!-- fim article skills -->
-            <article id="softSkills" class="painel-conteudo" data-view="skills"> <!-- Soft Skills -->
-                <h2>SOFT Skills <i class="fa-solid fa-angles-up"></i></h2>
-                <div id="skill-container">
-                    <!-- Liderança -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-person-chalkboard"></i> Liderança</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular" id="select-regular">Regular</span>
-                            <span class="nivel bom" >Bom</span>
+
+                        <div id="item">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-solid fa-computer"></i> Hardware
+                                </span>
+                                <span id="porcentagem">
+                                    90%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 90%;">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Adaptabilidade -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-arrows-turn-to-dots"></i> Adaptabilidade</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular" >Regular</span>
-                            <span class="nivel bom" id="select-bom" >Bom</span>
+                        <div id="item">
+                            <div id="info">
+                                <span id="nome">
+                                    <i class="fa-solid fa-tower-broadcast"></i> REDE
+                                </span>
+                                <span id="porcentagem">
+                                    60%
+                                </span>
+                            </div>
+                            <div id="barra">
+                                <div id="progresso" style="width: 60%;">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Trabalho em equipe -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-people-carry-box"></i> Trabalho em equipe</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular">Regular</span>
-                            <span class="nivel bom" id="select-bom">Bom</span>
+                    </article><!-- fim article skills -->
+                    <!-- Aba com habilidades comportamentais -->
+            <article id="softSkills" class="painel-conteudo" data-view="skills">
+                        <h2>SOFT Skills <i class="fa-solid fa-angles-up"></i></h2>
+                        <div id="skill-container">
+                            <!-- Liderança -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-person-chalkboard"></i> Liderança</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular" id="select-regular">Regular</span>
+                                    <span class="nivel bom" >Bom</span>
+                                </div>
+                            </div>
+                            <!-- Adaptabilidade -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-arrows-turn-to-dots"></i> Adaptabilidade</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular" >Regular</span>
+                                    <span class="nivel bom" id="select-bom" >Bom</span>
+                                </div>
+                            </div>
+                            <!-- Trabalho em equipe -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-people-carry-box"></i> Trabalho em equipe</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular">Regular</span>
+                                    <span class="nivel bom" id="select-bom">Bom</span>
+                                </div>
+                            </div>
+                            <!-- Criatividade -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-regular fa-lightbulb"></i> Criatividade</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular" >Regular</span>
+                                    <span class="nivel bom" id="select-bom" >Bom</span>
+                                </div>
+                            </div>
+                            <!-- Comunicação -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-bullhorn"></i> Comunicação</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular" id="select-regular" >Regular</span>
+                                    <span class="nivel bom" >Bom</span>
+                                </div>
+                            </div>
+                            <!-- Capacidade Analítica -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-chart-column"></i> Capacidade Analítica</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular">Regular</span>
+                                    <span class="nivel bom" id="select-bom">Bom</span>
+                                </div>
+                            </div>
+                            <!-- Resolver Problemas -->
+                            <div class="soft-item">
+                                <span class="soft-nome"><i class="fa-solid fa-file-circle-exclamation"></i> Resolver Problemas</span>
+                                <div class="niveis">
+                                    <span class="nivel ruim">Ruim</span>
+                                    <span class="nivel regular">Regular</span>
+                                    <span class="nivel bom" id="select-bom">Bom</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Criatividade -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-regular fa-lightbulb"></i> Criatividade</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular" >Regular</span>
-                            <span class="nivel bom" id="select-bom" >Bom</span>
+                    </article> <!-- fim article softSkills -->
+                    <!-- Formação -->
+                    <article id="formacao" class="painel-conteudo" data-view="formacao">
+                        <h2>Formação Acadêmica <i class="fa-solid fa-graduation-cap"></i></h2>
+                        <div id="forma-container">
+                            <div id="curso">
+                                <h3>Ensino Superior Graduação</h3>
+                                <p>Bacharelado em <b>Engenharia de Software</b></p>
+                                <p><b>Período:</b> 07/2025 - 06/2029 (Cursando)</p>
+                                <p><b>Instituição:</b> Universidade Anhanguera</p>
+                                <p><b>São Paulo - SP</b></p>
+                            </div>
+                            <div id="curso">
+                                <h3>SENAI</h3>
+                                <p><b>Curso:</b> Processos Administrativos</p>
+                                <p><b>Período:</b> 2011 - 2012 (1 ano)</p>
+                                <p><b>Instituição:</b> SENAI Américo Rennê Giannetti</p>
+                                <p><b>Belo Horizonte - MG</b></p>
+                            </div>
+                            <div id="curso">
+                                <h3>Ensino Médio Completo</h3>
+                                <p><b>Período:</b> 2010 - 2012</p>
+                                <p><b>Instituição:</b> E.E. Leonina Mourthé De Araújo</p>
+                                <p><b>Santa Luzia - MG</b></p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Comunicação -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-bullhorn"></i> Comunicação</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular" id="select-regular" >Regular</span>
-                            <span class="nivel bom" >Bom</span>
+                    </article><!-- fim article formação -->
+                    <!-- Aba com cursos extras -->
+                    <article id="Cursos" class="painel-conteudo" data-view="formacao">
+                        <h2>Cursos extras <i class="fa-solid fa-user-graduate"></i></h2>
+                        <div id="forma-container">
+
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Fundamentos e masterclass Python</h3></summary>
+                                    <p><b>Conclusão:</b> 2025</p>
+                                    <p><b>Carga Horária:</b> 8h</p>
+                                    <p><b>Instituição:</b> Santander</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Marketing Digital e Inteligência Artificial (IA)</h3></summary>
+                                    <p><b>Conclusão:</b> 2025</p>
+                                    <p><b>Carga Horária:</b> 20h</p>
+                                    <p><b>Instituição:</b> Movimento Black Money</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>DEV AGENTES DE IA GOOGLE</h3></summary>
+                                    <p><b>Conclusão:</b> 2025</p>
+                                    <p><b>Carga Horária:</b> 8h</p>
+                                    <p><b>Instituição:</b> Alura</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Intensivão de JavaScript</h3></summary>
+                                    <p><b>Conclusão:</b> 2025</p>
+                                    <p><b>Carga Horária:</b> 40h</p>
+                                    <p><b>Instituição:</b> Hashtag Treinamentos</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>HTML5 + CSS3</h3></summary>
+                                    <p><b>Conclusão:</b> 2025-2026 </p>
+                                    <p><b>Carga Horária:</b> 200h</p>
+                                    <p><b>Instituição:</b> Curso Em Vídeo</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Teste de Inglês (B1 Intermediário)</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 1h</p>
+                                    <p><b>Instituição:</b> EF SET</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Analytics & Inteligência Artificial</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 40h</p>
+                                    <p><b>Instituição:</b> Anhanguera Cursos Livres</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Hardware</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 40h</p>
+                                    <p><b>Instituição:</b> Curso em Vídeo</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Rede de computadores</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 20h</p>
+                                    <p><b>Instituição:</b> Curso em Vídeo</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Excel</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 40h</p>
+                                    <p><b>Instituição:</b> Curso em Vídeo</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
+                            <div id="curso">
+                                <details>
+                                    <summary><h3>Algoritmos e Lógica de Programação</h3></summary>
+                                    <p><b>Conclusão:</b> 2026</p>
+                                    <p><b>Carga Horária:</b> 40h</p>
+                                    <p><b>Instituição:</b> Curso em Vídeo</p>
+                                    <p><b>São Paulo - SP</b></p>
+                                </details>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Capacidade Analítica -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-chart-column"></i> Capacidade Analítica</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular">Regular</span>
-                            <span class="nivel bom" id="select-bom">Bom</span>
-                        </div>
-                    </div>
-                    <!-- Resolver Problemas -->
-                    <div class="soft-item">
-                        <span class="soft-nome"><i class="fa-solid fa-file-circle-exclamation"></i> Resolver Problemas</span>
-                        <div class="niveis">
-                            <span class="nivel ruim">Ruim</span>
-                            <span class="nivel regular">Regular</span>
-                            <span class="nivel bom" id="select-bom">Bom</span>
-                        </div>
-                    </div>
-                </div>
-            </article> <!-- fim article softSkills -->
-             <!-- Formação -->
-            <article id="formacao" class="painel-conteudo" data-view="formacao">
-                <h2>Formação Acadêmica <i class="fa-solid fa-graduation-cap"></i></h2>
-                <div id="forma-container">
-                    <div id="curso">
-                        <h3>Ensino Superior Graduação</h3>
-                        <p>Bacharelado em <b>Engenharia de Software</b></p>
-                        <p><b>Período:</b> 07/2025 - 06/2029 (Cursando)</p>
-                        <p><b>Instituição:</b> Universidade Anhanguera</p>
-                        <p><b>São Paulo - SP</b></p>
-                    </div>
-                    <div id="curso">
-                        <h3>SENAI</h3>
-                        <p><b>Curso:</b> Processos Administrativos</p>
-                        <p><b>Período:</b> 2011 - 2012 (1 ano)</p>
-                        <p><b>Instituição:</b> SENAI Américo Rennê Giannetti</p>
-                        <p><b>Belo Horizonte - MG</b></p>
-                    </div>
-                    <div id="curso">
-                        <h3>Ensino Médio Completo</h3>
-                        <p><b>Período:</b> 2010 - 2012</p>
-                        <p><b>Instituição:</b> E.E. Leonina Mourthé De Araújo</p>
-                        <p><b>Santa Luzia - MG</b></p>
-                    </div>
-                </div>
-            </article><!-- fim article formação -->
-             <!-- Cursos -->
-            <article id="Cursos" class="painel-conteudo" data-view="formacao">
-                <h2>Cursos extras <i class="fa-solid fa-user-graduate"></i></h2>
-                <div id="forma-container">
-                    
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Fundamentos e masterclass Python</h3></summary>
-                            <p><b>Conclusão:</b> 2025</p>
-                            <p><b>Carga Horária:</b> 8h</p>
-                            <p><b>Instituição:</b> Santander</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Marketing Digital e Inteligência Artificial (IA)</h3></summary>
-                            <p><b>Conclusão:</b> 2025</p>
-                            <p><b>Carga Horária:</b> 20h</p>
-                            <p><b>Instituição:</b> Movimento Black Money</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>DEV AGENTES DE IA GOOGLE</h3></summary>
-                            <p><b>Conclusão:</b> 2025</p>
-                            <p><b>Carga Horária:</b> 8h</p>
-                            <p><b>Instituição:</b> Alura</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Intensivão de JavaScript</h3></summary>
-                            <p><b>Conclusão:</b> 2025</p>
-                            <p><b>Carga Horária:</b> 40h</p>
-                            <p><b>Instituição:</b> Hashtag Treinamentos</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>HTML5 + CSS3</h3></summary>
-                            <p><b>Conclusão:</b> 2025-2026 </p>
-                            <p><b>Carga Horária:</b> 200h</p>
-                            <p><b>Instituição:</b> Curso Em Vídeo</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Teste de Inglês (B1 Intermediário)</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 1h</p>
-                            <p><b>Instituição:</b> EF SET</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Analytics & Inteligência Artificial</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 40h</p>
-                            <p><b>Instituição:</b> Anhanguera Cursos Livres</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Hardware</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 40h</p>
-                            <p><b>Instituição:</b> Curso em Vídeo</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Rede de computadores</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 20h</p>
-                            <p><b>Instituição:</b> Curso em Vídeo</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Excel</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 40h</p>
-                            <p><b>Instituição:</b> Curso em Vídeo</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                    <div id="curso">
-                        <details>
-                            <summary><h3>Algoritmos e Lógica de Programação</h3></summary>
-                            <p><b>Conclusão:</b> 2026</p>
-                            <p><b>Carga Horária:</b> 40h</p>
-                            <p><b>Instituição:</b> Curso em Vídeo</p>
-                            <p><b>São Paulo - SP</b></p>
-                        </details>
-                    </div>
-                </div>
-            </article>
-             <!-- Projetos -->
-            <article id="projetos" class="painel-conteudo" data-view="projetos">
-                <h2>Projetos <i class="fa-solid fa-chalkboard-user"></i></h2>
-                <div id="projeto-container">
-                    <div id="projeto"> <!-- Projeto 1 -->
-                        <img src="imagens/Projeto agente de IA.png" alt="Projeto 1">
-                        <div id="info">
-                            <p><b>2025</b></p>
-                            <h3>Agente de IA</h3>
-                            <p>Projeto feito para aprender a criar um chat box, completamente voltado a área pratica de Agentes de Inteligência Artificial usando PYTHON</p>
-                            <a href="https://github.com/Luana-Mozer/PROJETO_05_PYTHON_Agentes_de_IA" target="_blank">Acesse</a>
-                        </div>
-                        <details>
-                            <summary>Saiba mais</summary>
-                            <h3>🤖 Agentes de IA com Alura e Google GEMINI: Automação Inteligente no Atendimento!</h3>
-                            <p>
-                             🚀 Conclui um projeto incrível na Alura onde mergulhei no universo das Large Language Models (LLMs) para criar um Agente de Service Desk.
-                            A meta? Otimizar o atendimento interno de uma empresa, automatizando a triagem e resolvendo dúvidas com agilidade.</p>
-                            <p>A essência do projeto é a Triagem Inteligente. Usando o LangChain e o LangGraph, o agente analisa a intenção do usuário e decide a melhor ação:</p>
-                            <p>AUTO_RESOLVER: Para perguntas simples, o agente usa o RAG (Retrieval-Augmented Generation) para buscar a resposta exata em nossa base de documentos (políticas internas, manuais, etc.). A melhor parte? Ele cita o documento e a página, garantindo total transparência! 📄✨</p>
-                            <p>PEDIR_INFO: Se a pergunta for vaga, ele pede mais detalhes para entender a necessidade.</p>
-                            <p>ABRIR_CHAMADO: Para solicitações complexas que exigem a intervenção humana, o agente abre um chamado automaticamente.</p>
-                            <p>A grande sacada é o LangGraph, que permite criar um fluxo dinâmico e inteligente. Se a tentativa de auto-resolução falha, o agente sabe redirecionar a solicitação para um chamado, garantindo que o usuário nunca fique sem resposta.</p>
-                            <h3>💡 O que aprendi:</h3>
-                            <p>Como usar LangChain para construir fluxos de conversação.</p>
-                            <p>A magia do LangGraph para orquestrar agentes e criar fluxos dinâmicos.</p>
-                            <p>Implementar o RAG de forma eficaz, conectando LLMs a bases de conhecimento para respostas precisas.</p>
-                            <p>A importância da engenharia de prompts para guiar o comportamento dos agentes.</p>
-                            <p>Esse projeto me mostrou como as LLMs podem ir além do texto, criando soluções práticas que economizam tempo e melhoram a eficiência.</p>
-                        </details>
-                    </div>
-                    <div id="projeto"> <!-- Projeto 2 -->
-                        <img src="imagens/Projeto Audio-Book.png" alt="Projeto 2">
-                        <div id="info">
-                            <p><b>2025</b></p>
-                            <h3>Audio-Book</h3>
-                            <p>Projeto feito para aprender a criar um audio-book, completamente voltado a área pratica de criação de sites para audio-books usando HTML5 e CSS3</p>
-                            <a href="https://luana-mozer.github.io/PROJETO_09_Audio_Book/" target="_blank">Acesse</a>
-                        </div>
-                        <details>
-                            <summary>Saiba mais</summary>
-                            <h3>Concluído! Meu Player de Audiobook Simples em JavaScript, HTML e CSS</h3>
+                    </article>
+                    <!-- Aba com projetos do portfolio -->
+                    <article id="projetos" class="painel-conteudo" data-view="projetos">
+                        <h2>Projetos <i class="fa-solid fa-chalkboard-user"></i></h2>
+                        <div id="projeto-container">
+                            <div id="projeto"> <!-- Projeto 1 -->
+                                <img src="imagens/Projeto agente de IA.png" alt="Projeto 1">
+                                <div id="info">
+                                    <p><b>2025</b></p>
+                                    <h3>Agente de IA</h3>
+                                    <p>Projeto feito para aprender a criar um chat box, completamente voltado a área pratica de Agentes de Inteligência Artificial usando PYTHON</p>
+                                    <a href="https://github.com/Luana-Mozer/PROJETO_05_PYTHON_Agentes_de_IA" target="_blank">Acesse</a>
+                                </div>
+                                <details>
+                                    <summary>Saiba mais</summary>
+                                    <h3>🤖 Agentes de IA com Alura e Google GEMINI: Automação Inteligente no Atendimento!</h3>
+                                    <p>
+                                        🚀 Conclui um projeto incrível na Alura onde mergulhei no universo das Large Language Models (LLMs) para criar um Agente de Service Desk.
+                                        A meta? Otimizar o atendimento interno de uma empresa, automatizando a triagem e resolvendo dúvidas com agilidade.</p>
+                                        <p>A essência do projeto é a Triagem Inteligente. Usando o LangChain e o LangGraph, o agente analisa a intenção do usuário e decide a melhor ação:</p>
+                                        <p>AUTO_RESOLVER: Para perguntas simples, o agente usa o RAG (Retrieval-Augmented Generation) para buscar a resposta exata em nossa base de documentos (políticas internas, manuais, etc.). A melhor parte? Ele cita o documento e a página, garantindo total transparência! 📄✨</p>
+                                        <p>PEDIR_INFO: Se a pergunta for vaga, ele pede mais detalhes para entender a necessidade.</p>
+                                        <p>ABRIR_CHAMADO: Para solicitações complexas que exigem a intervenção humana, o agente abre um chamado automaticamente.</p>
+                                        <p>A grande sacada é o LangGraph, que permite criar um fluxo dinâmico e inteligente. Se a tentativa de auto-resolução falha, o agente sabe redirecionar a solicitação para um chamado, garantindo que o usuário nunca fique sem resposta.</p>
+                                        <h3>💡 O que aprendi:</h3>
+                                        <p>Como usar LangChain para construir fluxos de conversação.</p>
+                                        <p>A magia do LangGraph para orquestrar agentes e criar fluxos dinâmicos.</p>
+                                        <p>Implementar o RAG de forma eficaz, conectando LLMs a bases de conhecimento para respostas precisas.</p>
+                                        <p>A importância da engenharia de prompts para guiar o comportamento dos agentes.</p>
+                                        <p>Esse projeto me mostrou como as LLMs podem ir além do texto, criando soluções práticas que economizam tempo e melhoram a eficiência.</p>
+                                    </details>
+                                </div>
+                                <div id="projeto"> <!-- Projeto 2 -->
+                                    <img src="imagens/Projeto Audio-Book.png" alt="Projeto 2">
+                                    <div id="info">
+                                        <p><b>2025</b></p>
+                                        <h3>Audio-Book</h3>
+                                        <p>Projeto feito para aprender a criar um audio-book, completamente voltado a área pratica de criação de sites para audio-books usando HTML5 e CSS3</p>
+                                        <a href="https://luana-mozer.github.io/PROJETO_09_Audio_Book/" target="_blank">Acesse</a>
+                                    </div>
+                                    <details>
+                                        <summary>Saiba mais</summary>
+                                        <h3>Concluído! Meu Player de Audiobook Simples em JavaScript, HTML e CSS</h3>
 
 
-                            <p>✅ Acabei de finalizar meu projeto de um Player de Audiobook! 🎧</p>
+                                        <p>✅ Acabei de finalizar meu projeto de um Player de Audiobook! 🎧</p>
 
-                            <p>Este projeto, apesar de parecer simples, foi uma imersão prática incrível em manipulação do DOM e eventos de áudio no JavaScript puro.</p>
+                                        <p>Este projeto, apesar de parecer simples, foi uma imersão prática incrível em manipulação do DOM e eventos de áudio no JavaScript puro.</p>
 
-                            <h3>O que aprendi/reforcei:</h3>
+                                        <h3>O que aprendi/reforcei:</h3>
 
-                            <p>* 📕 Manipulação de Eventos no JS: Controle de reprodução (play(), pause()), troca de faixas, e o uso fundamental do evento ended para reprodução automática do próximo capítulo.</p>
-                            <p>* 📙 Controle de Estado: Gerenciamento da variável taTocando e do número do capitulo para garantir a lógica de navegação (próximo/anterior) e a funcionalidade do botão Play/Pause.</p>
-                            <p>* 📘 DOM Dinâmico: Atualização do src do elemento <audio> e do texto do elemento hashtag#capitulo de forma dinâmica.</p>
-                            <p>* 📗 CSS para Interação: Uso inteligente de classes (como .tocando) para alternar a visibilidade dos ícones SVG de Play e Pause, criando uma experiência de usuário fluida.</p>
+                                        <p>* 📕 Manipulação de Eventos no JS: Controle de reprodução (play(), pause()), troca de faixas, e o uso fundamental do evento ended para reprodução automática do próximo capítulo.</p>
+                                        <p>* 📙 Controle de Estado: Gerenciamento da variável taTocando e do número do capitulo para garantir a lógica de navegação (próximo/anterior) e a funcionalidade do botão Play/Pause.</p>
+                                        <p>* 📘 DOM Dinâmico: Atualização do src do elemento <audio> e do texto do elemento hashtag#capitulo de forma dinâmica.</p>
+                                        <p>* 📗 CSS para Interação: Uso inteligente de classes (como .tocando) para alternar a visibilidade dos ícones SVG de Play e Pause, criando uma experiência de usuário fluida.</p>
 
-                            <a href="https://github.com/Luana-Mozer/PROJETO_09_Audio_Book" target="_blank">Acesse o código</a>
-                        </details>
-                    </div>
-                    <div id="projeto"> <!-- Projeto 3 -->
-                        <img src="imagens/Projeto Celular.png" alt="Projeto 3">
-                        <div id="info">
-                            <p><b>2025</b></p>
-                            <h3>Celular</h3>
-                            <p>Projeto feito para aprender a criar a interface de um celular,completamente voltado a área pratica de criação de um projeto interativo usando HTML5 e CSS3</p>
-                            <a href="https://luana-mozer.github.io/PROJETO_08_HTML_CSS_Celular/" target="_blank">Acesse</a>
-                        </div>
-                        <details>
-                            <summary>Saiba mais</summary>
-                            <h3>Olha só que legal o meu novo projeto de portfólio de links! 💻✨</h3>
+                                        <a href="https://github.com/Luana-Mozer/PROJETO_09_Audio_Book" target="_blank">Acesse o código</a>
+                                    </details>
+                                </div>
+                                <div id="projeto"> <!-- Projeto 3 -->
+                                    <img src="imagens/Projeto Celular.png" alt="Projeto 3">
+                                    <div id="info">
+                                        <p><b>2025</b></p>
+                                        <h3>Celular</h3>
+                                        <p>Projeto feito para aprender a criar a interface de um celular,completamente voltado a área pratica de criação de um projeto interativo usando HTML5 e CSS3</p>
+                                        <a href="https://luana-mozer.github.io/PROJETO_08_HTML_CSS_Celular/" target="_blank">Acesse</a>
+                                    </div>
+                                    <details>
+                                        <summary>Saiba mais</summary>
+                                        <h3>Olha só que legal o meu novo projeto de portfólio de links! 💻✨</h3>
 
-                            <p>Estou super animada em compartilhar meu mais novo projeto, desenvolvido com HTML e CSS.</p> 
+                                        <p>Estou super animada em compartilhar meu mais novo projeto, desenvolvido com HTML e CSS.</p>
 
-                            <p>Criei uma landing page que simula um smartphone, onde você pode navegar pelos links das minhas redes sociais e outros perfis.</p>
+                                        <p>Criei uma landing page que simula um smartphone, onde você pode navegar pelos links das minhas redes sociais e outros perfis.</p>
 
-                            <p>O projeto foi um desafio interessante de design e estrutura, utilizando um iframe para a navegação interna e explorando diferentes estilos para criar um visual limpo e moderno. Foi uma ótima oportunidade para aprimorar minhas habilidades e colocar em prática o que venho aprendendo!</p>
+                                        <p>O projeto foi um desafio interessante de design e estrutura, utilizando um iframe para a navegação interna e explorando diferentes estilos para criar um visual limpo e moderno. Foi uma ótima oportunidade para aprimorar minhas habilidades e colocar em prática o que venho aprendendo!</p>
 
-                            <a href="https://github.com/Luana-Mozer/PROJETO_08_HTML_CSS_Celular" target="_blank">Acesse o código</a>
-                        </details>
-                    </div>
-                    <div id="projeto"> <!-- Projeto 4 -->
-                        <img src="imagens/Projeto Réplica da Apple.png" alt="Projeto 4">
-                        <div id="info">
-                            <p><b>2025</b></p>
-                            <h3>Réplica da Apple Watch</h3>
-                            <p>Projeto feito para aprender a criar uma réplica da interface da Apple, completamente voltado a área pratica de criação de sites usando HTML5, CSS3 e JavaScript</p>
-                            <a href="https://luana-mozer.github.io/PROJETO_10_Replica_Apple_watch/" target="_blank">Acesse</a>
-                        </div>
-                        <details>
-                            <summary>Saiba mais</summary>
-                            <h3>🚀 Acabei de finalizar um projeto onde mergulhei no desenvolvimento front-end, aplicando HTML, CSS e JavaScript para criar uma réplica da página de vendas da Apple Watch!</h3>
+                                        <a href="https://github.com/Luana-Mozer/PROJETO_08_HTML_CSS_Celular" target="_blank">Acesse o código</a>
+                                    </details>
+                                </div>
+                                <div id="projeto"> <!-- Projeto 4 -->
+                                    <img src="imagens/Projeto Réplica da Apple.png" alt="Projeto 4">
+                                    <div id="info">
+                                        <p><b>2025</b></p>
+                                        <h3>Réplica da Apple Watch</h3>
+                                        <p>Projeto feito para aprender a criar uma réplica da interface da Apple, completamente voltado a área pratica de criação de sites usando HTML5, CSS3 e JavaScript</p>
+                                        <a href="https://luana-mozer.github.io/PROJETO_10_Replica_Apple_watch/" target="_blank">Acesse</a>
+                                    </div>
+                                    <details>
+                                        <summary>Saiba mais</summary>
+                                        <h3>🚀 Acabei de finalizar um projeto onde mergulhei no desenvolvimento front-end, aplicando HTML, CSS e JavaScript para criar uma réplica da página de vendas da Apple Watch!</h3>
 
-                            <p>📕 Aprendi e utilizei:</p>
+                                        <p>📕 Aprendi e utilizei:</p>
 
-                            <p>* HTML Semântico: Estruturei o conteúdo para garantir acessibilidade e SEO, tornando o código limpo e fácil de entender.</p>
-                            <p>* CSS Avançado: Desenvolvi layouts flexíveis e responsivos, utilizando Flexbox e media queries para uma navegação perfeita em qualquer dispositivo. Estilizei cada detalhe, desde a tipografia "San Francisco" da Apple até os ícones SVG, para uma interface visualmente atraente.</p>
-                            <p>* JavaScript Funcional: Implementei interatividade, como a atualização dinâmica das opções de cores e tamanhos do produto, refletindo as escolhas do usuário em tempo real. A manipulação do DOM foi essencial para essa experiência fluida.</p>
+                                        <p>* HTML Semântico: Estruturei o conteúdo para garantir acessibilidade e SEO, tornando o código limpo e fácil de entender.</p>
+                                        <p>* CSS Avançado: Desenvolvi layouts flexíveis e responsivos, utilizando Flexbox e media queries para uma navegação perfeita em qualquer dispositivo. Estilizei cada detalhe, desde a tipografia "San Francisco" da Apple até os ícones SVG, para uma interface visualmente atraente.</p>
+                                        <p>* JavaScript Funcional: Implementei interatividade, como a atualização dinâmica das opções de cores e tamanhos do produto, refletindo as escolhas do usuário em tempo real. A manipulação do DOM foi essencial para essa experiência fluida.</p>
 
-                            <p>Este projeto me permitiu consolidar conhecimentos e explorar a criação de interfaces ricas e funcionais.</p>
-                            <a href="https://github.com/Luana-Mozer/PROJETO_10_Replica_Apple_watch" target="_blank">Acesse o código</a>
-                        </details>
-                    </div>
-                    <div id="projeto"> <!-- Projeto 5 -->
-                        <img src="imagens/Projeto Site Vila Industrial.PNG" alt="Projeto 5">
-                        <div id="info">
-                            <p><b>2026</b></p>
-                            <h3>Site Vila Industrial</h3>
-                            <p>Projeto feito para criar um site informativo, completamente voltado a área pratica de criação de sites institucionais usando HTML5, CSS3 e JavaScript</p>
-                            <a href="https://luana-mozer.github.io/Historia_do_Vila_Industrial/" target="_blank">Acesse</a>
-                        </div>
-                        <details>
-                            <summary>Saiba mais</summary>
-                            <h3>Projeto: Portal Vila Industrial</h3>
+                                        <p>Este projeto me permitiu consolidar conhecimentos e explorar a criação de interfaces ricas e funcionais.</p>
+                                        <a href="https://github.com/Luana-Mozer/PROJETO_10_Replica_Apple_watch" target="_blank">Acesse o código</a>
+                                    </details>
+                                </div>
+                                <div id="projeto"> <!-- Projeto 5 -->
+                                    <img src="imagens/Projeto Site Vila Industrial.PNG" alt="Projeto 5">
+                                    <div id="info">
+                                        <p><b>2026</b></p>
+                                        <h3>Site Vila Industrial</h3>
+                                        <p>Projeto feito para criar um site informativo, completamente voltado a área pratica de criação de sites institucionais usando HTML5, CSS3 e JavaScript</p>
+                                        <a href="https://luana-mozer.github.io/Historia_do_Vila_Industrial/" target="_blank">Acesse</a>
+                                    </div>
+                                    <details>
+                                        <summary>Saiba mais</summary>
+                                        <h3>Projeto: Portal Vila Industrial</h3>
 
 
-                            <p>O Portal da Vila Industrial é um site desenvolvido como projeto de extensão universitária por mim, Luana Mozer, da Faculdade Universidade Anhanguera São Paulo, com o objetivo de preservar a memória do bairro Vila Industrial, localizado na Zona Leste de São Paulo, e fortalecer os laços    comunitários por meio da tecnologia.</p>
-                            <p>O trabalho consistiu na criação de um site completo, com código 100% original em HTML, CSS e JavaScript, estruturado em sete abas temáticas. A página inicial apresenta um fluxograma interativo com a linha do tempo completa do bairro, de 1920 a 2026, destacando marcos como a fundação da fábrica têxtil, a construção das vilas operárias, a chegada do asfalto, o tombamento da chaminé como patrimônio histórico e a recente revitalização cultural.</p>
-                            <p>A aba de curiosidades reúne lendas locais, como a assombração da chaminé e a figueira centenária, enquanto os depoimentos trazem vozes reais de moradores que reúnem suas vivências no bairro. O mapa interativo, integrado ao Google Maps, mostra os limites da região, regiões geográficas e opções de transporte, como a Linha 15-Prata do Monotrilho.</p>
-                            <p>Outras abordam pontos de reciclagem e coleta seletiva, organizações não governamentais que atuam no território e opções de lazer, como o parque central, o campo de várzea e o centro cultural instalado na antiga fábrica.</p>
-                            <p>O site foi desenvolvido com design responsivo, garantindo acesso por celulares, tablets e computadores, e utiliza uma paleta de cores que remete à temática industrial, com laranja e cinza como tons principais. A navegação entre abas é dinâmica e suave, proporcionando boa experiência ao usuário.</p>
-                            <p>Além do código, o projeto incluiu pesquisa histórica com moradores, consulta a artigos acadêmicos sobre bairros industriais e referências da Biblioteca Virtual do Estado de São Paulo. O resultado é uma ferramenta acessível que documenta a história do bairro, valoriza o patrimônio local e incentiva a participação comunitária.</p>
-                            <p>O site está disponível online por meio de QR Code para divulgação em panfletos e cartazes, e todo o código foi documentado nesse README detalhado, explicando passo a passo da desvantagem, estrutura de pastas e orientações para personalização. O projeto cumpre seu papel social ao registrar a memória de um bairro operário e oferecer à comunidade um espaço virtual de pertencimento e informação.</p>
-                            <a href="https://github.com/Luana-Mozer/Historia_do_Vila_Industrial" target="_blank">Acesse o código</a>
-                        </details>
-                    </div>
-                </div>
-            </article><!-- fim article projetos -->
-        </section>
-    </main>
-     <!-- Rodapé -->
-    <footer>
-        <p>Desenvolvido por <a href="https://www.linkedin.com/in/luanamozer/" target="_blank">Luana Mozer</a>   &copy;2026</p>
-    </footer>
-     <!-- JavaScript -->
-    <script src="scripts/script.js"></script>
-</body>
-</html>
+                                        <p>O Portal da Vila Industrial é um site desenvolvido como projeto de extensão universitária por mim, Luana Mozer, da Faculdade Universidade Anhanguera São Paulo, com o objetivo de preservar a memória do bairro Vila Industrial, localizado na Zona Leste de São Paulo, e fortalecer os laços    comunitários por meio da tecnologia.</p>
+                                        <p>O trabalho consistiu na criação de um site completo, com código 100% original em HTML, CSS e JavaScript, estruturado em sete abas temáticas. A página inicial apresenta um fluxograma interativo com a linha do tempo completa do bairro, de 1920 a 2026, destacando marcos como a fundação da fábrica têxtil, a construção das vilas operárias, a chegada do asfalto, o tombamento da chaminé como patrimônio histórico e a recente revitalização cultural.</p>
+                                        <p>A aba de curiosidades reúne lendas locais, como a assombração da chaminé e a figueira centenária, enquanto os depoimentos trazem vozes reais de moradores que reúnem suas vivências no bairro. O mapa interativo, integrado ao Google Maps, mostra os limites da região, regiões geográficas e opções de transporte, como a Linha 15-Prata do Monotrilho.</p>
+                                        <p>Outras abordam pontos de reciclagem e coleta seletiva, organizações não governamentais que atuam no território e opções de lazer, como o parque central, o campo de várzea e o centro cultural instalado na antiga fábrica.</p>
+                                        <p>O site foi desenvolvido com design responsivo, garantindo acesso por celulares, tablets e computadores, e utiliza uma paleta de cores que remete à temática industrial, com laranja e cinza como tons principais. A navegação entre abas é dinâmica e suave, proporcionando boa experiência ao usuário.</p>
+                                        <p>Além do código, o projeto incluiu pesquisa histórica com moradores, consulta a artigos acadêmicos sobre bairros industriais e referências da Biblioteca Virtual do Estado de São Paulo. O resultado é uma ferramenta acessível que documenta a história do bairro, valoriza o patrimônio local e incentiva a participação comunitária.</p>
+                                        <p>O site está disponível online por meio de QR Code para divulgação em panfletos e cartazes, e todo o código foi documentado nesse README detalhado, explicando passo a passo da desvantagem, estrutura de pastas e orientações para personalização. O projeto cumpre seu papel social ao registrar a memória de um bairro operário e oferecer à comunidade um espaço virtual de pertencimento e informação.</p>
+                                        <a href="https://github.com/Luana-Mozer/Historia_do_Vila_Industrial" target="_blank">Acesse o código</a>
+                                    </details>
+                                </div>
+                            </div>
+                        </article><!-- fim article projetos -->
+                    </section>
+                </main>
+                <!-- Rodapé -->
+                <footer>
+                    <p>Desenvolvido por <a href="https://www.linkedin.com/in/luanamozer/" target="_blank">Luana Mozer</a>   &copy;2026</p>
+                </footer>
+                <!-- Script principal -->
+                <script src="scripts/script.js"></script>
+            </body>
+        </html>

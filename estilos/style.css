@@ -30,7 +30,7 @@ body.escuro {
   --destaque-inverso: #641052ce;
   --fundo-card: #333333;
 }
-/* Menu */
+/* Menu principal de navegacao */
 #menu ul {
   list-style: none;
   display: flex;
@@ -85,11 +85,11 @@ main {
 }
 /* informações */
 #ficha {
- background-color: var(--fundo-card);
- padding: 20px;
- border-radius: 8px;
- grid-column: 1;
- position: relative;
+  background-color: var(--fundo-card);
+  padding: 20px;
+  border-radius: 8px;
+  grid-column: 1;
+  position: relative;
 }
 #ficha img {
   width: 200px;
@@ -108,8 +108,8 @@ main {
   margin: 4px 0;
   font-size: 1.5em;
 }
-/* Curriculo */
-#pdf input{
+/* Botao de curriculo */
+#pdf input {
   color: #f5f5f5;
   background-color: var(--destaque);
   border-radius: 5px;
@@ -160,7 +160,7 @@ article h2 {
   position: relative;
   text-align: center;
 }
-/* Video */
+/* Bloco do video de apresentacao */
 #video-container {
   position: relative;
   width: min(100%, 760px);
@@ -171,7 +171,7 @@ article h2 {
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
-div#video-container  iframe{
+div#video-container iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -179,7 +179,7 @@ div#video-container  iframe{
   height: 100%;
   border-radius: 10px;
 }
-/* Skills */
+/* Secao de habilidades */
 #skill-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -249,14 +249,14 @@ span.nivel {
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
-  
+
 }
 #forma-container #curso:hover {
   border-left-width: 10px solid var(--destaque);
   border-right-width: 10px solid var(--destaque);
   transition: border-width 0.5s, border-color 0.5s;
   cursor: pointer;
-  
+
 }
 #forma-container #curso p {
   color: var(--texto);
@@ -316,7 +316,7 @@ span.nivel {
 #formacao #forma-container #curso b {
   color: var(--destaque);
 }
-/* Projetos */
+/* Secao de projetos */
 #projeto-container {
   display: flex;
   flex-direction: column-reverse;
@@ -381,7 +381,7 @@ footer a {
   font-weight: bold;
   transition: color 0.3s;
 }
-/* Responsividade */
+/* Regras de responsividade */
 @media screen and (max-width: 767px) {
   main {
     width: min(var(--main-max), calc(100% - 24px));
@@ -421,38 +421,38 @@ footer a {
   section#detalhes {
     grid-column: 2 / 3;
   }
-  #skill-container{
-  grid-template-columns: 1fr 1fr;
+  #skill-container {
+    grid-template-columns: 1fr 1fr;
   }
   #projeto-container #projeto {
     flex-direction: row-reverse;
     justify-content: space-between;
   }
   #projeto-container #projeto #info {
-  max-width: 80%;
-}
-#projeto img {
-  aspect-ratio: 1/1;
-  max-width: 20%;
-}
-#menu {
-  width: calc(100% - 40px);
-  margin: 0 20px 20px;
-}
-footer {
-  width: calc(var(--sidebar-width) - 20px);
-  position: fixed;
-  left: calc(max(20px, calc((100vw - min(var(--main-max), calc(100vw - var(--page-pad)))) / 2)) + 10px);
-  bottom: 16px;
-  margin: 0;
-}
-#formacao #forma-container {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-#Cursos #forma-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: start; /* Faz com que apenas o curso clicado expanda sozinho */
-}
+    max-width: 80%;
+  }
+  #projeto img {
+    aspect-ratio: 1/1;
+    max-width: 20%;
+  }
+  #menu {
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
+  }
+  footer {
+    width: calc(var(--sidebar-width) - 20px);
+    position: fixed;
+    left: calc(max(20px, calc((100vw - min(var(--main-max), calc(100vw - var(--page-pad)))) / 2)) + 10px);
+    bottom: 16px;
+    margin: 0;
+  }
+  #formacao #forma-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  #Cursos #forma-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start; /* Faz com que apenas o curso clicado expanda sozinho */
+  }
 }
