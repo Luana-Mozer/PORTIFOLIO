@@ -41,7 +41,7 @@ const experiencias = [
     logo: 'DA',
     logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Drogaria_Araujo_Logo.jpg',
     corLogo: '#1f7a3a',
-    cargo: 'Auxiliar de Logística',
+    cargo: 'Auxiliar de Logística Senior',
     descricao: 'Atuação em separação, registro, expedição de mercadorias e apoio a vendas internas.',
     atividades: [
       'Separação de mercadorias.',
@@ -56,7 +56,7 @@ const experiencias = [
     logo: 'RE',
     logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Ricardo_Eletro_logo.svg',
     corLogo: '#b21f2d',
-    cargo: 'Auxiliar de Logística',
+    cargo: 'Estoquista',
     descricao: 'Trabalho em estoque de área restrita com celulares, produtos tecnológicos e itens de maior valor.',
     atividades: [
       'Recebimento e conferência de mercadorias.',
@@ -122,7 +122,7 @@ const experiencias = [
     logo: 'AT',
     logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Atento_logo.png',
     corLogo: '#641052',
-    cargo: 'Analista',
+    cargo: 'Analista Backoffice',
     descricao: 'Suporte aos alunos da instituição Anhanguera pelo portal do aluno, em modelo home office.',
     atividades: [
       'Tratativa de chamados.',
