@@ -41,7 +41,7 @@ const experiencias = [
     logo: 'DA',
     logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Drogaria_Araujo_Logo.jpg',
     corLogo: '#1f7a3a',
-    cargo: 'Auxiliar de Logística Senior',
+    cargo: 'Auxiliar de Logística Sênior',
     descricao: 'Atuação em separação, registro, expedição de mercadorias e apoio a vendas internas.',
     atividades: [
       'Separação de mercadorias.',
