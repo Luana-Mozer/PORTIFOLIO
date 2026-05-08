@@ -288,6 +288,27 @@ function atualizarLinhaTempo() {
     marco.classList.toggle('ativo', ativo);
     marco.setAttribute('aria-current', ativo ? 'step' : 'false');
   });
+
+  atualizarSetasExperiencia();
+}
+
+function atualizarSetasExperiencia(animando = false) {
+  const botaoAnterior = document.getElementById('experiencia-anterior');
+  const botaoProxima = document.getElementById('experiencia-proxima');
+
+  if (botaoAnterior) {
+    const semExperienciaAnterior = experienciaAtual === 0;
+    botaoAnterior.classList.toggle('indisponivel', semExperienciaAnterior);
+    botaoAnterior.setAttribute('aria-hidden', semExperienciaAnterior ? 'true' : 'false');
+    botaoAnterior.disabled = animando || semExperienciaAnterior;
+  }
+
+  if (botaoProxima) {
+    const semProximaExperiencia = experienciaAtual === experiencias.length - 1;
+    botaoProxima.classList.toggle('indisponivel', semProximaExperiencia);
+    botaoProxima.setAttribute('aria-hidden', semProximaExperiencia ? 'true' : 'false');
+    botaoProxima.disabled = animando || semProximaExperiencia;
+  }
 }
 
 function trocarExperiencia(direcao, indiceDestino = null) {
@@ -295,17 +316,22 @@ function trocarExperiencia(direcao, indiceDestino = null) {
     return;
   }
 
+  if (
+    indiceDestino === null
+    && ((direcao === 'proxima' && experienciaAtual === experiencias.length - 1)
+      || (direcao === 'anterior' && experienciaAtual === 0))
+  ) {
+    return;
+  }
+
   const card = document.querySelector('.experiencia-conteudo');
-  const botoes = document.querySelectorAll('.experiencia-seta');
 
   if (!card) {
     return;
   }
 
   experienciaAnimando = true;
-  botoes.forEach((botaoSeta) => {
-    botaoSeta.disabled = true;
-  });
+  atualizarSetasExperiencia(true);
 
   const saindo = direcao === 'proxima' ? 'pagina-saindo-proxima' : 'pagina-saindo-anterior';
   const entrando = direcao === 'proxima' ? 'pagina-entrando-proxima' : 'pagina-entrando-anterior';
@@ -314,8 +340,8 @@ function trocarExperiencia(direcao, indiceDestino = null) {
   setTimeout(() => {
     experienciaAtual = indiceDestino ?? (
       direcao === 'proxima'
-        ? (experienciaAtual + 1) % experiencias.length
-        : (experienciaAtual - 1 + experiencias.length) % experiencias.length
+        ? experienciaAtual + 1
+        : experienciaAtual - 1
     );
 
     exibirExperiencia(experienciaAtual);
@@ -325,10 +351,8 @@ function trocarExperiencia(direcao, indiceDestino = null) {
 
   setTimeout(() => {
     card.classList.remove(entrando);
-    botoes.forEach((botaoSeta) => {
-      botaoSeta.disabled = false;
-    });
     experienciaAnimando = false;
+    atualizarSetasExperiencia();
   }, 620);
 }
 

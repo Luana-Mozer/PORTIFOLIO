@@ -543,6 +543,10 @@ span.nivel {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
+.experiencia-seta.indisponivel {
+  visibility: hidden;
+  pointer-events: none;
+}
 .experiencia-seta:hover,
 .experiencia-seta:focus-visible {
   color: var(--destaque);
