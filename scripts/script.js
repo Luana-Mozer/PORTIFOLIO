@@ -2,57 +2,89 @@ const botao = document.getElementById('botao-tema');
 const body = document.body;
 const menuBotoes = document.querySelectorAll('#menu .link[data-view]');
 const paineis = document.querySelectorAll('.painel-conteudo');
-const experiencias = [
+const experienciasDecrescente = [
   {
-    periodo: '06/2012 - 12/2012',
-    marco: '2012',
-    empresa: 'ThyssenKrupp Elevadores',
-    logo: 'TK',
-    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Thyssenkrupp_AG_Logo_2015.svg/120px-Thyssenkrupp_AG_Logo_2015.svg.png',
-    corLogo: '#003c7d',
-    cargo: 'Aprendiz',
-    descricao: 'Atuação como jovem aprendiz em rotinas administrativas e suporte ao departamento de TI.',
+    periodo: 'mai 2025 - Atualmente',
+    marco: 'Atual',
+    empresa: 'Atento · Tempo integral',
+    logo: 'AT',
+    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Atento_logo.png',
+    corLogo: '#641052',
+    cargo: 'Analista Backoffice',
+    descricao: 'Suporte aos alunos da instituição Anhanguera pelo portal do aluno, em modelo home office.',
     atividades: [
-      'Auxílio administrativo e organização de arquivos.',
-      'Apoio em atividades do departamento de TI.',
-      'Aprendizado prático em ambiente corporativo.'
+      'Tratativa de chamados.',
+      'Análise de documentos e situações financeiras.',
+      'Suporte em dúvidas e processos do sistema interno.'
     ]
   },
   {
-    periodo: '03/2014 - 01/2015',
-    marco: '2014',
-    empresa: 'A&C Contact Center',
-    logo: 'AC',
-    logoImagem: 'https://www.aec.com.br/wp-content/themes/aec/dist/img/logotipo.webp',
-    logoOpacidade: 0.55,
-    corLogo: '#0b7285',
-    cargo: 'Atendente',
-    descricao: 'Atendimento ao público para serviços de saúde da Unimed BH.',
+    periodo: 'jul 2024 - jun 2025 · 1 ano',
+    marco: '2024',
+    empresa: 'Estapar · Tempo integral',
+    logo: 'ES',
+    logoImagem: 'https://polijunior.com.br/wp-content/uploads/2024/03/estapar-case.jpeg',
+    logoTamanho: 'contain',
+    corLogo: '#4b2e83',
+    cargo: 'Manobrista',
+    descricao: 'Responsável por manobras e cuidado com veículos dos clientes.',
     atividades: [
-      'Agendamento de consultas.',
-      'Agendamento de exames.',
-      'Atendimento e orientação aos beneficiários.'
+      'Manobra de veículos.',
+      'Atendimento aos clientes.',
+      'Organização e cuidado no fluxo de estacionamento.'
     ]
   },
   {
-    periodo: '05/2015 - 01/2017',
-    marco: '2015',
-    empresa: 'Drogaria Araújo',
-    logo: 'DA',
-    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Drogaria_Araujo_Logo.jpg',
-    corLogo: '#1f7a3a',
-    cargo: 'Auxiliar de Logística Sênior',
-    descricao: 'Atuação em separação, registro, expedição de mercadorias e apoio a vendas internas.',
+    periodo: 'mar 2023 - ago 2023 · 6 meses',
+    marco: '2023',
+    empresa: 'Mercado Livre · Terceirizado',
+    logo: 'ML',
+    logoImagem: 'https://bring.com.br/blog/wp-content/uploads/2018/05/Mercado-Livre-logo-300x84.png',
+    logoTamanho: 'contain',
+    corLogo: '#816400',
+    cargo: 'Representante de envios',
+    descricao: 'Atuação em processos de separação, registro e expedição de mercadorias.',
     atividades: [
-      'Separação de mercadorias.',
-      'Registro de saída no sistema.',
-      'Criação de rotas para motociclistas e apoio em expedição.'
+      'Separação e registro de mercadorias.',
+      'Expedição de pedidos.',
+      'Auxílio no controle de perdas e eventos da empresa.'
     ]
   },
   {
-    periodo: '04/2017 - 11/2018',
+    periodo: 'mai 2021 - jan 2022 · 9 meses',
+    marco: '2021',
+    empresa: 'RGIS Ivalis · Tempo integral',
+    logo: 'RGIS',
+    logoTextoCor: '#1f3f77',
+    corLogo: '#1f3f77',
+    cargo: 'Auxiliar de logística',
+    descricao: 'Atuação na conferência de entrada e saída de mercadorias e inventário, em modelo presencial em São Paulo, Brasil.',
+    atividades: [
+      'Controle de estoque.',
+      'Conferência e armazenamento de mercadorias.',
+      'Controle de validade.',
+      'Entrega de resultados exatos dentro do prazo.'
+    ]
+  },
+  {
+    periodo: 'ago 2018 - abr 2021 · 2 anos 9 meses',
+    marco: '2018',
+    empresa: 'Uber · Autônomo',
+    logo: 'UB',
+    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Uber_logo_2018.svg',
+    corLogo: '#111111',
+    cargo: 'Motorista',
+    descricao: 'Atuação como motorista de aplicativo.',
+    atividades: [
+      'Transporte de passageiros por aplicativo.',
+      'Atendimento direto aos clientes.',
+      'Organização da rotina de trabalho autônomo.'
+    ]
+  },
+  {
+    periodo: 'jan 2017 - ago 2018 · 1 ano 8 meses',
     marco: '2017',
-    empresa: 'Ricardo Eletro',
+    empresa: 'Ricardo Eletro · Tempo integral',
     logo: 'RE',
     logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Ricardo_Eletro_logo.svg',
     corLogo: '#b21f2d',
@@ -65,69 +97,53 @@ const experiencias = [
     ]
   },
   {
-    periodo: '01/2019 - 12/2022',
-    marco: '2019',
-    empresa: 'Uber',
-    logo: 'UB',
-    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Uber_logo_2018.svg',
-    corLogo: '#111111',
-    cargo: 'Motorista',
-    descricao: 'Atuação como motorista de aplicativo e manobrista.',
+    periodo: 'abr 2015 - jan 2017 · 1 ano 10 meses',
+    marco: '2015',
+    empresa: 'Drogaria Araujo · Tempo integral',
+    logo: 'DA',
+    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Drogaria_Araujo_Logo.jpg',
+    corLogo: '#1f7a3a',
+    cargo: 'Auxiliar de logística sênior',
+    descricao: 'Atuação em separação, registro, expedição de mercadorias e apoio a vendas internas.',
     atividades: [
-      'Transporte de passageiros por aplicativo.',
-      'Atendimento direto aos clientes.',
-      'Manobra e cuidado com veículos.'
+      'Separação de mercadorias.',
+      'Registro de saída no sistema.',
+      'Criação de rotas para motociclistas e apoio em expedição.'
     ]
   },
   {
-    periodo: '02/2023 - 08/2023',
-    marco: '2023',
-    empresa: 'Mercado Livre',
-    logo: 'ML',
-    logoImagem: 'https://bring.com.br/blog/wp-content/uploads/2018/05/Mercado-Livre-logo-300x84.png',
-    logoTamanho: 'contain',
-    corLogo: '#816400',
-    cargo: 'Representante de Envios',
-    descricao: 'Atuação em processos de separação, registro e expedição de mercadorias.',
+    periodo: 'mar 2014 - jan 2015 · 11 meses',
+    marco: '2014',
+    empresa: 'AeC · Tempo integral',
+    logo: 'AC',
+    logoImagem: 'https://www.aec.com.br/wp-content/themes/aec/dist/img/logotipo.webp',
+    logoOpacidade: 0.55,
+    corLogo: '#0b7285',
+    cargo: 'Atendimento ao cliente',
+    descricao: 'Atendimento ao público para serviços de saúde da Unimed BH.',
     atividades: [
-      'Separação e registro de mercadorias.',
-      'Expedição de pedidos.',
-      'Auxílio no controle de perdas e eventos da empresa.'
+      'Agendamento de consultas.',
+      'Agendamento de exames.',
+      'Atendimento e orientação aos beneficiários.'
     ]
   },
   {
-    periodo: '04/2024 - 12/2024',
-    marco: '2024',
-    empresa: 'Estapar',
-    logo: 'ES',
-    logoImagem: 'https://polijunior.com.br/wp-content/uploads/2024/03/estapar-case.jpeg',
-    logo: 'ES',
-    logoTamanho: 'contain',
-    corLogo: '#4b2e83',
-    cargo: 'Manobrista',
-    descricao: 'Responsável por manobras e cuidado com veículos dos clientes.',
+    periodo: 'jan 2012 - dez 2012 · 1 ano',
+    marco: '2012',
+    empresa: 'thyssenkrupp · Jovem Aprendiz',
+    logo: 'TK',
+    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Thyssenkrupp_AG_Logo_2015.svg/120px-Thyssenkrupp_AG_Logo_2015.svg.png',
+    corLogo: '#003c7d',
+    cargo: 'Assistente administrativo',
+    descricao: 'Atuação em rotinas administrativas e suporte ao departamento de TI.',
     atividades: [
-      'Manobra de veículos.',
-      'Atendimento aos clientes.',
-      'Organização e cuidado no fluxo de estacionamento.'
-    ]
-  },
-  {
-    periodo: '04/2025 - Atualmente',
-    marco: 'Atual',
-    empresa: 'Atento',
-    logo: 'AT',
-    logoImagem: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Atento_logo.png',
-    corLogo: '#641052',
-    cargo: 'Analista Backoffice',
-    descricao: 'Suporte aos alunos da instituição Anhanguera pelo portal do aluno, em modelo home office.',
-    atividades: [
-      'Tratativa de chamados.',
-      'Análise de documentos e situações financeiras.',
-      'Suporte em dúvidas e processos do sistema interno.'
+      'Auxílio administrativo e organização de arquivos.',
+      'Apoio em atividades do departamento de TI.',
+      'Aprendizado prático em ambiente corporativo.'
     ]
   }
 ];
+const experiencias = experienciasDecrescente.slice().reverse();
 let experienciaAtual = experiencias.length - 1;
 let experienciaAnimando = false;
 

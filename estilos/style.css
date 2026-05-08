@@ -276,32 +276,25 @@ span.nivel {
 #formacao #forma-container {
   display: grid;
   grid-template-columns: 1fr;
+  grid-auto-rows: minmax(220px, 1fr);
+  align-items: stretch;
   gap: 20px;
 }
 #formacao #forma-container #curso {
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: flex-start;
   gap: 10px;
-  min-height: 180px;
+  height: 100%;
+  min-height: 220px;
   padding: 24px 22px 20px;
   border: 1px solid color-mix(in srgb, var(--destaque) 18%, transparent);
   border-radius: 20px;
-  background: linear-gradient(180deg, var(--fundo-principal) 0%, var(--fundo-card) 100%);
+  background-color: var(--fundo-principal);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-#formacao #forma-container #curso::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 22px;
-  width: 76px;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--destaque), var(--destaque-inverso));
 }
 #formacao #forma-container #curso:hover {
   transform: translateY(-4px);
@@ -320,6 +313,76 @@ span.nivel {
   line-height: 1.6;
 }
 #formacao #forma-container #curso b {
+  color: var(--destaque);
+}
+/* Secao de cursos extras */
+#Cursos #forma-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+#Cursos #forma-container #curso {
+  display: block;
+  min-height: auto;
+  padding: 0;
+  background-color: var(--fundo-principal);
+  border: 1px solid color-mix(in srgb, var(--destaque) 18%, transparent);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+#Cursos #forma-container #curso:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--destaque) 36%, transparent);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+}
+#Cursos details {
+  height: 100%;
+}
+#Cursos summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  list-style: none;
+}
+#Cursos summary::-webkit-details-marker {
+  display: none;
+}
+#Cursos summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border-right: 3px solid var(--destaque);
+  border-bottom: 3px solid var(--destaque);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+#Cursos details[open] summary::after {
+  transform: rotate(225deg);
+  border-color: var(--destaque-inverso);
+}
+#Cursos #forma-container #curso h3 {
+  padding: 0;
+  color: var(--destaque);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+#Cursos #forma-container #curso p {
+  margin: 0 20px;
+  padding: 8px 0;
+  color: var(--texto);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  border-top: 1px solid color-mix(in srgb, var(--texto) 10%, transparent);
+}
+#Cursos #forma-container #curso p:last-child {
+  padding-bottom: 18px;
+}
+#Cursos #forma-container #curso b {
   color: var(--destaque);
 }
 /* Secao de experiencias */
@@ -412,7 +475,7 @@ span.nivel {
   justify-content: center;
   gap: 14px;
   padding: 26px;
-  background: linear-gradient(180deg, var(--fundo-principal) 0%, var(--fundo-card) 100%);
+  background-color: var(--fundo-principal);
   border: 1px solid color-mix(in srgb, var(--destaque) 22%, transparent);
   border-radius: 8px;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
@@ -423,16 +486,6 @@ span.nivel {
 .experiencia-conteudo > * {
   position: relative;
   z-index: 1;
-}
-.experiencia-conteudo::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 26px;
-  width: 82px;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--destaque), var(--destaque-inverso));
 }
 .experiencia-conteudo::after {
   content: "";
@@ -479,6 +532,9 @@ span.nivel {
   color: var(--destaque);
 }
 .experiencia-seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--texto-inverso);
   background-color: var(--destaque);
   border: 0;
@@ -742,9 +798,7 @@ footer a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   #Cursos #forma-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start; /* Faz com que apenas o curso clicado expanda sozinho */
   }
 }
