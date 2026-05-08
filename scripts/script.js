@@ -60,9 +60,8 @@ const experienciasDecrescente = [
     cargo: 'Auxiliar de logística',
     descricao: 'Atuação na conferência de entrada e saída de mercadorias e inventário, em modelo presencial em São Paulo, Brasil.',
     atividades: [
-      'Controle de estoque.',
+      'Controle de estoque e validade.',
       'Conferência e armazenamento de mercadorias.',
-      'Controle de validade.',
       'Entrega de resultados exatos dentro do prazo.'
     ]
   },
