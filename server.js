@@ -59,8 +59,9 @@ function nomeValido(nome) {
 }
 
 function empresaValida(empresa) {
-  // Aceita empresa vazia ou qualquer valor
-  return true;
+  // Empresa deve ter pelo menos 2 caracteres
+  const valor = String(empresa || '').trim();
+  return valor.length >= 2;
 }
 
 async function prepararBanco() {

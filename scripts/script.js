@@ -268,6 +268,12 @@ function nomeValido(nome) {
     && !textoPareceAleatorio(valor);
 }
 
+function empresaValida(empresa) {
+  // Empresa deve ter pelo menos 2 caracteres
+  const valor = String(empresa || '').trim();
+  return valor.length >= 2;
+}
+
 function exibirMensagemLogin(mensagem, campo, tipo = 'erro') {
   if (mensagemLogin) {
     mensagemLogin.textContent = mensagem;
@@ -318,6 +324,11 @@ function validarAcesso() {
 
   if (!nomeValido(nome)) {
     exibirMensagemLogin('Digite um nome válido', campoNomeVisitante, 'erro');
+    return null;
+  }
+
+  if (!empresaValida(empresa)) {
+    exibirMensagemLogin('Digite uma empresa válida (mínimo 2 caracteres)', campoEmpresaVisitante, 'erro');
     return null;
   }
 
