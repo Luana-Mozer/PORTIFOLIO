@@ -891,6 +891,7 @@ footer a {
 @media screen and (max-width: 767px) {
   .login-imagem {
     min-height: 130px;
+    aspect-ratio: 16 / 9; /* Ajusta a proporção da imagem para celular */
   }
   .login-form {
     padding: 26px 22px;

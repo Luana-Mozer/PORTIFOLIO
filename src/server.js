@@ -83,12 +83,6 @@ function nomeValido(nome) {
     && !textoPareceAleatorio(valor);
 }
 
-function empresaValida(empresa) {
-  // Empresa deve ter pelo menos 2 caracteres
-  const valor = String(empresa || '').trim();
-  return valor.length >= 2;
-}
-
 // Prepara a conexão com o banco e cria a tabela de visitas caso ainda não exista.
 async function prepararBanco() {
   if (usandoPostgres) {
@@ -169,11 +163,6 @@ app.post('/api/visitas', async (req, res) => {
 
   if (!nomeValido(nome)) {
     return res.status(400).json({ erro: 'Digite um nome válido' });
-  }
-
-  // Aceita empresa vazia - não valida
-  if (!empresaValida(empresa)) {
-    return res.status(400).json({ erro: 'Digite uma empresa válida' });
   }
 
   try {
