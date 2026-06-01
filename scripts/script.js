@@ -75,10 +75,10 @@ function mensagemBoasVindas(nome, empresa, retorno) {
   const saudacao = retorno ? 'Bem-vindo(a) de volta' : 'Bem-vindo(a)';
 
   if (retorno) {
-    return `${saudacao} ${nome} da(o) ${empresa} — fique à vontade para me conhecer um pouco mais!`;
+    return `${saudacao} ${nome} da(o) ${empresa}, fique à vontade para me conhecer um pouco mais!`;
   }
 
-  return `${saudacao} ${nome} da(o) ${empresa}, sou a Luh e nesse site você vai saber um pouquinho mais sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
+  return `${saudacao} ${nome} da(o) ${empresa}, sou a Luh e nesse site você vai saber tudo sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
 }
 
 const experienciasDecrescente = [
