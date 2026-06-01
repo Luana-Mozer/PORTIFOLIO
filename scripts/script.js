@@ -72,11 +72,13 @@ async function existeAcessoAnterior(nome, empresa) {
 }
 
 function mensagemBoasVindas(nome, empresa, retorno) {
+  const saudacao = retorno ? 'Bem-vindo(a) de volta' : 'Bem-vindo(a)';
+
   if (retorno) {
-    return `Bem-vindo ${nome} da ${empresa} — fique à vontade para me conhecer um pouco mais!`;
+    return `${saudacao} ${nome} da(o) ${empresa} — fique à vontade para me conhecer um pouco mais!`;
   }
 
-  return `Bem-vindo ${nome} da ${empresa}, sou a Luh e nesse site você vai saber um pouquinho mais sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
+  return `${saudacao} ${nome} da(o) ${empresa}, sou a Luh e nesse site você vai saber um pouquinho mais sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
 }
 
 const experienciasDecrescente = [
@@ -327,17 +329,12 @@ function validarAcesso() {
     return null;
   }
 
-  if (!empresaValida(empresa)) {
-    exibirMensagemLogin('Digite uma empresa válida (mínimo 2 caracteres)', campoEmpresaVisitante, 'erro');
-    return null;
-  }
-
   exibirMensagemLogin('', null, 'info');
   return { nome, empresa };
 }
 
 function atualizarBotaoAcesso() {
-  if (isGithubPages || !campoNomeVisitante || !campoEmpresaVisitante || !botaoAcessarSite) {
+  if (!campoNomeVisitante || !campoEmpresaVisitante || !botaoAcessarSite) {
     return;
   }
 
@@ -357,7 +354,7 @@ function atualizarBotaoAcesso() {
 formularioAcesso?.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
-  if (isGithubPages) {
+  if (isGithubPages && !backendApiUrl) {
     popupAcesso?.classList.add('oculto');
     body.classList.remove('acesso-bloqueado');
     return;
@@ -392,7 +389,7 @@ formularioAcesso?.addEventListener('submit', async (evento) => {
     body.classList.remove('acesso-bloqueado');
     mostrarToast(mensagem, 'sucesso');
   } catch (erro) {
-    exibirMensagemLogin('Abra o site pelo servidor local (npm start) para registrar a visita no MySQL');
+    exibirMensagemLogin('Erro ao conectar com o servidor. Verifique se o backend está online.');
   } finally {
     botaoAcessarSite.disabled = false;
     botaoAcessarSite.textContent = 'Acessar site';

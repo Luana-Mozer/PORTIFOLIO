@@ -972,6 +972,27 @@ footer a {
   }
 }
 
+/* Acesso administrativo secreto no canto da tela */
+.acesso-admin-secreto {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  z-index: 9999;
+  color: var(--texto);
+  opacity: 0.08; /* Quase invisível */
+  font-size: 0.7rem;
+  text-decoration: none;
+  transition: opacity 0.5s ease;
+}
+.acesso-admin-secreto:hover {
+  opacity: 0.4; /* Fica um pouco mais visível ao passar o mouse */
+}
+
+/* Esconde qualquer link ou botão que contenha o texto de visitas no menu */
+[data-view="visitas"], .acesso-admin-secreto {
+  display: none !important;
+}
+
 @media screen and (min-width: 768px) {
   main {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
