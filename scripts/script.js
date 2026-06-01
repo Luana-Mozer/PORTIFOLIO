@@ -329,6 +329,11 @@ function validarAcesso() {
     return null;
   }
 
+  if (!empresaValida(empresa)) {
+    exibirMensagemLogin('Digite uma empresa válida', campoEmpresaVisitante, 'erro');
+    return null;
+  }
+
   exibirMensagemLogin('', null, 'info');
   return { nome, empresa };
 }

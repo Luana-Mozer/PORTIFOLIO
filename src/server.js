@@ -165,6 +165,10 @@ app.post('/api/visitas', async (req, res) => {
     return res.status(400).json({ erro: 'Digite um nome válido' });
   }
 
+  if (!empresaValida(empresa)) {
+    return res.status(400).json({ erro: 'Digite uma empresa válida' });
+  }
+
   try {
     if (usandoPostgres) {
       await pool.query(
