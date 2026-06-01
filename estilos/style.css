@@ -37,17 +37,20 @@ body.escuro {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   background-color: rgba(20, 12, 18, 0.82);
   backdrop-filter: blur(8px);
+  overflow-y: auto;
 }
 .login-popup.oculto {
   display: none;
 }
 .login-card {
   width: min(100%, 920px);
+  margin: auto;
   display: grid;
   grid-template-columns: 1fr;
   overflow: hidden;

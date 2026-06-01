@@ -342,13 +342,13 @@ function atualizarBotaoAcesso() {
 }
 
 [campoNomeVisitante, campoEmpresaVisitante].forEach((input) => {
-  input?.addEventListener('input', () => {
+  ['input', 'change', 'blur'].forEach(evento => input?.addEventListener(evento, () => {
     input.classList.remove('invalido');
     if (mensagemLogin) {
       mensagemLogin.textContent = '';
     }
     atualizarBotaoAcesso();
-  });
+  }));
 });
 
 formularioAcesso?.addEventListener('submit', async (evento) => {
