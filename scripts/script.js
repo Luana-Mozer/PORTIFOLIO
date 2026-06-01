@@ -2,6 +2,83 @@ const botao = document.getElementById('botao-tema');
 const body = document.body;
 const menuBotoes = document.querySelectorAll('#menu .link[data-view]');
 const paineis = document.querySelectorAll('.painel-conteudo');
+const popupAcesso = document.getElementById('login-popup');
+const formularioAcesso = document.getElementById('login-form');
+const campoNomeVisitante = document.getElementById('nome-visitante');
+const campoEmpresaVisitante = document.getElementById('empresa-visitante');
+const mensagemLogin = document.getElementById('login-mensagem');
+const botaoAcessarSite = document.getElementById('botao-acessar-site');
+const toastNotificacao = document.getElementById('toast-notificacao');
+
+const backendApiUrl = 'https://portifolio-vry2.onrender.com';// Defina a URL pública do backend após publicar em um serviço como Render.
+
+const isGithubPages = window.location.hostname.includes('github.io');
+// Determina a URL correta do endpoint de visitas conforme o ambiente de execução.
+const urlApiVisitas = (() => {
+  if (backendApiUrl) {
+    return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
+  }
+
+  if (isGithubPages) {
+    return null;
+  }
+
+  if (window.location.protocol === 'file:') {
+    return 'http://localhost:3000/api/visitas';
+  }
+
+  const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const runningOnLiveServer = isLocalhost && window.location.port && window.location.port !== '3000';
+
+  if (runningOnLiveServer) {
+    return 'http://localhost:3000/api/visitas';
+  }
+
+  return '/api/visitas';
+})();
+
+// No GitHub Pages sem backend configurado, oculta o formulário de visitas.
+if (isGithubPages && !backendApiUrl) {
+  popupAcesso?.classList.add('oculto');
+  body.classList.remove('acesso-bloqueado');
+} 
+
+function normalizarComparacao(texto) {
+  return String(texto || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+async function existeAcessoAnterior(nome, empresa) {
+  if (!urlApiVisitas) {
+    return false;
+  }
+
+  try {
+    const resposta = await fetch(urlApiVisitas);
+    if (!resposta.ok) {
+      return false;
+    }
+
+    const visitas = await resposta.json();
+    const nomeNormalizado = normalizarComparacao(nome);
+    const empresaNormalizada = normalizarComparacao(empresa);
+
+    return visitas.some((visita) =>
+      normalizarComparacao(visita.nome) === nomeNormalizado
+      && normalizarComparacao(visita.empresa) === empresaNormalizada
+    );
+  } catch (erro) {
+    return false;
+  }
+}
+
+function mensagemBoasVindas(nome, empresa, retorno) {
+  if (retorno) {
+    return `Bem-vindo ${nome} da ${empresa} — fique à vontade para me conhecer um pouco mais!`;
+  }
+
+  return `Bem-vindo ${nome} da ${empresa}, sou a Luh e nesse site você vai saber um pouquinho mais sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
+}
+
 const experienciasDecrescente = [
   {
     periodo: 'mai 2025 - Atualmente',
@@ -145,6 +222,173 @@ const experienciasDecrescente = [
 const experiencias = experienciasDecrescente.slice().reverse();
 let experienciaAtual = experiencias.length - 1;
 let experienciaAnimando = false;
+
+function normalizarTexto(texto) {
+  return texto
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function textoPareceAleatorio(texto) {
+  const textoLimpo = normalizarTexto(texto).replace(/[^a-z0-9 ]/g, '');
+  const partes = textoLimpo.split(/\s+/).filter(Boolean);
+  const textoSemEspaco = textoLimpo.replace(/\s/g, '');
+  const bloqueados = ['alguem', 'teste', 'test', 'xxxx', 'xxx', 'asdf', 'qwerty', 'nome', 'empresa'];
+
+  if (!textoSemEspaco || bloqueados.includes(textoSemEspaco)) {
+    return true;
+  }
+
+  if (/(.)\1{2,}/.test(textoSemEspaco)) {
+    return true;
+  }
+
+  if (!/[aeiou]/.test(textoSemEspaco)) {
+    return true;
+  }
+
+  if (partes.some((parte) => parte.length > 12 && !/[aeiou].*[aeiou]/.test(parte))) {
+    return true;
+  }
+
+  return false;
+}
+
+function nomeValido(nome) {
+  const valor = nome.trim().replace(/\s+/g, ' ');
+  const partes = valor.split(' ');
+  const somenteLetras = /^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$/.test(valor);
+
+  return somenteLetras
+    && partes.length >= 2
+    && partes.every((parte) => parte.length >= 2)
+    && valor.length <= 80
+    && !textoPareceAleatorio(valor);
+}
+
+function exibirMensagemLogin(mensagem, campo, tipo = 'erro') {
+  if (mensagemLogin) {
+    mensagemLogin.textContent = mensagem;
+    mensagemLogin.classList.remove('login-mensagem--sucesso', 'login-mensagem--info', 'login-mensagem--erro');
+    if (mensagem) {
+      mensagemLogin.classList.add(`login-mensagem--${tipo}`);
+    }
+  }
+
+  [campoNomeVisitante, campoEmpresaVisitante].forEach((input) => {
+    input?.classList.toggle('invalido', input === campo);
+  });
+
+  campo?.focus();
+}
+
+function fecharToast() {
+  if (!toastNotificacao) {
+    return;
+  }
+
+  toastNotificacao.classList.remove('toast-notificacao--visivel');
+}
+
+function mostrarToast(mensagem, tipo = 'sucesso') {
+  if (!toastNotificacao || !mensagem) {
+    return;
+  }
+
+  toastNotificacao.innerHTML = `
+    <div>${mensagem}</div>
+    <button type="button" class="toast-notificacao__botao" aria-label="Fechar mensagem">OK</button>
+  `;
+  toastNotificacao.classList.remove('toast-notificacao--sucesso', 'toast-notificacao--info', 'toast-notificacao--erro', 'toast-notificacao--visivel');
+  toastNotificacao.classList.add(`toast-notificacao--${tipo}`, 'toast-notificacao--visivel');
+
+  const botaoOk = toastNotificacao.querySelector('.toast-notificacao__botao');
+  botaoOk?.addEventListener('click', fecharToast, { once: true });
+}
+
+function validarAcesso() {
+  if (!campoNomeVisitante || !campoEmpresaVisitante) {
+    return null;
+  }
+
+  const nome = campoNomeVisitante.value.trim().replace(/\s+/g, ' ');
+  const empresa = campoEmpresaVisitante.value.trim().replace(/\s+/g, ' ');
+
+  if (!nomeValido(nome)) {
+    exibirMensagemLogin('Digite um nome válido', campoNomeVisitante, 'erro');
+    return null;
+  }
+
+  exibirMensagemLogin('', null, 'info');
+  return { nome, empresa };
+}
+
+function atualizarBotaoAcesso() {
+  if (isGithubPages || !campoNomeVisitante || !campoEmpresaVisitante || !botaoAcessarSite) {
+    return;
+  }
+
+  botaoAcessarSite.hidden = !campoNomeVisitante.value.trim();
+}
+
+[campoNomeVisitante, campoEmpresaVisitante].forEach((input) => {
+  input?.addEventListener('input', () => {
+    input.classList.remove('invalido');
+    if (mensagemLogin) {
+      mensagemLogin.textContent = '';
+    }
+    atualizarBotaoAcesso();
+  });
+});
+
+formularioAcesso?.addEventListener('submit', async (evento) => {
+  evento.preventDefault();
+
+  if (isGithubPages) {
+    popupAcesso?.classList.add('oculto');
+    body.classList.remove('acesso-bloqueado');
+    return;
+  }
+
+  const dadosAcesso = validarAcesso();
+
+  if (!dadosAcesso) {
+    return;
+  }
+
+  botaoAcessarSite.disabled = true;
+  botaoAcessarSite.textContent = 'Registrando...';
+
+  try {
+    const acessoAnterior = await existeAcessoAnterior(dadosAcesso.nome, dadosAcesso.empresa);
+    const resposta = await fetch(urlApiVisitas, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dadosAcesso)
+    });
+
+    const resultado = await resposta.json().catch(() => ({}));
+
+    if (!resposta.ok) {
+      exibirMensagemLogin(resultado.erro || 'Não foi possível registrar sua visita', null, 'erro');
+      return;
+    }
+
+    const mensagem = mensagemBoasVindas(dadosAcesso.nome, dadosAcesso.empresa, acessoAnterior);
+    popupAcesso?.classList.add('oculto');
+    body.classList.remove('acesso-bloqueado');
+    mostrarToast(mensagem, 'sucesso');
+  } catch (erro) {
+    exibirMensagemLogin('Abra o site pelo servidor local (npm start) para registrar a visita no MySQL');
+  } finally {
+    botaoAcessarSite.disabled = false;
+    botaoAcessarSite.textContent = 'Acessar site';
+  }
+});
+
+atualizarBotaoAcesso();
 
 function criarLogoFundo(texto, cor, imagem, corTexto) {
   const criarSvgTexto = () => {

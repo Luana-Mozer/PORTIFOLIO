@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Visitas do Portfólio</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <script src="https://kit.fontawesome.com/58c94ad110.js" crossorigin="anonymous"></script>
+    <script src="scripts/admin.js" defer></script>
+</head>
+<body>
+    <main class="admin-main" style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
+        <header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <div>
+                <h1 style="margin: 0 0 0.5rem; font-size: 2rem;">Visitas do Portfólio</h1>
+                <p style="margin: 0; color: #666;">Registros enviados pelo formulário de acesso.</p>
+            </div>
+            <a href="index.html" style="text-decoration: none; color: #fff; background: #111; padding: 0.75rem 1rem; border-radius: 0.5rem;">Voltar ao site</a>
+        </header>
+
+        <section style="background: #fff; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+            <div id="admin-status" style="margin-bottom: 1rem; color: #333; font-weight: 600;">Carregando visitas...</div>
+            <div style="overflow-x:auto;">
+                <table id="visitas-table" style="width:100%; border-collapse: collapse; display:none;">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Empresa</th>
+                            <th>Data</th>
+                            <th>IP</th>
+                            <th>Navegador</th>
+                            <th>Criado em</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

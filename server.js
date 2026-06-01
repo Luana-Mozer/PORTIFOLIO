@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-// Lê o arquivo .env localmente e expõe as variáveis de ambiente para o app.
 const express = require('express');
 const mysql = require('mysql2/promise');
 const { Pool: PostgresPool } = require('pg');
@@ -10,34 +9,10 @@ const app = express();
 const porta = Number(process.env.PORT || 3000);
 const nomeBanco = process.env.DB_NAME || 'portfolio_acessos_luana';
 const postgresUrl = process.env.DATABASE_URL || process.env.DB_URL;
-// Detecta se a aplicação deve usar PostgreSQL com base em DATABASE_URL.
 const usandoPostgres = Boolean(postgresUrl && /^postgres(?:ql)?:\/\//i.test(postgresUrl));
 
 let pool;
 
-// Adiciona parâmetros de SSL e compatibilidade à URL do PostgreSQL quando necessário.
-function adaptarPostgresUrl(url) {
-  const valor = String(url || '').trim();
-  if (!valor) {
-    return valor;
-  }
-
-  const temUseLibpq = /(?:\?|&)uselibpqcompat=true/i.test(valor);
-  const temSslMode = /(?:\?|&)sslmode=/i.test(valor);
-  const separador = valor.includes('?') ? '&' : '?';
-
-  if (temSslMode && !temUseLibpq) {
-    return `${valor}${separador}uselibpqcompat=true`;
-  }
-
-  if (!temSslMode) {
-    return `${valor}${separador}sslmode=require&uselibpqcompat=true`;
-  }
-
-  return valor;
-}
-
-// Normaliza texto removendo acentos, convertendo para minúsculas e removendo espaços desnecessários.
 function normalizarTexto(texto) {
   return String(texto || '')
     .normalize('NFD')
@@ -88,11 +63,10 @@ function empresaValida(empresa) {
   return true;
 }
 
-// Prepara a conexão com o banco e cria a tabela de visitas caso ainda não exista.
 async function prepararBanco() {
   if (usandoPostgres) {
     pool = new PostgresPool({
-      connectionString: adaptarPostgresUrl(postgresUrl),
+      connectionString: postgresUrl,
       ssl: { rejectUnauthorized: false }
     });
 
@@ -146,7 +120,6 @@ async function prepararBanco() {
   `);
 }
 
-// Parse de JSON e configuração simples de CORS para aceitar requisições do frontend.
 app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -159,9 +132,8 @@ app.use((req, res, next) => {
 
   return next();
 });
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(__dirname));
 
-// Rota que salva um novo registro de visita no banco de dados.
 app.post('/api/visitas', async (req, res) => {
   const nome = String(req.body.nome || '').trim().replace(/\s+/g, ' ');
   const empresa = String(req.body.empresa || '').trim().replace(/\s+/g, ' ');
@@ -195,7 +167,6 @@ app.post('/api/visitas', async (req, res) => {
   }
 });
 
-// Rota que lista as visitas registradas ordenadas pela data de criação.
 app.get('/api/visitas', async (_req, res) => {
   try {
     if (usandoPostgres) {

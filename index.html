@@ -11,7 +11,30 @@
         <!-- Biblioteca de icones -->
         <script src="https://kit.fontawesome.com/58c94ad110.js" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body class="acesso-bloqueado">
+        <div id="login-popup" class="login-popup" role="dialog" aria-modal="true" aria-labelledby="login-titulo">
+            <div class="login-card">
+                <div class="login-imagem">
+                    <img src="imagens/Capa Tech.png" alt="Capa Luana Mozer Engenharia de Software e Automação">
+                </div>
+                <form id="login-form" class="login-form">
+                    <h2 id="login-titulo">Acesso ao portfólio</h2>
+                    <div class="login-campos">
+                        <div class="login-campo">
+                            <label for="nome-visitante">Nome</label>
+                            <input type="text" id="nome-visitante" name="nome-visitante" placeholder="Ex: Luana Mozer" autocomplete="name" required>
+                        </div>
+                        <div class="login-campo">
+                            <label for="empresa-visitante">Empresa</label>
+                            <input type="text" id="empresa-visitante" name="empresa-visitante" placeholder="Ex: Mozer Engenharia" autocomplete="organization">
+                        </div>
+                    </div>
+                    <p id="login-mensagem" class="login-mensagem" aria-live="polite"></p>
+                    <button type="submit" id="botao-acessar-site" hidden>Acessar site</button>
+                </form>
+            </div>
+        </div>
+        <div id="toast-notificacao" class="toast-notificacao" aria-live="polite" aria-atomic="true"></div>
         <!-- Conteudo principal da pagina -->
         <main>
             <!-- Informações Laterais -->
@@ -27,6 +50,9 @@
                     <a href="https://www.linkedin.com/in/luanamozer/" target="_blank" rel="nofollow" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="https://github.com/Luana-Mozer" target="_blank" rel="nofollow" title="GitHub"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.youtube.com/@luanamozer" target="_blank" rel="nofollow" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="admin.html" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; color:#111; font-weight:600;"> <i class="fa-solid fa-user-shield"></i> Ver visitas</a>
                 </div>
             </section>
             <!-- Area de navegacao e conteudos principais -->
@@ -46,6 +72,7 @@
                     <h2>Deixa eu me apresentar <i class="fa-regular fa-handshake"></i></h2>
                     <div id="video-container">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/lkfi4BZ_Ixw?si=XW5vMo7zkU4XewpI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </article> <!-- fim article video -->
                 <!-- Aba com habilidades tecnicas -->
                 <article id="skills" class="painel-conteudo" data-view="skills">
@@ -98,7 +125,7 @@
                         <div id="item">
                             <div id="info">
                                 <span id="nome">
-                                    <i class="fa-solid fa-chart-column"></i></i> Power BI
+                                    <i class="fa-solid fa-chart-column"></i> Power BI
                                 </span>
                                 <span id="porcentagem">
                                     85%
@@ -158,7 +185,7 @@
                         <div id="item">
                             <div id="info">
                                 <span id="nome">
-                                    <i class="fa-solid fa-database"></i></i> MySQL
+                                    <i class="fa-solid fa-database"></i> MySQL
                                 </span>
                                 <span id="porcentagem">
                                     70%
@@ -268,7 +295,7 @@
                                 <span class="soft-nome"><i class="fa-solid fa-person-chalkboard"></i> Liderança</span>
                                 <div class="niveis">
                                     <span class="nivel ruim">Ruim</span>
-                                    <span class="nivel regular" id=>Regular</span>
+                                    <span class="nivel regular">Regular</span>
                                     <span class="nivel bom" id="select-bom" >Bom</span>
                                 </div>
                             </div>
@@ -686,6 +713,6 @@
                     <p>Desenvolvido por <a href="https://www.linkedin.com/in/luanamozer/" target="_blank">Luana Mozer</a>   &copy;2026</p>
                 </footer>
                 <!-- Script principal -->
-                <script src="scripts/script.js"></script>
+                <script src="scripts/script.js?v=2"></script>
             </body>
         </html>
