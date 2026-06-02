@@ -3,8 +3,22 @@
 // const backendApiUrl = 'https://seu-backend-no-render.onrender.com';
 const backendApiUrl = 'https://portifolio-vry2.onrender.com';
 
-const backendBaseUrl = backendApiUrl ? backendApiUrl.replace(/\/$/, '') : '';
-const urlApiVisitas = backendBaseUrl ? `${backendBaseUrl}/api/visitas` : null;
+// Determina a URL correta do endpoint conforme o ambiente de execução.
+const urlApiVisitas = (() => {
+  const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const rodandoLocalmente = window.location.protocol === 'file:' || isLocalhost;
+
+  // Em ambiente local, usa o backend que está rodando na sua máquina.
+  if (rodandoLocalmente) {
+    const mesmaOrigem = isLocalhost && window.location.port === '3000';
+    return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
+  }
+
+  // Em produção (painel publicado), usa o backend remoto configurado.
+  const backendBaseUrl = backendApiUrl ? backendApiUrl.replace(/\/$/, '') : '';
+  return backendBaseUrl ? `${backendBaseUrl}/api/visitas` : null;
+})();
+
 const statusEl = document.getElementById('admin-status');
 const visitasTable = document.getElementById('visitas-table');
 const visitasBody = visitasTable.querySelector('tbody');

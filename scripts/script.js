@@ -15,6 +15,17 @@ const backendApiUrl = 'https://portifolio-vry2.onrender.com';// Defina a URL pú
 const isGithubPages = window.location.hostname.includes('github.io');
 // Determina a URL correta do endpoint de visitas conforme o ambiente de execução.
 const urlApiVisitas = (() => {
+  const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const rodandoLocalmente = window.location.protocol === 'file:' || isLocalhost;
+
+  // Em ambiente local (file://, Live Server ou localhost), usa sempre o backend
+  // que está rodando na sua máquina, ignorando a URL remota.
+  if (rodandoLocalmente) {
+    const mesmaOrigem = isLocalhost && window.location.port === '3000';
+    return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
+  }
+
+  // Em produção (site publicado), usa o backend remoto configurado.
   if (backendApiUrl) {
     return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
   }
@@ -23,19 +34,9 @@ const urlApiVisitas = (() => {
     return null;
   }
 
-  if (window.location.protocol === 'file:') {
-    return 'http://localhost:3000/api/visitas';
-  }
-
-  const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  const runningOnLiveServer = isLocalhost && window.location.port && window.location.port !== '3000';
-
-  if (runningOnLiveServer) {
-    return 'http://localhost:3000/api/visitas';
-  }
-
   return '/api/visitas';
 })();
+
 
 // No GitHub Pages sem backend configurado, oculta o formulário de visitas.
 if (isGithubPages && !backendApiUrl) {
