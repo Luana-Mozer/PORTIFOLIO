@@ -48,9 +48,11 @@ async function obterTokenNeon() {
     return neonDataApiToken;
   }
 
+  const origemAtual = window.location.origin;
   const lerErroAuth = async (resposta) => {
     const erro = await resposta.json().catch(() => ({}));
-    return erro.message || erro.erro || `Erro ${resposta.status}`;
+    const mensagem = erro.message || erro.erro || `Erro ${resposta.status}`;
+    return `${mensagem}. Origem atual: ${origemAtual}`;
   };
 
   const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
@@ -69,17 +71,27 @@ async function obterTokenNeon() {
     name: 'Visitante Portfolio'
   };
 
-  const endpoint = credenciaisSalvas ? 'sign-in/email' : 'sign-up/email';
-  const respostaAuth = await fetch(`${neonAuthUrl}/${endpoint}`, {
+  const autenticar = (endpoint, dados) => fetch(`${neonAuthUrl}/${endpoint}`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credenciais)
+    body: JSON.stringify(dados)
   });
+
+  let respostaAuth = await autenticar(credenciaisSalvas ? 'sign-in/email' : 'sign-up/email', credenciais);
 
   if (!respostaAuth.ok && credenciaisSalvas) {
     localStorage.removeItem('neon_auth_visitante');
-    throw new Error(`Não foi possível autenticar na Neon Auth: ${await lerErroAuth(respostaAuth)}`);
+    const novasCredenciais = {
+      email: `visitante-${crypto.randomUUID()}@portfolio.local`,
+      password: crypto.randomUUID(),
+      name: 'Visitante Portfolio'
+    };
+
+    respostaAuth = await autenticar('sign-up/email', novasCredenciais);
+    if (respostaAuth.ok) {
+      localStorage.setItem('neon_auth_visitante', JSON.stringify(novasCredenciais));
+    }
   }
 
   if (!respostaAuth.ok) {
