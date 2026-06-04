@@ -169,6 +169,7 @@ async function registrarVisita(dadosAcesso) {
 
   if (neonDataApiUrl) {
     const hoje = new Date().toISOString().slice(0, 10);
+    const ip = await obterIpVisitante();
     const resposta = await fetch(urlApiVisitas, {
       method: 'POST',
       headers: await cabecalhosNeon(),
@@ -176,6 +177,7 @@ async function registrarVisita(dadosAcesso) {
         nome: dadosAcesso.nome,
         empresa: dadosAcesso.empresa,
         data_visita: hoje,
+        ip,
         navegador: navigator.userAgent || null
       })
     });
@@ -201,6 +203,20 @@ async function registrarVisita(dadosAcesso) {
   }
 
   return resultado;
+}
+
+async function obterIpVisitante() {
+  try {
+    const resposta = await fetch('https://api.ipify.org?format=json');
+    if (!resposta.ok) {
+      return null;
+    }
+
+    const dados = await resposta.json();
+    return dados.ip || null;
+  } catch (_erro) {
+    return null;
+  }
 }
 
 async function existeAcessoAnterior(nome, empresa) {
