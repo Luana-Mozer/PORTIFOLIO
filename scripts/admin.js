@@ -125,13 +125,29 @@ function formatarData(dataIso) {
   return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
 }
 
+function formatarHora(dataHoraIso) {
+  if (!dataHoraIso) {
+    return '';
+  }
+
+  const data = new Date(dataHoraIso);
+  if (Number.isNaN(data.getTime())) {
+    return '';
+  }
+
+  return data.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
 async function buscarVisitas() {
   if (!urlApiVisitas) {
     throw new Error('API de visitas não configurada');
   }
 
   if (neonDataApiUrl) {
-    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,ip,navegador,criado_em&order=criado_em.desc`, {
+    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em&order=criado_em.desc`, {
       headers: await cabecalhosNeon()
     });
 
@@ -172,9 +188,7 @@ function exibirVisitas(visitas) {
       <td>${textoSeguro(visita.nome)}</td>
       <td>${textoSeguro(visita.empresa)}</td>
       <td>${textoSeguro(visita.data_visita)}</td>
-      <td>${textoSeguro(visita.ip)}</td>
-      <td>${textoSeguro(visita.navegador)}</td>
-      <td>${textoSeguro(visita.criado_em)}</td>
+      <td>${textoSeguro(formatarHora(visita.criado_em))}</td>
     </tr>
   `).join('');
 
