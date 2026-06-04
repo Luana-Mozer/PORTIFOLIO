@@ -1,7 +1,7 @@
-// Defina aqui a URL pública do seu backend Render ou serviço similar.
+// Defina window.PORTFOLIO_API_URL antes deste arquivo se o backend estiver em outro domínio.
 // Exemplo:
-// const backendApiUrl = 'https://seu-backend-no-render.onrender.com';
-const backendApiUrl = 'https://portifolio-vry2.onrender.com';
+// window.PORTFOLIO_API_URL = 'https://sua-api.exemplo.com';
+const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
 // Determina a URL correta do endpoint conforme o ambiente de execução.
 const urlApiVisitas = (() => {
@@ -23,6 +23,15 @@ const statusEl = document.getElementById('admin-status');
 const visitasTable = document.getElementById('visitas-table');
 const visitasBody = visitasTable.querySelector('tbody');
 
+function textoSeguro(valor) {
+  return String(valor || '-')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 function exibirErro(mensagem) {
   statusEl.textContent = mensagem;
   visitasTable.style.display = 'none';
@@ -37,12 +46,12 @@ function exibirVisitas(visitas) {
 
   visitasBody.innerHTML = visitas.map((visita) => `
     <tr>
-      <td>${visita.nome || '-'}</td>
-      <td>${visita.empresa || '-'}</td>
-      <td>${visita.data_visita || '-'}</td>
-      <td>${visita.ip || '-'}</td>
-      <td>${visita.navegador || '-'}</td>
-      <td>${visita.criado_em || '-'}</td>
+      <td>${textoSeguro(visita.nome)}</td>
+      <td>${textoSeguro(visita.empresa)}</td>
+      <td>${textoSeguro(visita.data_visita)}</td>
+      <td>${textoSeguro(visita.ip)}</td>
+      <td>${textoSeguro(visita.navegador)}</td>
+      <td>${textoSeguro(visita.criado_em)}</td>
     </tr>
   `).join('');
 

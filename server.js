@@ -13,6 +13,27 @@ const usandoPostgres = Boolean(postgresUrl && /^postgres(?:ql)?:\/\//i.test(post
 
 let pool;
 
+function adaptarPostgresUrl(url) {
+  const valor = String(url || '').trim();
+  if (!valor) {
+    return valor;
+  }
+
+  const temSslMode = /(?:\?|&)sslmode=/i.test(valor);
+  const temUseLibpq = /(?:\?|&)uselibpqcompat=true/i.test(valor);
+  const separador = valor.includes('?') ? '&' : '?';
+
+  if (temSslMode && !temUseLibpq) {
+    return `${valor}${separador}uselibpqcompat=true`;
+  }
+
+  if (!temSslMode) {
+    return `${valor}${separador}sslmode=require&uselibpqcompat=true`;
+  }
+
+  return valor;
+}
+
 function normalizarTexto(texto) {
   return String(texto || '')
     .normalize('NFD')
@@ -67,7 +88,7 @@ function empresaValida(empresa) {
 async function prepararBanco() {
   if (usandoPostgres) {
     pool = new PostgresPool({
-      connectionString: postgresUrl,
+      connectionString: adaptarPostgresUrl(postgresUrl),
       ssl: { rejectUnauthorized: false }
     });
 
@@ -171,13 +192,13 @@ app.get('/api/visitas', async (_req, res) => {
   try {
     if (usandoPostgres) {
       const resultado = await pool.query(
-        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
       );
       return res.json(resultado.rows);
     }
 
     const [linhas] = await pool.query(
-      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
     );
 
     return res.json(linhas);

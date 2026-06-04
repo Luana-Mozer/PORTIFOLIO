@@ -10,7 +10,7 @@ const mensagemLogin = document.getElementById('login-mensagem');
 const botaoAcessarSite = document.getElementById('botao-acessar-site');
 const toastNotificacao = document.getElementById('toast-notificacao');
 
-const backendApiUrl = 'https://portifolio-vry2.onrender.com';// Defina a URL pública do backend após publicar em um serviço como Render.
+const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
 const isGithubPages = window.location.hostname.includes('github.io');
 // Determina a URL correta do endpoint de visitas conforme o ambiente de execução.
@@ -25,7 +25,7 @@ const urlApiVisitas = (() => {
     return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
   }
 
-  // Em produção (site publicado), usa o backend remoto configurado.
+  // Em produção, usa uma API remota apenas se window.PORTFOLIO_API_URL for definido.
   if (backendApiUrl) {
     return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
   }
@@ -306,15 +306,22 @@ function mostrarToast(mensagem, tipo = 'sucesso') {
     return;
   }
 
-  toastNotificacao.innerHTML = `
-    <div>${mensagem}</div>
-    <button type="button" class="toast-notificacao__botao" aria-label="Fechar mensagem">OK</button>
-  `;
+  toastNotificacao.textContent = '';
+
+  const textoMensagem = document.createElement('div');
+  textoMensagem.textContent = mensagem;
+
+  const botaoOk = document.createElement('button');
+  botaoOk.type = 'button';
+  botaoOk.className = 'toast-notificacao__botao';
+  botaoOk.setAttribute('aria-label', 'Fechar mensagem');
+  botaoOk.textContent = 'OK';
+
+  toastNotificacao.append(textoMensagem, botaoOk);
   toastNotificacao.classList.remove('toast-notificacao--sucesso', 'toast-notificacao--info', 'toast-notificacao--erro', 'toast-notificacao--visivel');
   toastNotificacao.classList.add(`toast-notificacao--${tipo}`, 'toast-notificacao--visivel');
 
-  const botaoOk = toastNotificacao.querySelector('.toast-notificacao__botao');
-  botaoOk?.addEventListener('click', fecharToast, { once: true });
+  botaoOk.addEventListener('click', fecharToast, { once: true });
 }
 
 function validarAcesso() {

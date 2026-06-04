@@ -83,6 +83,11 @@ function nomeValido(nome) {
     && !textoPareceAleatorio(valor);
 }
 
+function empresaValida(empresa) {
+  const valor = String(empresa || '').trim();
+  return valor.length >= 2 && valor.length <= 100;
+}
+
 // Prepara a conexão com o banco e cria a tabela de visitas caso ainda não exista.
 async function prepararBanco() {
   if (usandoPostgres) {
@@ -194,13 +199,13 @@ app.get('/api/visitas', async (_req, res) => {
   try {
     if (usandoPostgres) {
       const resultado = await pool.query(
-        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
       );
       return res.json(resultado.rows);
     }
 
     const [linhas] = await pool.query(
-      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
     );
 
     return res.json(linhas);
