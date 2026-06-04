@@ -161,6 +161,21 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, '..')));
 
+app.get('/api/health', async (_req, res) => {
+  try {
+    if (usandoPostgres) {
+      await pool.query('SELECT 1');
+    } else {
+      await pool.query('SELECT 1');
+    }
+
+    return res.json({ ok: true, banco: usandoPostgres ? 'postgres' : 'mysql' });
+  } catch (erro) {
+    console.error('Erro no health check:', erro);
+    return res.status(500).json({ ok: false, erro: 'Banco indisponivel' });
+  }
+});
+
 // Rota que salva um novo registro de visita no banco de dados.
 app.post('/api/visitas', async (req, res) => {
   const nome = String(req.body.nome || '').trim().replace(/\s+/g, ' ');

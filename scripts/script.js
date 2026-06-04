@@ -10,7 +10,7 @@ const mensagemLogin = document.getElementById('login-mensagem');
 const botaoAcessarSite = document.getElementById('botao-acessar-site');
 const toastNotificacao = document.getElementById('toast-notificacao');
 
-const backendApiUrl = window.PORTFOLIO_API_URL || '';
+const backendApiUrl = window.PORTFOLIO_API_URL || 'https://portifolio-vry2.onrender.com';
 
 const isGithubPages = window.location.hostname.includes('github.io');
 // Determina a URL correta do endpoint de visitas conforme o ambiente de execução.

@@ -1,7 +1,7 @@
 // Defina window.PORTFOLIO_API_URL antes deste arquivo se o backend estiver em outro domínio.
 // Exemplo:
 // window.PORTFOLIO_API_URL = 'https://sua-api.exemplo.com';
-const backendApiUrl = window.PORTFOLIO_API_URL || '';
+const backendApiUrl = window.PORTFOLIO_API_URL || 'https://portifolio-vry2.onrender.com';
 
 // Determina a URL correta do endpoint conforme o ambiente de execução.
 const urlApiVisitas = (() => {
