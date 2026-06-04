@@ -1,4 +1,4 @@
-const neonDataApiUrl = window.NEON_DATA_API_URL || '';
+const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
