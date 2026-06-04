@@ -266,11 +266,27 @@ const respostasLuh = [
   },
   {
     termos: ['projeto', 'projetos', 'portfolio', 'portfólio', 'site', 'desenvolveu'],
-    resposta: 'Ela vem construindo projetos para mostrar evolução em tecnologia: portfólio, réplicas de interface, páginas responsivas, experiências com JavaScript e integrações com banco/API. O legal é que não é só visual: ela também colocou cadastro de visitas, painel admin e conexão com Neon.'
+    resposta: 'Ela vem construindo projetos com foco em automação e soluções inteligentes. Além do portfólio, ela trabalha com integrações com banco de dados, cadastro de visitas, painel admin, chatbox, agentes de IA e fluxos que ajudam a transformar tarefas repetitivas em processos mais organizados e automáticos.'
   },
   {
-    termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css'],
-    resposta: 'A Luana trabalha principalmente com HTML, CSS e JavaScript, criando interfaces responsivas e interativas. Ela também está praticando integração com APIs, banco de dados, GitHub Pages e organização de projeto. É uma pessoa em evolução constante, com bastante vontade de aprender e colocar em prática.'
+    termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css', 'mysql', 'n8n', 'python', 'automacao', 'automação', 'ia', 'chatbot', 'chatbox'],
+    resposta: 'O foco profissional da Luana está bem voltado para automação de processos, MySQL, n8n, Python, agentes de IA e chatbots. Ela gosta de criar soluções que conectam sistemas, organizam dados e reduzem trabalho manual. Front-end entra como apoio para apresentar essas soluções de forma clara, mas o coração do interesse dela está em automação e inteligência aplicada.'
+  },
+  {
+    termos: ['automacao', 'automação', 'processo', 'processos', 'fluxo', 'fluxos', 'n8n'],
+    resposta: 'Essa é uma das áreas que mais combinam com a Luana. Ela tem interesse em automação de processos usando ferramentas como n8n para criar fluxos, integrar sistemas e diminuir tarefas repetitivas. A ideia é usar tecnologia para deixar rotinas mais rápidas, organizadas e menos manuais.'
+  },
+  {
+    termos: ['inteligencia artificial', 'inteligência artificial', 'agente', 'agentes', 'ia', 'chatbot', 'chatbox'],
+    resposta: 'A Luana está direcionando bastante energia para agentes de IA e chatbots. Ela gosta da ideia de criar assistentes que entendem perguntas, ajudam pessoas, consultam informações e tornam um processo mais simples. Esse próprio chat da Luh é um exemplo desse caminho aplicado no portfólio.'
+  },
+  {
+    termos: ['mysql', 'banco', 'dados', 'database', 'sql'],
+    resposta: 'Na parte de dados, a Luana tem foco em MySQL e modelagem prática para guardar, consultar e organizar informações. Ela também vem trabalhando com integração entre site, API e banco, como o cadastro de visitas do portfólio, que registra informações em banco de dados.'
+  },
+  {
+    termos: ['python', 'pyhton'],
+    resposta: 'Python é um dos focos profissionais da Luana porque combina muito com automação, análise de dados, scripts e agentes de IA. Ela quer usar Python para criar soluções úteis, automatizar tarefas e conectar ferramentas de forma mais inteligente.'
   },
   {
     termos: ['formacao', 'formação', 'curso', 'cursos', 'faculdade', 'estudo', 'estudos'],
@@ -282,7 +298,7 @@ const respostasLuh = [
   },
   {
     termos: ['quem', 'sobre', 'luana', 'luh', 'apresenta', 'apresentação'],
-    resposta: 'A Luana é uma profissional em transição e crescimento na área de tecnologia, com uma base forte de experiências reais em atendimento, logística, organização e resolução de problemas. Hoje ela junta essa bagagem com estudos e projetos de desenvolvimento web para construir uma carreira mais tech.'
+    resposta: 'A Luana é uma profissional em crescimento na área de tecnologia, com uma base forte em atendimento, logística, organização e resolução de problemas. Hoje ela está direcionando essa experiência para automação de processos, bancos de dados, n8n, Python, agentes de IA e chatbots, criando soluções práticas para facilitar rotinas e melhorar fluxos de trabalho.'
   },
   {
     termos: ['atual', 'atualmente', 'backoffice', 'atento'],
@@ -293,7 +309,8 @@ const respostasLuh = [
 const sugestoesLuh = [
   'Quais são suas experiências?',
   'Quais tecnologias você sabe?',
-  'Quais projetos você fez?',
+  'Você trabalha com automação?',
+  'Você cria agentes de IA?',
   'Como entro em contato?'
 ];
 
