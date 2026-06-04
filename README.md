@@ -1,127 +1,223 @@
-# PORTFÓLIO
-## Este é o meu site de portfólio pessoal, desenvolvido para apresentar quem eu sou, minha trajetória, minhas habilidades e meus projetos na área de tecnologia.
+# Portfólio Luana Mozer
 
-<img width="1344" height="601" alt="Image" src="https://github.com/user-attachments/assets/f32e4598-554e-49d4-aea2-75c31d9a55f6" />
+Este é o meu portfólio profissional, criado para apresentar minha trajetória, meus projetos e meu direcionamento atual na área de tecnologia. A proposta do site é funcionar como uma vitrine prática: quem acessa consegue conhecer minha história, minhas experiências, meus estudos, meus projetos e também interagir com recursos que eu mesma fui implementando para deixar o portfólio mais completo.
 
-# [acesse](https://luana-mozer.github.io/PORTIFOLIO/)
+🔗 Acesse: https://luana-mozer.github.io/PORTIFOLIO/
 
-Nele eu organizei:
+## Objetivo do projeto
 
-Minha apresentação pessoal com foto e redes sociais.
+Eu criei este portfólio para reunir em um só lugar:
 
-Um vídeo de apresentação incorporado do YouTube.
+- minha apresentação profissional;
+- minha experiência em atendimento, logística, backoffice e tecnologia;
+- meus projetos publicados;
+- minhas áreas de foco: automação de processos, MySQL, n8n, Python, agentes de IA e chatbots;
+- um formulário de acesso com registro de visitas;
+- uma página administrativa para acompanhar os acessos;
+- uma assistente visual chamada Luh, que responde dúvidas sobre mim dentro do site.
 
-Minhas skills com barras de progresso.
+## Processo criativo
 
-Minha formação acadêmica e cursos complementares.
+A ideia foi construir um portfólio que não fosse apenas uma página estática. Eu quis que ele mostrasse um pouco do meu lado visual, mas também minha evolução com lógica, integração, banco de dados e automação.
 
-Meus principais projetos com descrição, links e detalhes expansíveis.
+Primeiro organizei a estrutura principal em HTML, CSS e JavaScript. Depois fui adicionando recursos mais práticos, como troca de tema, navegação por painéis, linha do tempo profissional, formulário de entrada, registro no banco de dados e painel admin.
 
-Também implementei design responsivo e modo claro/escuro para melhorar a experiência do usuário.
+Mais recentemente, também adicionei a personagem Luh, uma pequena assistente no canto da tela. Ela funciona como um chat de apoio para responder perguntas sobre minha trajetória, minhas experiências e meus focos profissionais.
 
-### 🛠 Como foi criado
+## Ferramentas e tecnologias usadas
 
-Eu desenvolvi o projeto utilizando:
+- **HTML5** para a estrutura das páginas.
+- **CSS3** para layout, responsividade, tema visual e animações.
+- **JavaScript** para interações, validações, chat da Luh e integração com APIs.
+- **GitHub Pages** para publicar o front-end.
+- **Neon Data API** para gravar e consultar visitas diretamente no banco.
+- **Neon Auth** para autenticar chamadas feitas para a Data API.
+- **PostgreSQL/Neon** para armazenar as visitas.
+- **MySQL** como referência inicial de estudo e estrutura antiga de banco.
+- **Font Awesome** para os ícones.
+- **localStorage** para salvar preferências e dados locais necessários ao funcionamento.
 
-HTML5 para estruturar todo o conteúdo do site.
+## Estrutura de pastas
 
-CSS3 para estilização, layout e responsividade.
+```txt
+PORTIFOLIO/
+├── .env.example            # Modelo seguro para variáveis locais
+├── admin.html              # Página administrativa de visitas
+├── index.html              # Página principal do portfólio
+├── server.js               # Backend local opcional para testes
+├── package.json            # Scripts e dependências Node
+├── database/
+│   └── schema.sql          # Estrutura e permissões da tabela de visitas
+├── Curriculo/
+│   └── Luana Mozer Technologia.pdf
+├── estilos/
+│   └── style.css           # Estilos principais do site
+├── imagens/
+│   ├── luh-chat-avatar.png # Avatar da assistente Luh
+│   └── imagens dos projetos e perfil
+└── scripts/
+    ├── script.js           # Lógica principal do site
+    └── admin.js            # Lógica da página admin
+```
 
-JavaScript para interatividade e funcionalidades dinâmicas.
+## Página principal
 
-Usei:
+O arquivo `index.html` concentra a experiência principal do portfólio. Nele estão:
 
-Grid e Flexbox para organizar o layout.
+- popup inicial de acesso;
+- ficha com foto, currículo e redes;
+- vídeo de apresentação;
+- seções de habilidades, formação, cursos e projetos;
+- linha do tempo profissional;
+- chat da Luh;
+- links para currículo, GitHub, LinkedIn e projetos.
 
-Variáveis CSS para controlar as cores.
+## Chat da Luh
 
-@media query para tornar o site responsivo.
+O chat da Luh fica no canto direito da tela, no meio da altura da página. Ele foi criado para ser pequeno e não atrapalhar a navegação.
 
-Font Awesome para os ícones.
+Ele responde perguntas sobre:
 
-localStorage para salvar a preferência de tema do usuário.
+- minhas experiências;
+- automação de processos;
+- MySQL;
+- n8n;
+- Python;
+- agentes de IA;
+- chatbots;
+- projetos;
+- contato profissional.
 
-### 🚀 Como executar localmente
+As respostas foram escritas com um tom mais natural, como se fosse uma apresentação minha, sem parecer uma lista robótica.
 
-1. Abra o terminal na pasta do projeto.
-2. Execute `npm install`.
-3. Copie `src/.env.example` para `.env` e ajuste as variáveis.
-4. Execute `npm start` ou `npm run dev`.
-5. Abra `http://localhost:3000` no navegador.
+## Registro de visitas
 
-> Use `.env` apenas localmente. O arquivo `.env` não deve ser commitado.
+Quando uma pessoa acessa o site, o formulário pede:
 
-### 🌐 GitHub Pages
+- nome;
+- empresa.
 
-Este site também funciona como site estático em `https://luana-mozer.github.io/PORTIFOLIO/`.
+Depois disso, o site registra a visita na tabela `visitas_portfolio`, salvando também:
 
-O GitHub Pages serve apenas o frontend. Para registrar visitas, o backend deve estar hospedado em um serviço Node.js, e o `scripts/script.js` deve apontar para a URL pública do backend.
+- `id` gerado automaticamente;
+- data da visita;
+- horário de criação;
+- IP quando disponível;
+- navegador quando disponível.
 
-Você também pode acessar `admin.html` para ver os registros de visitas no navegador.
+Esses dados ajudam a acompanhar quem acessou o portfólio, sem mostrar informações técnicas no painel.
 
-### 🚀 Deploy recomendado no Render
+## Admin
 
-1. Crie um **Web Service** em https://render.com.
-2. Defina o root directory como `src`.
-3. Configure:
-   - Build Command: `npm install`
-   - Start Command: `node server.js`
-4. Defina a variável de ambiente:
-   - `DATABASE_URL` = `postgresql://...`
-5. Clique em **Deploy**.
-6. Copie a URL pública do serviço.
-7. No `scripts/script.js`, atualize:
-   ```js
-   const backendApiUrl = 'https://seu-backend-no-render.onrender.com';
-   ```
+O arquivo `admin.html` é a página administrativa do portfólio.
 
-> O backend já adapta `sslmode` automaticamente para compatibilidade com Neon e Render.
+Ele serve para consultar as visitas registradas no banco. A tabela foi deixada mais limpa e mostra apenas:
 
-### 📌 Importante
+- nome;
+- empresa;
+- data;
+- hora.
 
-- O GitHub Pages serve apenas o front-end.
-- A gravação de visitas só vai funcionar se o backend estiver hospedado e acessível publicamente.
-- O banco `DATABASE_URL` não deve ser exposto no site ou em `index.html`.
+O `id`, IP e navegador continuam no banco de dados, mas não aparecem na tela do admin para manter a visualização mais objetiva.
 
-### 💻 Explicando a codificação
+## Banco de dados e Neon
 
-1. Crie uma conta gratuita em um serviço como:
-   - Render (render.com)
-   - Railway (railway.app)
-   - Vercel (vercel.com)
-2. Faça deploy do backend `server.js` nesta pasta.
-3. Configure as variáveis de ambiente do banco de dados:
-   - `DB_HOST`
-   - `DB_PORT`
-   - `DB_USER`
-   - `DB_PASSWORD`
-   - `DB_NAME`
-4. O serviço criará uma URL pública para a API, por exemplo `https://meu-backend.onrender.com`.
-5. Substitua o valor de `backendApiUrl` em `scripts/script.js` pelo endpoint público do backend.
+O site usa a **Neon Data API** para gravar e ler dados da tabela `visitas_portfolio`.
 
-> Depois disso, você poderá usar `https://luana-mozer.github.io/PORTIFOLIO/` como front-end e registrar visitas em um banco de dados online.
+Também uso **Neon Auth** porque a Data API exige autenticação por JWT. O site cria uma sessão técnica automaticamente para conseguir enviar as informações ao banco de forma autenticada.
 
+As configurações principais ficam no começo de `scripts/script.js` e `scripts/admin.js`:
 
-### 📚 O que eu aprendi
+```js
+const neonDataApiUrl = 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
+const neonAuthUrl = 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
+```
 
-Com esse projeto eu aprendi e consolidei:
+As permissões da tabela ficam documentadas em:
 
-Estruturação semântica com HTML5.
+```txt
+database/schema.sql
+```
 
-Uso avançado de CSS (Grid, Flexbox e variáveis).
+## Configuração necessária no Neon
 
-Criação de layout responsivo.
+Para o site funcionar publicado no GitHub Pages, a Neon Auth precisa aceitar a origem:
 
-Manipulação do DOM com JavaScript.
+```txt
+https://luana-mozer.github.io
+```
 
-Uso de localStorage para persistência de dados.
+Na Neon Data API, o schema `public` precisa estar exposto e a tabela `visitas_portfolio` precisa ter políticas RLS permitindo `SELECT` e `INSERT` para os papéis usados pela API.
 
-Organização de código de forma mais profissional.
+O SQL base está em:
 
-Pensar na experiência do usuário (UX).
+```txt
+database/schema.sql
+```
 
-### 🎯 Conclusão
+Depois de alterar permissões ou tabela no Neon, é importante clicar em **Atualizar cache de esquema** na tela da Data API.
 
-Esse projeto representa uma evolução importante na minha jornada como desenvolvedora. Eu consegui unir estrutura, design e interatividade em um único site funcional e organizado.
+## Como executar localmente
 
-Além de ser meu portfólio, ele também mostra minha capacidade de planejar, desenvolver e finalizar um projeto completo em front-end, aplicando boas práticas e pensando na experiência do usuário.
+1. Instale as dependências:
+
+```bash
+npm install
+```
+
+2. Copie o exemplo de variáveis:
+
+```bash
+copy .env.example .env
+```
+
+3. Ajuste a variável `DATABASE_URL` apenas no arquivo `.env`, se for testar o backend local.
+
+4. Rode:
+
+```bash
+npm start
+```
+
+5. Acesse:
+
+```txt
+http://localhost:3000
+```
+
+O site publicado no GitHub Pages usa a Neon Data API diretamente. O `server.js` fica como apoio para testes locais e estudo de backend.
+
+## Publicação
+
+O front-end é publicado pelo GitHub Pages a partir do repositório:
+
+```txt
+https://github.com/Luana-Mozer/PORTIFOLIO
+```
+
+Sempre que faço alterações, envio para a branch `main` e aguardo o GitHub Pages atualizar. Se a página ainda mostrar uma versão antiga, uso `Ctrl + F5` para limpar o cache do navegador.
+
+## Observações importantes
+
+- Nunca devo colocar senha real do banco no JavaScript do navegador.
+- A string `postgresql://...` deve ficar apenas em `.env` ou em ambiente seguro.
+- O arquivo `.env` não deve ser commitado.
+- O painel admin mostra só as informações necessárias para leitura rápida.
+- A estrutura do banco e permissões ficam documentadas em `database/schema.sql`.
+
+## O que aprendi com este projeto
+
+Com este projeto eu pratiquei:
+
+- organização de páginas com HTML;
+- criação de layout responsivo;
+- uso de CSS com animações e componentes visuais;
+- manipulação do DOM com JavaScript;
+- integração com API REST;
+- autenticação com Neon Auth;
+- gravação e leitura de dados no Neon;
+- políticas RLS no PostgreSQL;
+- criação de uma área administrativa;
+- construção de um chatbox contextual para apresentação profissional.
+
+Este portfólio representa minha evolução prática e meu foco atual: usar tecnologia para criar soluções úteis, automatizar processos e construir experiências digitais mais inteligentes.

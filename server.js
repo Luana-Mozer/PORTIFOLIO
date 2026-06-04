@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+// Este backend fica como apoio para testes locais e estudo da API de visitas.
 const express = require('express');
 const mysql = require('mysql2/promise');
 const { Pool: PostgresPool } = require('pg');
@@ -13,6 +14,7 @@ const usandoPostgres = Boolean(postgresUrl && /^postgres(?:ql)?:\/\//i.test(post
 
 let pool;
 
+// Ajusto a URL do PostgreSQL para funcionar bem com SSL quando uso Neon.
 function adaptarPostgresUrl(url) {
   const valor = String(url || '').trim();
   if (!valor) {
@@ -34,6 +36,7 @@ function adaptarPostgresUrl(url) {
   return valor;
 }
 
+// Removo acentos e padronizo textos para facilitar validações simples.
 function normalizarTexto(texto) {
   return String(texto || '')
     .normalize('NFD')
@@ -42,6 +45,7 @@ function normalizarTexto(texto) {
     .trim();
 }
 
+// Uso esta função para evitar nomes muito aleatórios no formulário de visitas.
 function textoPareceAleatorio(texto) {
   const textoLimpo = normalizarTexto(texto).replace(/[^a-z0-9 ]/g, '');
   const partes = textoLimpo.split(/\s+/).filter(Boolean);
@@ -67,6 +71,7 @@ function textoPareceAleatorio(texto) {
   return false;
 }
 
+// Valido nome com pelo menos duas partes, letras e tamanho controlado.
 function nomeValido(nome) {
   const valor = String(nome || '').trim().replace(/\s+/g, ' ');
   const partes = valor.split(' ');
@@ -80,11 +85,12 @@ function nomeValido(nome) {
 }
 
 function empresaValida(empresa) {
-  // Empresa deve ter pelo menos 2 caracteres
+  // Valido empresa de forma simples para aceitar nomes curtos sem complicar o cadastro.
   const valor = String(empresa || '').trim();
   return valor.length >= 2;
 }
 
+// Preparo o banco local ou remoto e garanto que a tabela de visitas exista.
 async function prepararBanco() {
   if (usandoPostgres) {
     pool = new PostgresPool({
@@ -142,6 +148,7 @@ async function prepararBanco() {
   `);
 }
 
+// Configuro JSON, CORS e arquivos estáticos para o front conseguir chamar a API local.
 app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -156,6 +163,7 @@ app.use((req, res, next) => {
 });
 app.use(express.static(__dirname));
 
+// Rota simples para verificar se o backend e o banco estão respondendo.
 app.get('/api/health', async (_req, res) => {
   try {
     if (usandoPostgres) {
@@ -171,6 +179,7 @@ app.get('/api/health', async (_req, res) => {
   }
 });
 
+// Rota que recebe nome e empresa e grava a visita no banco.
 app.post('/api/visitas', async (req, res) => {
   const nome = String(req.body.nome || '').trim().replace(/\s+/g, ' ');
   const empresa = String(req.body.empresa || '').trim().replace(/\s+/g, ' ');
@@ -203,6 +212,7 @@ app.post('/api/visitas', async (req, res) => {
   }
 });
 
+// Rota que lista as visitas em ordem decrescente para consulta administrativa.
 app.get('/api/visitas', async (_req, res) => {
   try {
     if (usandoPostgres) {
@@ -223,6 +233,7 @@ app.get('/api/visitas', async (_req, res) => {
   }
 });
 
+// Inicializo o servidor somente depois que o banco estiver preparado.
 prepararBanco()
   .then(() => {
     app.listen(porta, () => {

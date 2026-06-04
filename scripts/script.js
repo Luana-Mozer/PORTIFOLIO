@@ -1,3 +1,4 @@
+// Aqui eu separo os elementos principais da tela para conseguir controlar o site pelo JavaScript.
 const botao = document.getElementById('botao-tema');
 const body = document.body;
 const menuBotoes = document.querySelectorAll('#menu .link[data-view]');
@@ -17,13 +18,15 @@ const luhChatMensagens = document.getElementById('luh-chat-mensagens');
 const luhChatForm = document.getElementById('luh-chat-form');
 const luhChatInput = document.getElementById('luh-chat-input');
 
+// Configurações que eu uso para conectar o front-end com a Neon Data API e a Neon Auth.
+// Mantive esses valores no começo do arquivo para ficar fácil trocar caso eu mude de projeto no Neon.
 const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
 const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
 const isGithubPages = window.location.hostname.includes('github.io');
-// Determina a URL correta do endpoint de visitas conforme o ambiente de execução.
+// Aqui eu escolho qual API usar conforme o ambiente: local para testes ou Neon no site publicado.
 const urlApiVisitas = (() => {
   const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const rodandoLocalmente = window.location.protocol === 'file:' || isLocalhost;
@@ -50,6 +53,7 @@ function normalizarComparacao(texto) {
   return String(texto || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
+// A Neon Data API exige um JWT. Esta função cria ou reaproveita uma sessão técnica da Neon Auth.
 async function obterTokenNeon() {
   if (neonDataApiToken) {
     return neonDataApiToken;
@@ -62,6 +66,7 @@ async function obterTokenNeon() {
     return `${mensagem}. Origem atual: ${origemAtual}`;
   };
 
+  // Primeiro tento reaproveitar uma sessão já existente para não criar usuário novo a cada visita.
   const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
@@ -71,6 +76,7 @@ async function obterTokenNeon() {
     return tokenAtual;
   }
 
+  // Se ainda não existir sessão, salvo credenciais técnicas no navegador para autenticar as próximas chamadas.
   const credenciaisSalvas = JSON.parse(localStorage.getItem('neon_auth_visitante') || 'null');
   const credenciais = credenciaisSalvas || {
     email: `visitante-${crypto.randomUUID()}@portfolio.local`,
@@ -87,6 +93,7 @@ async function obterTokenNeon() {
 
   let respostaAuth = await autenticar(credenciaisSalvas ? 'sign-in/email' : 'sign-up/email', credenciais);
 
+  // Se as credenciais salvas ficarem inválidas, eu limpo e crio uma sessão nova automaticamente.
   if (!respostaAuth.ok && credenciaisSalvas) {
     localStorage.removeItem('neon_auth_visitante');
     const novasCredenciais = {
@@ -131,6 +138,7 @@ async function cabecalhosNeon() {
   return headers;
 }
 
+// Converto datas ISO do banco para o formato brasileiro que aparece no site.
 function formatarData(dataIso) {
   if (!dataIso) {
     return '';
@@ -140,6 +148,7 @@ function formatarData(dataIso) {
   return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
 }
 
+// Busco visitas para saber se a pessoa já acessou antes e personalizar a mensagem de boas-vindas.
 async function buscarVisitas() {
   if (!urlApiVisitas || urlApiVisitas === '/api/visitas') {
     throw new Error('API de visitas não configurada');
@@ -169,6 +178,7 @@ async function buscarVisitas() {
   return resposta.json();
 }
 
+// Salvo a visita no banco com nome, empresa, data, IP e navegador quando essas informações estão disponíveis.
 async function registrarVisita(dadosAcesso) {
   if (!urlApiVisitas || urlApiVisitas === '/api/visitas') {
     throw new Error('API de visitas não configurada');
@@ -212,6 +222,7 @@ async function registrarVisita(dadosAcesso) {
   return resultado;
 }
 
+// O navegador não entrega o IP diretamente, então uso um serviço externo simples e deixo falhar sem bloquear o acesso.
 async function obterIpVisitante() {
   try {
     const resposta = await fetch('https://api.ipify.org?format=json');
@@ -226,6 +237,7 @@ async function obterIpVisitante() {
   }
 }
 
+// Comparo nome e empresa para descobrir se é uma visita repetida.
 async function existeAcessoAnterior(nome, empresa) {
   if (!urlApiVisitas) {
     return false;
@@ -245,6 +257,7 @@ async function existeAcessoAnterior(nome, empresa) {
   }
 }
 
+// Mensagem que aparece depois que a visita é registrada com sucesso.
 function mensagemBoasVindas(nome, empresa, retorno) {
   const saudacao = retorno ? 'Bem-vindo(a) de volta' : 'Bem-vindo(a)';
 
@@ -255,6 +268,7 @@ function mensagemBoasVindas(nome, empresa, retorno) {
   return `${saudacao} ${nome} da(o) ${empresa}, sou a Luh e nesse site você vai saber tudo sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
 }
 
+// Base de respostas da Luh. Eu deixei os textos com um tom mais natural e voltado aos meus focos profissionais.
 const respostasLuh = [
   {
     termos: ['experiencia', 'experiências', 'trabalho', 'trabalhou', 'carreira', 'profissional'],
@@ -314,6 +328,7 @@ const sugestoesLuh = [
   'Como entro em contato?'
 ];
 
+// Adiciona uma mensagem no chat, separando visualmente o que é meu assistente e o que é pergunta do visitante.
 function adicionarMensagemLuh(texto, autor = 'luh') {
   if (!luhChatMensagens) {
     return null;
@@ -327,6 +342,7 @@ function adicionarMensagemLuh(texto, autor = 'luh') {
   return mensagem;
 }
 
+// Crio botões de sugestão para facilitar a primeira interação com o chat.
 function criarSugestoesLuh() {
   if (!luhChatMensagens) {
     return;
@@ -346,6 +362,7 @@ function criarSugestoesLuh() {
   luhChatMensagens.appendChild(sugestoes);
 }
 
+// Procuro a melhor resposta pela intenção da pergunta, usando palavras-chave simples.
 function responderLuh(pergunta) {
   const perguntaLimpa = String(pergunta || '').trim();
   if (!perguntaLimpa) {
@@ -370,6 +387,7 @@ function responderLuh(pergunta) {
   }, 350);
 }
 
+// Abre o chat e mostra a primeira mensagem da Luh apenas uma vez.
 function abrirChatLuh() {
   if (!luhChat || !luhChatBotao || !luhChatJanela) {
     return;
@@ -388,6 +406,7 @@ function abrirChatLuh() {
   window.setTimeout(() => luhChatInput?.focus(), 100);
 }
 
+// Fecha o chat sem apagar o histórico da conversa.
 function fecharChatLuh() {
   if (!luhChat || !luhChatBotao || !luhChatJanela) {
     return;
@@ -558,6 +577,7 @@ const experiencias = experienciasDecrescente.slice().reverse();
 let experienciaAtual = experiencias.length - 1;
 let experienciaAnimando = false;
 
+// Normalizo textos para validar nomes e comparar palavras sem depender de acentos ou maiúsculas.
 function normalizarTexto(texto) {
   return texto
     .normalize('NFD')
@@ -566,6 +586,7 @@ function normalizarTexto(texto) {
     .trim();
 }
 
+// Esta validação evita registros muito aleatórios no formulário inicial do portfólio.
 function textoPareceAleatorio(texto) {
   const textoLimpo = normalizarTexto(texto).replace(/[^a-z0-9 ]/g, '');
   const partes = textoLimpo.split(/\s+/).filter(Boolean);
@@ -591,6 +612,7 @@ function textoPareceAleatorio(texto) {
   return false;
 }
 
+// Valido o nome para incentivar a pessoa a informar pelo menos nome e sobrenome.
 function nomeValido(nome) {
   const valor = nome.trim().replace(/\s+/g, ' ');
   const partes = valor.split(' ');
@@ -603,12 +625,14 @@ function nomeValido(nome) {
     && !textoPareceAleatorio(valor);
 }
 
+// Valido a empresa de forma simples, porque o campo pode ser nome de empresa, área ou referência profissional.
 function empresaValida(empresa) {
   // Empresa deve ter pelo menos 2 caracteres
   const valor = String(empresa || '').trim();
   return valor.length >= 2;
 }
 
+// Mostro mensagens de erro ou sucesso no formulário de entrada.
 function exibirMensagemLogin(mensagem, campo, tipo = 'erro') {
   if (mensagemLogin) {
     mensagemLogin.textContent = mensagem;
@@ -625,6 +649,7 @@ function exibirMensagemLogin(mensagem, campo, tipo = 'erro') {
   campo?.focus();
 }
 
+// Fecho o aviso de boas-vindas quando a pessoa clica em OK.
 function fecharToast() {
   if (!toastNotificacao) {
     return;
@@ -633,6 +658,7 @@ function fecharToast() {
   toastNotificacao.classList.remove('toast-notificacao--visivel');
 }
 
+// Crio o toast sem innerHTML para evitar inserir conteúdo digitado pelo visitante como HTML.
 function mostrarToast(mensagem, tipo = 'sucesso') {
   if (!toastNotificacao || !mensagem) {
     return;
@@ -656,6 +682,7 @@ function mostrarToast(mensagem, tipo = 'sucesso') {
   botaoOk.addEventListener('click', fecharToast, { once: true });
 }
 
+// Centralizo a validação dos campos antes de tentar gravar a visita no banco.
 function validarAcesso() {
   if (!campoNomeVisitante || !campoEmpresaVisitante) {
     return null;
@@ -678,6 +705,7 @@ function validarAcesso() {
   return { nome, empresa };
 }
 
+// O botão só aparece depois que a pessoa começa a preencher o nome.
 function atualizarBotaoAcesso() {
   if (!campoNomeVisitante || !campoEmpresaVisitante || !botaoAcessarSite) {
     return;
@@ -696,6 +724,7 @@ function atualizarBotaoAcesso() {
   }));
 });
 
+// Fluxo principal de entrada: valido, registro no banco e libero o acesso ao portfólio.
 formularioAcesso?.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
@@ -772,7 +801,7 @@ function criarLogoFundo(texto, cor, imagem, corTexto) {
 const temasalvo = localStorage.getItem('tema');
 temaEscuro(temasalvo === 'escuro');
 
-// Função para alternar entre tema claro e escuro
+// Alterno entre tema claro e escuro e salvo a escolha no navegador.
 function temaEscuro(tipo) {
   if (tipo == true) {
     body.classList.add('escuro');
@@ -789,6 +818,7 @@ botao.addEventListener('click', () => {
   localStorage.setItem('tema', isescuro ? 'escuro' : 'claro');
 });
 
+// Troco o painel central do portfólio sem recarregar a página.
 function exibirPainel(view) {
   paineis.forEach((painel) => {
     painel.classList.toggle('ativo', painel.dataset.view === view);
@@ -805,6 +835,7 @@ menuBotoes.forEach((botaoMenu) => {
   });
 });
 
+// Atualizo o card de experiência profissional que aparece na linha do tempo.
 function exibirExperiencia(indice) {
   const experiencia = experiencias[indice];
   const periodo = document.getElementById('experiencia-periodo');
@@ -836,6 +867,7 @@ function exibirExperiencia(indice) {
   atualizarLinhaTempo();
 }
 
+// Crio os marcos clicáveis da linha do tempo com base na lista de experiências.
 function criarLinhaTempo() {
   const linhaTempo = document.getElementById('experiencia-linha-tempo');
 
@@ -864,6 +896,7 @@ function criarLinhaTempo() {
   });
 }
 
+// Mantém o estado visual da linha do tempo e das setas de navegação.
 function atualizarLinhaTempo() {
   const marcos = document.querySelectorAll('.experiencia-marco');
 
@@ -876,6 +909,7 @@ function atualizarLinhaTempo() {
   atualizarSetasExperiencia();
 }
 
+// Desabilito as setas quando não existe experiência anterior ou próxima.
 function atualizarSetasExperiencia(animando = false) {
   const botaoAnterior = document.getElementById('experiencia-anterior');
   const botaoProxima = document.getElementById('experiencia-proxima');
@@ -895,6 +929,7 @@ function atualizarSetasExperiencia(animando = false) {
   }
 }
 
+// Faço a troca de experiência com animação para deixar a navegação mais fluida.
 function trocarExperiencia(direcao, indiceDestino = null) {
   if (experienciaAnimando) {
     return;
@@ -940,6 +975,7 @@ function trocarExperiencia(direcao, indiceDestino = null) {
   }, 620);
 }
 
+// Quando a pessoa clica em um marco específico, calculo a direção da animação.
 function trocarExperienciaPorIndice(indice) {
   if (indice === experienciaAtual || experienciaAnimando) {
     return;

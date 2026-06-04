@@ -1,8 +1,10 @@
+// Configurações que uso no painel para buscar as visitas direto pela Neon Data API.
 const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
 const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
+// Escolho a origem dos dados conforme o ambiente em que o admin estiver aberto.
 const urlApiVisitas = (() => {
   const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const rodandoLocalmente = window.location.protocol === 'file:' || isLocalhost;
@@ -27,6 +29,7 @@ const statusEl = document.getElementById('admin-status');
 const visitasTable = document.getElementById('visitas-table');
 const visitasBody = visitasTable.querySelector('tbody');
 
+// Protejo a tabela contra qualquer texto vindo do banco que possa virar HTML na tela.
 function textoSeguro(valor) {
   return String(valor || '-')
     .replaceAll('&', '&amp;')
@@ -36,6 +39,7 @@ function textoSeguro(valor) {
     .replaceAll("'", '&#39;');
 }
 
+// A Neon Data API precisa de JWT, então eu reaproveito a mesma autenticação técnica do site.
 async function obterTokenNeon() {
   if (neonDataApiToken) {
     return neonDataApiToken;
@@ -48,6 +52,7 @@ async function obterTokenNeon() {
     return `${mensagem}. Origem atual: ${origemAtual}`;
   };
 
+  // Tento usar uma sessão existente antes de criar uma nova.
   const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
@@ -57,6 +62,7 @@ async function obterTokenNeon() {
     return tokenAtual;
   }
 
+  // Guardo credenciais técnicas no navegador para o admin não precisar pedir login manual.
   const credenciaisSalvas = JSON.parse(localStorage.getItem('neon_auth_visitante') || 'null');
   const credenciais = credenciaisSalvas || {
     email: `visitante-${crypto.randomUUID()}@portfolio.local`,
@@ -73,6 +79,7 @@ async function obterTokenNeon() {
 
   let respostaAuth = await autenticar(credenciaisSalvas ? 'sign-in/email' : 'sign-up/email', credenciais);
 
+  // Se a sessão salva falhar, limpo e tento criar uma nova.
   if (!respostaAuth.ok && credenciaisSalvas) {
     localStorage.removeItem('neon_auth_visitante');
     const novasCredenciais = {
@@ -116,6 +123,7 @@ async function cabecalhosNeon() {
   return headers;
 }
 
+// Deixo a data no formato brasileiro para a leitura do painel ficar mais rápida.
 function formatarData(dataIso) {
   if (!dataIso) {
     return '';
@@ -125,6 +133,7 @@ function formatarData(dataIso) {
   return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
 }
 
+// Mostro apenas hora e minuto no admin, porque a data já fica em outra coluna.
 function formatarHora(dataHoraIso) {
   if (!dataHoraIso) {
     return '';
@@ -141,6 +150,7 @@ function formatarHora(dataHoraIso) {
   });
 }
 
+// Busco somente os campos que quero exibir no admin: nome, empresa, data e hora.
 async function buscarVisitas() {
   if (!urlApiVisitas) {
     throw new Error('API de visitas não configurada');
@@ -171,11 +181,13 @@ async function buscarVisitas() {
   return resposta.json();
 }
 
+// Mostro mensagens simples quando a tabela não puder ser carregada.
 function exibirErro(mensagem) {
   statusEl.textContent = mensagem;
   visitasTable.style.display = 'none';
 }
 
+// Monto a tabela do admin sem exibir id, IP ou navegador, embora esses dados continuem no banco.
 function exibirVisitas(visitas) {
   if (!visitas || visitas.length === 0) {
     statusEl.textContent = 'Nenhuma visita registrada ainda.';
@@ -196,6 +208,7 @@ function exibirVisitas(visitas) {
   visitasTable.style.display = 'table';
 }
 
+// Carrego as visitas assim que a página administrativa abre.
 async function carregarVisitas() {
   try {
     const visitas = await buscarVisitas();

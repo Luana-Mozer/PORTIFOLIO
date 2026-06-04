@@ -9,6 +9,7 @@
     <script src="scripts/admin.js" defer></script>
 </head>
 <body>
+    <!-- Página que eu uso para acompanhar as visitas registradas no banco -->
     <main class="admin-main" style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
         <header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
             <div>
@@ -21,6 +22,7 @@
         <section style="background: #fff; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
             <div id="admin-status" style="margin-bottom: 1rem; color: #333; font-weight: 600;">Carregando visitas...</div>
             <div style="overflow-x:auto;">
+                <!-- Mostro somente os dados principais; id, IP e navegador continuam guardados no banco -->
                 <table id="visitas-table" style="width:100%; border-collapse: collapse; display:none;">
                     <thead>
                         <tr>
