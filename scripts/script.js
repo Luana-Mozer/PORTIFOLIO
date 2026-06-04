@@ -48,6 +48,11 @@ async function obterTokenNeon() {
     return neonDataApiToken;
   }
 
+  const lerErroAuth = async (resposta) => {
+    const erro = await resposta.json().catch(() => ({}));
+    return erro.message || erro.erro || `Erro ${resposta.status}`;
+  };
+
   const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
@@ -74,11 +79,12 @@ async function obterTokenNeon() {
 
   if (!respostaAuth.ok && credenciaisSalvas) {
     localStorage.removeItem('neon_auth_visitante');
-    throw new Error('Não foi possível autenticar na Neon Auth');
+    throw new Error(`Não foi possível autenticar na Neon Auth: ${await lerErroAuth(respostaAuth)}`);
   }
 
   if (!respostaAuth.ok) {
-    throw new Error('Não foi possível criar sessão na Neon Auth');
+    localStorage.removeItem('neon_auth_visitante');
+    throw new Error(`Não foi possível criar sessão na Neon Auth: ${await lerErroAuth(respostaAuth)}`);
   }
 
   localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciais));
