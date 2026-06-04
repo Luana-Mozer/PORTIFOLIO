@@ -11,6 +11,7 @@ const botaoAcessarSite = document.getElementById('botao-acessar-site');
 const toastNotificacao = document.getElementById('toast-notificacao');
 
 const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
+const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
@@ -42,15 +43,65 @@ function normalizarComparacao(texto) {
   return String(texto || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
-function cabecalhosNeon() {
+async function obterTokenNeon() {
+  if (neonDataApiToken) {
+    return neonDataApiToken;
+  }
+
+  const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
+    credentials: 'include'
+  });
+  const tokenAtual = sessaoAtual.headers.get('set-auth-jwt');
+
+  if (tokenAtual) {
+    return tokenAtual;
+  }
+
+  const credenciaisSalvas = JSON.parse(localStorage.getItem('neon_auth_visitante') || 'null');
+  const credenciais = credenciaisSalvas || {
+    email: `visitante-${crypto.randomUUID()}@portfolio.local`,
+    password: crypto.randomUUID(),
+    name: 'Visitante Portfolio'
+  };
+
+  const endpoint = credenciaisSalvas ? 'sign-in/email' : 'sign-up/email';
+  const respostaAuth = await fetch(`${neonAuthUrl}/${endpoint}`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credenciais)
+  });
+
+  if (!respostaAuth.ok && credenciaisSalvas) {
+    localStorage.removeItem('neon_auth_visitante');
+    throw new Error('Não foi possível autenticar na Neon Auth');
+  }
+
+  if (!respostaAuth.ok) {
+    throw new Error('Não foi possível criar sessão na Neon Auth');
+  }
+
+  localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciais));
+
+  const novaSessao = await fetch(`${neonAuthUrl}/get-session`, {
+    credentials: 'include'
+  });
+  const novoToken = novaSessao.headers.get('set-auth-jwt');
+
+  if (!novoToken) {
+    throw new Error('A Neon Auth não retornou um token JWT');
+  }
+
+  return novoToken;
+}
+
+async function cabecalhosNeon() {
   const headers = {
     'Content-Type': 'application/json',
     Prefer: 'return=representation'
   };
 
-  if (neonDataApiToken) {
-    headers.Authorization = `Bearer ${neonDataApiToken}`;
-  }
+  headers.Authorization = `Bearer ${await obterTokenNeon()}`;
 
   return headers;
 }
@@ -71,7 +122,7 @@ async function buscarVisitas() {
 
   if (neonDataApiUrl) {
     const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,ip,navegador,criado_em&order=criado_em.desc`, {
-      headers: cabecalhosNeon()
+      headers: await cabecalhosNeon()
     });
 
     if (!resposta.ok) {
@@ -102,7 +153,7 @@ async function registrarVisita(dadosAcesso) {
     const hoje = new Date().toISOString().slice(0, 10);
     const resposta = await fetch(urlApiVisitas, {
       method: 'POST',
-      headers: cabecalhosNeon(),
+      headers: await cabecalhosNeon(),
       body: JSON.stringify({
         nome: dadosAcesso.nome,
         empresa: dadosAcesso.empresa,
