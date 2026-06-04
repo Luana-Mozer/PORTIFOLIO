@@ -10,7 +10,9 @@ const mensagemLogin = document.getElementById('login-mensagem');
 const botaoAcessarSite = document.getElementById('botao-acessar-site');
 const toastNotificacao = document.getElementById('toast-notificacao');
 
-const backendApiUrl = window.PORTFOLIO_API_URL || 'https://portifolio-vry2.onrender.com';
+const neonDataApiUrl = window.NEON_DATA_API_URL || '';
+const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
+const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
 const isGithubPages = window.location.hostname.includes('github.io');
 // Determina a URL correta do endpoint de visitas conforme o ambiente de execução.
@@ -25,27 +27,111 @@ const urlApiVisitas = (() => {
     return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
   }
 
-  // Em produção, usa uma API remota apenas se window.PORTFOLIO_API_URL for definido.
-  if (backendApiUrl) {
-    return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
+  if (neonDataApiUrl) {
+    return `${neonDataApiUrl.replace(/\/$/, '')}/visitas_portfolio`;
   }
 
-  if (isGithubPages) {
-    return null;
+  if (backendApiUrl) {
+    return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
   }
 
   return '/api/visitas';
 })();
 
-
-// No GitHub Pages sem backend configurado, oculta o formulário de visitas.
-if (isGithubPages && !backendApiUrl) {
-  popupAcesso?.classList.add('oculto');
-  body.classList.remove('acesso-bloqueado');
-} 
-
 function normalizarComparacao(texto) {
   return String(texto || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function cabecalhosNeon() {
+  const headers = {
+    'Content-Type': 'application/json',
+    Prefer: 'return=representation'
+  };
+
+  if (neonDataApiToken) {
+    headers.Authorization = `Bearer ${neonDataApiToken}`;
+  }
+
+  return headers;
+}
+
+function formatarData(dataIso) {
+  if (!dataIso) {
+    return '';
+  }
+
+  const [ano, mes, dia] = String(dataIso).split('T')[0].split('-');
+  return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
+}
+
+async function buscarVisitas() {
+  if (!urlApiVisitas || urlApiVisitas === '/api/visitas') {
+    throw new Error('API de visitas não configurada');
+  }
+
+  if (neonDataApiUrl) {
+    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,ip,navegador,criado_em&order=criado_em.desc`, {
+      headers: cabecalhosNeon()
+    });
+
+    if (!resposta.ok) {
+      throw new Error(`Erro ${resposta.status}`);
+    }
+
+    const visitas = await resposta.json();
+    return visitas.map((visita) => ({
+      ...visita,
+      data_visita: formatarData(visita.data_visita)
+    }));
+  }
+
+  const resposta = await fetch(urlApiVisitas);
+  if (!resposta.ok) {
+    throw new Error(`Erro ${resposta.status}`);
+  }
+
+  return resposta.json();
+}
+
+async function registrarVisita(dadosAcesso) {
+  if (!urlApiVisitas || urlApiVisitas === '/api/visitas') {
+    throw new Error('API de visitas não configurada');
+  }
+
+  if (neonDataApiUrl) {
+    const hoje = new Date().toISOString().slice(0, 10);
+    const resposta = await fetch(urlApiVisitas, {
+      method: 'POST',
+      headers: cabecalhosNeon(),
+      body: JSON.stringify({
+        nome: dadosAcesso.nome,
+        empresa: dadosAcesso.empresa,
+        data_visita: hoje,
+        navegador: navigator.userAgent || null
+      })
+    });
+
+    if (!resposta.ok) {
+      const erro = await resposta.json().catch(() => ({}));
+      throw new Error(erro.message || erro.erro || `Erro ${resposta.status}`);
+    }
+
+    return { ok: true };
+  }
+
+  const resposta = await fetch(urlApiVisitas, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dadosAcesso)
+  });
+
+  const resultado = await resposta.json().catch(() => ({}));
+
+  if (!resposta.ok) {
+    throw new Error(resultado.erro || 'Não foi possível registrar sua visita');
+  }
+
+  return resultado;
 }
 
 async function existeAcessoAnterior(nome, empresa) {
@@ -54,12 +140,7 @@ async function existeAcessoAnterior(nome, empresa) {
   }
 
   try {
-    const resposta = await fetch(urlApiVisitas);
-    if (!resposta.ok) {
-      return false;
-    }
-
-    const visitas = await resposta.json();
+    const visitas = await buscarVisitas();
     const nomeNormalizado = normalizarComparacao(nome);
     const empresaNormalizada = normalizarComparacao(empresa);
 
@@ -367,9 +448,8 @@ function atualizarBotaoAcesso() {
 formularioAcesso?.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
-  if (isGithubPages && !backendApiUrl) {
-    popupAcesso?.classList.add('oculto');
-    body.classList.remove('acesso-bloqueado');
+  if (isGithubPages && !neonDataApiUrl && !backendApiUrl) {
+    exibirMensagemLogin('Configure a Neon Data API para registrar visitas neste site.', null, 'erro');
     return;
   }
 
@@ -384,25 +464,14 @@ formularioAcesso?.addEventListener('submit', async (evento) => {
 
   try {
     const acessoAnterior = await existeAcessoAnterior(dadosAcesso.nome, dadosAcesso.empresa);
-    const resposta = await fetch(urlApiVisitas, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dadosAcesso)
-    });
-
-    const resultado = await resposta.json().catch(() => ({}));
-
-    if (!resposta.ok) {
-      exibirMensagemLogin(resultado.erro || 'Não foi possível registrar sua visita', null, 'erro');
-      return;
-    }
+    await registrarVisita(dadosAcesso);
 
     const mensagem = mensagemBoasVindas(dadosAcesso.nome, dadosAcesso.empresa, acessoAnterior);
     popupAcesso?.classList.add('oculto');
     body.classList.remove('acesso-bloqueado');
     mostrarToast(mensagem, 'sucesso');
   } catch (erro) {
-    exibirMensagemLogin('Erro ao conectar com o servidor. Verifique se o backend está online.');
+    exibirMensagemLogin(erro.message || 'Erro ao conectar com a Neon Data API.');
   } finally {
     botaoAcessarSite.disabled = false;
     botaoAcessarSite.textContent = 'Acessar site';

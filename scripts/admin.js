@@ -1,22 +1,25 @@
-// Defina window.PORTFOLIO_API_URL antes deste arquivo se o backend estiver em outro domínio.
-// Exemplo:
-// window.PORTFOLIO_API_URL = 'https://sua-api.exemplo.com';
-const backendApiUrl = window.PORTFOLIO_API_URL || 'https://portifolio-vry2.onrender.com';
+const neonDataApiUrl = window.NEON_DATA_API_URL || '';
+const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
+const backendApiUrl = window.PORTFOLIO_API_URL || '';
 
-// Determina a URL correta do endpoint conforme o ambiente de execução.
 const urlApiVisitas = (() => {
   const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const rodandoLocalmente = window.location.protocol === 'file:' || isLocalhost;
 
-  // Em ambiente local, usa o backend que está rodando na sua máquina.
   if (rodandoLocalmente) {
     const mesmaOrigem = isLocalhost && window.location.port === '3000';
     return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
   }
 
-  // Em produção (painel publicado), usa o backend remoto configurado.
-  const backendBaseUrl = backendApiUrl ? backendApiUrl.replace(/\/$/, '') : '';
-  return backendBaseUrl ? `${backendBaseUrl}/api/visitas` : null;
+  if (neonDataApiUrl) {
+    return `${neonDataApiUrl.replace(/\/$/, '')}/visitas_portfolio`;
+  }
+
+  if (backendApiUrl) {
+    return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
+  }
+
+  return null;
 })();
 
 const statusEl = document.getElementById('admin-status');
@@ -30,6 +33,57 @@ function textoSeguro(valor) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
+}
+
+function cabecalhosNeon() {
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+
+  if (neonDataApiToken) {
+    headers.Authorization = `Bearer ${neonDataApiToken}`;
+  }
+
+  return headers;
+}
+
+function formatarData(dataIso) {
+  if (!dataIso) {
+    return '';
+  }
+
+  const [ano, mes, dia] = String(dataIso).split('T')[0].split('-');
+  return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
+}
+
+async function buscarVisitas() {
+  if (!urlApiVisitas) {
+    throw new Error('API de visitas não configurada');
+  }
+
+  if (neonDataApiUrl) {
+    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,ip,navegador,criado_em&order=criado_em.desc`, {
+      headers: cabecalhosNeon()
+    });
+
+    if (!resposta.ok) {
+      throw new Error(`Erro ${resposta.status}`);
+    }
+
+    const visitas = await resposta.json();
+    return visitas.map((visita) => ({
+      ...visita,
+      data_visita: formatarData(visita.data_visita)
+    }));
+  }
+
+  const resposta = await fetch(urlApiVisitas);
+
+  if (!resposta.ok) {
+    throw new Error(`Erro ${resposta.status}`);
+  }
+
+  return resposta.json();
 }
 
 function exibirErro(mensagem) {
@@ -60,22 +114,11 @@ function exibirVisitas(visitas) {
 }
 
 async function carregarVisitas() {
-  if (!urlApiVisitas) {
-    exibirErro('Defina a URL do backend em scripts/admin.js para carregar as visitas.');
-    return;
-  }
-
   try {
-    const resposta = await fetch(urlApiVisitas);
-
-    if (!resposta.ok) {
-      throw new Error(`Erro ${resposta.status}`);
-    }
-
-    const visitas = await resposta.json();
+    const visitas = await buscarVisitas();
     exibirVisitas(visitas);
   } catch (erro) {
-    exibirErro('Erro ao carregar visitas. Verifique se o backend está online e se a URL está correta.');
+    exibirErro('Erro ao carregar visitas. Configure e habilite a Neon Data API.');
     console.error('Erro ao carregar visitas:', erro);
   }
 }
