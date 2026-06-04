@@ -996,6 +996,239 @@ footer a {
   display: none !important;
 }
 
+.luh-chat {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: inherit;
+}
+
+body.acesso-bloqueado .luh-chat {
+  display: none;
+}
+
+.luh-chat__balao {
+  max-width: 190px;
+  padding: 8px 10px;
+  border-radius: 12px 12px 3px 12px;
+  background: #ffffff;
+  color: #27313d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+  transform-origin: bottom right;
+  animation: luhBalao 3.2s ease-in-out infinite;
+}
+
+.luh-chat__botao {
+  width: 74px;
+  min-height: 82px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffffff, #ffe7ef);
+  color: #592236;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.24);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  padding: 7px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.luh-chat__botao:hover,
+.luh-chat__botao:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.28);
+}
+
+.luh-chat__botao img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+.luh-chat__botao span {
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.luh-chat__janela {
+  position: absolute;
+  right: 0;
+  bottom: 98px;
+  width: min(330px, calc(100vw - 28px));
+  max-height: min(520px, calc(100vh - 130px));
+  border-radius: 14px;
+  background: #ffffff;
+  color: #243140;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.28);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(190px, 1fr) auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.luh-chat.aberto .luh-chat__janela {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.luh-chat.aberto .luh-chat__balao {
+  display: none;
+}
+
+.luh-chat__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  background: #243140;
+  color: #ffffff;
+}
+
+.luh-chat__cabecalho div {
+  display: grid;
+  gap: 2px;
+}
+
+.luh-chat__cabecalho strong {
+  font-size: 1rem;
+}
+
+.luh-chat__cabecalho span {
+  font-size: 0.72rem;
+  opacity: 0.82;
+}
+
+.luh-chat__cabecalho button {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.luh-chat__mensagens {
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f6f8fb;
+}
+
+.luh-chat__mensagem {
+  max-width: 88%;
+  padding: 9px 11px;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  line-height: 1.42;
+}
+
+.luh-chat__mensagem--luh {
+  align-self: flex-start;
+  background: #ffffff;
+  border-bottom-left-radius: 4px;
+}
+
+.luh-chat__mensagem--usuario {
+  align-self: flex-end;
+  background: #ffd8e5;
+  color: #4d1d31;
+  border-bottom-right-radius: 4px;
+}
+
+.luh-chat__sugestoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.luh-chat__sugestoes button {
+  border: 1px solid #ffd0df;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #592236;
+  padding: 6px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.luh-chat__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.luh-chat__form input {
+  min-width: 0;
+  height: 40px;
+  border: 1px solid #d8dee8;
+  border-radius: 10px;
+  padding: 0 10px;
+  font: inherit;
+}
+
+.luh-chat__form button {
+  width: 42px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: #243140;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+@keyframes luhBalao {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .luh-chat {
+    right: 10px;
+    bottom: 10px;
+  }
+  .luh-chat__balao {
+    max-width: 160px;
+    font-size: 0.72rem;
+  }
+  .luh-chat__botao {
+    width: 64px;
+    min-height: 72px;
+    border-radius: 16px;
+  }
+  .luh-chat__botao img {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   main {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);

@@ -9,6 +9,13 @@ const campoEmpresaVisitante = document.getElementById('empresa-visitante');
 const mensagemLogin = document.getElementById('login-mensagem');
 const botaoAcessarSite = document.getElementById('botao-acessar-site');
 const toastNotificacao = document.getElementById('toast-notificacao');
+const luhChat = document.getElementById('luh-chat');
+const luhChatBotao = document.getElementById('luh-chat-botao');
+const luhChatJanela = document.getElementById('luh-chat-janela');
+const luhChatFechar = document.getElementById('luh-chat-fechar');
+const luhChatMensagens = document.getElementById('luh-chat-mensagens');
+const luhChatForm = document.getElementById('luh-chat-form');
+const luhChatInput = document.getElementById('luh-chat-input');
 
 const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
 const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
@@ -247,6 +254,148 @@ function mensagemBoasVindas(nome, empresa, retorno) {
 
   return `${saudacao} ${nome} da(o) ${empresa}, sou a Luh e nesse site você vai saber tudo sobre minha trajetória profissional, cursos, projetos e tudo que você precisa saber para me considerar parte do seu time. Espero que goste! 😊`;
 }
+
+const respostasLuh = [
+  {
+    termos: ['experiencia', 'experiências', 'trabalho', 'trabalhou', 'carreira', 'profissional'],
+    resposta: 'Ah, ótima pergunta! A Luana tem uma trajetória bem prática e diversa. Ela já passou por logística, atendimento, estoque, operações e hoje atua como Analista Backoffice, lidando com chamados, documentos, processos financeiros e suporte a alunos. Essa mistura mostra alguém organizada, adaptável e acostumada a resolver problema de verdade no dia a dia.'
+  },
+  {
+    termos: ['logistica', 'logística', 'estoque', 'separacao', 'separação', 'expedicao', 'expedição'],
+    resposta: 'Sim! A Luana tem bastante vivência em logística e operação. Ela já trabalhou com separação e registro de mercadorias, expedição, controle de estoque, conferência, validade e organização de produtos. É uma experiência bem mão na massa, daquelas que ensinam atenção, ritmo e responsabilidade.'
+  },
+  {
+    termos: ['projeto', 'projetos', 'portfolio', 'portfólio', 'site', 'desenvolveu'],
+    resposta: 'Ela vem construindo projetos para mostrar evolução em tecnologia: portfólio, réplicas de interface, páginas responsivas, experiências com JavaScript e integrações com banco/API. O legal é que não é só visual: ela também colocou cadastro de visitas, painel admin e conexão com Neon.'
+  },
+  {
+    termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css'],
+    resposta: 'A Luana trabalha principalmente com HTML, CSS e JavaScript, criando interfaces responsivas e interativas. Ela também está praticando integração com APIs, banco de dados, GitHub Pages e organização de projeto. É uma pessoa em evolução constante, com bastante vontade de aprender e colocar em prática.'
+  },
+  {
+    termos: ['formacao', 'formação', 'curso', 'cursos', 'faculdade', 'estudo', 'estudos'],
+    resposta: 'Na parte de formação, a Luana está direcionando a carreira para tecnologia e vem combinando estudos com projetos práticos. Ela gosta de aprender construindo, então o portfólio funciona como uma vitrine viva do que ela está desenvolvendo.'
+  },
+  {
+    termos: ['contato', 'contratar', 'linkedin', 'email', 'falar', 'chamar'],
+    resposta: 'Para falar com a Luana, o melhor caminho é usar os links de contato do próprio portfólio, como LinkedIn, GitHub ou WhatsApp, se estiver disponível na página. Ela está aberta a oportunidades e conversas profissionais na área de tecnologia.'
+  },
+  {
+    termos: ['quem', 'sobre', 'luana', 'luh', 'apresenta', 'apresentação'],
+    resposta: 'A Luana é uma profissional em transição e crescimento na área de tecnologia, com uma base forte de experiências reais em atendimento, logística, organização e resolução de problemas. Hoje ela junta essa bagagem com estudos e projetos de desenvolvimento web para construir uma carreira mais tech.'
+  },
+  {
+    termos: ['atual', 'atualmente', 'backoffice', 'atento'],
+    resposta: 'Atualmente, a Luana atua como Analista Backoffice na Atento, em modelo home office, prestando suporte a alunos, tratando chamados, analisando documentos e acompanhando processos internos. É uma função que exige atenção, comunicação e organização.'
+  }
+];
+
+const sugestoesLuh = [
+  'Quais são suas experiências?',
+  'Quais tecnologias você sabe?',
+  'Quais projetos você fez?',
+  'Como entro em contato?'
+];
+
+function adicionarMensagemLuh(texto, autor = 'luh') {
+  if (!luhChatMensagens) {
+    return null;
+  }
+
+  const mensagem = document.createElement('div');
+  mensagem.className = `luh-chat__mensagem luh-chat__mensagem--${autor}`;
+  mensagem.textContent = texto;
+  luhChatMensagens.appendChild(mensagem);
+  luhChatMensagens.scrollTop = luhChatMensagens.scrollHeight;
+  return mensagem;
+}
+
+function criarSugestoesLuh() {
+  if (!luhChatMensagens) {
+    return;
+  }
+
+  const sugestoes = document.createElement('div');
+  sugestoes.className = 'luh-chat__sugestoes';
+
+  sugestoesLuh.forEach((pergunta) => {
+    const botaoSugestao = document.createElement('button');
+    botaoSugestao.type = 'button';
+    botaoSugestao.textContent = pergunta;
+    botaoSugestao.addEventListener('click', () => responderLuh(pergunta));
+    sugestoes.appendChild(botaoSugestao);
+  });
+
+  luhChatMensagens.appendChild(sugestoes);
+}
+
+function responderLuh(pergunta) {
+  const perguntaLimpa = String(pergunta || '').trim();
+  if (!perguntaLimpa) {
+    return;
+  }
+
+  adicionarMensagemLuh(perguntaLimpa, 'usuario');
+  if (luhChatInput) {
+    luhChatInput.value = '';
+  }
+
+  const perguntaNormalizada = normalizarTexto(perguntaLimpa);
+  const respostaEncontrada = respostasLuh.find((item) =>
+    item.termos.some((termo) => perguntaNormalizada.includes(normalizarTexto(termo)))
+  );
+
+  const resposta = respostaEncontrada?.resposta
+    || 'Hmm, boa pergunta! Posso te contar sobre a trajetória da Luana, experiências, projetos, tecnologias, cursos ou formas de contato. Se quiser, pergunta de outro jeito que eu tento te responder melhor.';
+
+  window.setTimeout(() => {
+    adicionarMensagemLuh(resposta, 'luh');
+  }, 350);
+}
+
+function abrirChatLuh() {
+  if (!luhChat || !luhChatBotao || !luhChatJanela) {
+    return;
+  }
+
+  luhChat.classList.add('aberto');
+  luhChatBotao.setAttribute('aria-expanded', 'true');
+  luhChatJanela.setAttribute('aria-hidden', 'false');
+
+  if (!luhChatMensagens?.dataset.iniciado) {
+    adicionarMensagemLuh('Oi! Eu sou a Luh 😊 Pode me perguntar sobre experiências, projetos, tecnologias ou contato da Luana.');
+    criarSugestoesLuh();
+    luhChatMensagens.dataset.iniciado = 'true';
+  }
+
+  window.setTimeout(() => luhChatInput?.focus(), 100);
+}
+
+function fecharChatLuh() {
+  if (!luhChat || !luhChatBotao || !luhChatJanela) {
+    return;
+  }
+
+  luhChat.classList.remove('aberto');
+  luhChatBotao.setAttribute('aria-expanded', 'false');
+  luhChatJanela.setAttribute('aria-hidden', 'true');
+}
+
+luhChatBotao?.addEventListener('click', () => {
+  if (luhChat?.classList.contains('aberto')) {
+    fecharChatLuh();
+    return;
+  }
+
+  abrirChatLuh();
+});
+
+luhChatFechar?.addEventListener('click', fecharChatLuh);
+
+luhChatForm?.addEventListener('submit', (evento) => {
+  evento.preventDefault();
+  responderLuh(luhChatInput?.value);
+});
 
 const experienciasDecrescente = [
   {

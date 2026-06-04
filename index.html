@@ -712,6 +712,29 @@
                 <footer>
                     <p>Desenvolvido por <a href="https://www.linkedin.com/in/luanamozer/" target="_blank">Luana Mozer</a>   &copy;2026</p>
                 </footer>
+                <aside class="luh-chat" id="luh-chat" aria-label="Chat da Luh">
+                    <div class="luh-chat__balao" id="luh-chat-balao">Qualquer dúvida, pergunte pra mim! 😊</div>
+                    <button class="luh-chat__botao" id="luh-chat-botao" type="button" aria-label="Abrir chat da Luh" aria-expanded="false">
+                        <img src="imagens/luh-chat-avatar.png" alt="" aria-hidden="true">
+                        <span>Luh</span>
+                    </button>
+                    <section class="luh-chat__janela" id="luh-chat-janela" aria-hidden="true">
+                        <header class="luh-chat__cabecalho">
+                            <div>
+                                <strong>Luh</strong>
+                                <span>Assistente do portfólio</span>
+                            </div>
+                            <button type="button" id="luh-chat-fechar" aria-label="Fechar chat">×</button>
+                        </header>
+                        <div class="luh-chat__mensagens" id="luh-chat-mensagens" aria-live="polite"></div>
+                        <form class="luh-chat__form" id="luh-chat-form">
+                            <input id="luh-chat-input" type="text" autocomplete="off" placeholder="Pergunte sobre a Luana..." aria-label="Pergunte sobre a Luana">
+                            <button type="submit" aria-label="Enviar pergunta">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </section>
+                </aside>
                 <!-- Script principal -->
                 <script src="scripts/script.js?v=2"></script>
             </body>
