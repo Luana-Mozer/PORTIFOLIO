@@ -8,8 +8,24 @@ CREATE TABLE IF NOT EXISTS public.visitas_portfolio (
   data_visita DATE NOT NULL,
   ip VARCHAR(45) NULL,
   navegador VARCHAR(255) NULL,
-  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_schema = 'public'
+      AND table_name = 'visitas_portfolio'
+      AND column_name = 'criado_em'
+      AND data_type = 'timestamp without time zone'
+  ) THEN
+    ALTER TABLE public.visitas_portfolio
+    ALTER COLUMN criado_em TYPE TIMESTAMPTZ
+    USING criado_em AT TIME ZONE 'UTC';
+  END IF;
+END $$;
 
 ALTER TABLE public.visitas_portfolio ENABLE ROW LEVEL SECURITY;
 

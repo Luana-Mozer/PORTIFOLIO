@@ -133,21 +133,34 @@ function formatarData(dataIso) {
   return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
 }
 
+function dataHoraComFuso(dataHoraIso) {
+  const valor = String(dataHoraIso || '');
+  if (!valor) {
+    return null;
+  }
+
+  const temFuso = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(valor);
+  return new Date(temFuso ? valor : `${valor}Z`);
+}
+
 // Mostro apenas hora e minuto no admin, porque a data já fica em outra coluna.
 function formatarHora(dataHoraIso) {
   if (!dataHoraIso) {
     return '';
   }
 
-  const data = new Date(dataHoraIso);
-  if (Number.isNaN(data.getTime())) {
+  const data = dataHoraComFuso(dataHoraIso);
+  if (!data || Number.isNaN(data.getTime())) {
     return '';
   }
 
-  return data.toLocaleTimeString('pt-BR', {
+  const hora = data.toLocaleTimeString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
     hour: '2-digit',
     minute: '2-digit'
   });
+
+  return `${hora} (SP)`;
 }
 
 // Busco somente os campos que quero exibir no admin: nome, empresa, data e hora.

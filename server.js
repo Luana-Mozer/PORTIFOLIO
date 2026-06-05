@@ -90,6 +90,18 @@ function empresaValida(empresa) {
   return valor.length >= 2;
 }
 
+function dataSaoPaulo(data = new Date()) {
+  const partes = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Sao_Paulo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(data);
+
+  const valor = Object.fromEntries(partes.map((parte) => [parte.type, parte.value]));
+  return `${valor.year}-${valor.month}-${valor.day}`;
+}
+
 // Preparo o banco local ou remoto e garanto que a tabela de visitas exista.
 async function prepararBanco() {
   if (usandoPostgres) {
@@ -106,8 +118,25 @@ async function prepararBanco() {
         data_visita DATE NOT NULL,
         ip VARCHAR(45) NULL,
         navegador VARCHAR(255) NULL,
-        criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
+    `);
+
+    await pool.query(`
+      DO $$
+      BEGIN
+        IF EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_name = 'visitas_portfolio'
+            AND column_name = 'criado_em'
+            AND data_type = 'timestamp without time zone'
+        ) THEN
+          ALTER TABLE visitas_portfolio
+          ALTER COLUMN criado_em TYPE TIMESTAMPTZ
+          USING criado_em AT TIME ZONE 'UTC';
+        END IF;
+      END $$;
     `);
 
     return;
@@ -183,6 +212,10 @@ app.get('/api/health', async (_req, res) => {
 app.post('/api/visitas', async (req, res) => {
   const nome = String(req.body.nome || '').trim().replace(/\s+/g, ' ');
   const empresa = String(req.body.empresa || '').trim().replace(/\s+/g, ' ');
+  const entradaInformada = new Date(req.body.criado_em || Date.now());
+  const entradaVisitante = Number.isNaN(entradaInformada.getTime()) ? new Date() : entradaInformada;
+  const dataVisita = dataSaoPaulo(entradaVisitante);
+  const criadoEm = entradaVisitante.toISOString();
 
   if (!nomeValido(nome)) {
     return res.status(400).json({ erro: 'Digite um nome válido' });
@@ -195,13 +228,13 @@ app.post('/api/visitas', async (req, res) => {
   try {
     if (usandoPostgres) {
       await pool.query(
-        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador) VALUES ($1, $2, CURRENT_DATE, $3, $4)',
-        [nome, empresa, req.ip, req.get('user-agent') || null]
+        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador, criado_em) VALUES ($1, $2, $3, $4, $5, $6)',
+        [nome, empresa, dataVisita, req.ip, req.get('user-agent') || null, criadoEm]
       );
     } else {
       await pool.execute(
-        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador) VALUES (?, ?, CURDATE(), ?, ?)',
-        [nome, empresa, req.ip, req.get('user-agent') || null]
+        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador, criado_em) VALUES (?, ?, ?, ?, ?, ?)',
+        [nome, empresa, dataVisita, req.ip, req.get('user-agent') || null, criadoEm]
       );
     }
 

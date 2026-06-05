@@ -148,6 +148,18 @@ function formatarData(dataIso) {
   return ano && mes && dia ? `${dia}/${mes}/${ano}` : dataIso;
 }
 
+function dataSaoPaulo(data = new Date()) {
+  const partes = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Sao_Paulo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(data);
+
+  const valor = Object.fromEntries(partes.map((parte) => [parte.type, parte.value]));
+  return `${valor.year}-${valor.month}-${valor.day}`;
+}
+
 // Busco visitas para saber se a pessoa já acessou antes e personalizar a mensagem de boas-vindas.
 async function buscarVisitas() {
   if (!urlApiVisitas || urlApiVisitas === '/api/visitas') {
@@ -185,7 +197,7 @@ async function registrarVisita(dadosAcesso) {
   }
 
   if (neonDataApiUrl) {
-    const hoje = new Date().toISOString().slice(0, 10);
+    const entradaVisitante = new Date();
     const ip = await obterIpVisitante();
     const resposta = await fetch(urlApiVisitas, {
       method: 'POST',
@@ -193,7 +205,8 @@ async function registrarVisita(dadosAcesso) {
       body: JSON.stringify({
         nome: dadosAcesso.nome,
         empresa: dadosAcesso.empresa,
-        data_visita: hoje,
+        data_visita: dataSaoPaulo(entradaVisitante),
+        criado_em: entradaVisitante.toISOString(),
         ip,
         navegador: navigator.userAgent || null
       })
@@ -210,7 +223,10 @@ async function registrarVisita(dadosAcesso) {
   const resposta = await fetch(urlApiVisitas, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(dadosAcesso)
+    body: JSON.stringify({
+      ...dadosAcesso,
+      criado_em: new Date().toISOString()
+    })
   });
 
   const resultado = await resposta.json().catch(() => ({}));
@@ -280,7 +296,11 @@ const respostasLuh = [
   },
   {
     termos: ['projeto', 'projetos', 'portfolio', 'portfólio', 'site', 'desenvolveu'],
-    resposta: 'Ela vem construindo projetos com foco em automação e soluções inteligentes. Além do portfólio, ela trabalha com integrações com banco de dados, cadastro de visitas, painel admin, chatbox, agentes de IA e fluxos que ajudam a transformar tarefas repetitivas em processos mais organizados e automáticos.'
+    resposta: 'Os principais projetos da Luana são: Portal Vila Industrial, um site institucional responsivo com abas, linha do tempo e mapa; Agente de IA, em Python, com triagem inteligente, RAG, LangChain e LangGraph; Réplica Apple Watch, interface front-end com HTML, CSS e JavaScript; Audio-Book, player interativo em JavaScript; interface de celular com iframe e links; e este Portfólio Pessoal, que apresenta trajetória, formação, cursos, experiências, projetos, login de visitantes, painel admin e a própria Luh.'
+  },
+  {
+    termos: ['curso', 'cursos', 'certificado', 'certificados', 'qual curso', 'quais cursos'],
+    resposta: 'Na aba de cursos, a Luana tem: n8n (agentes de IA), Python AI, Automação e Dados, Teste de Inglês B1 Intermediário, Analytics & Inteligência Artificial, Hardware, Rede de computadores, Excel, Algoritmos e Lógica de Programação, Power BI, MySQL, HTML5 + CSS3, Fundamentos e masterclass Python, Marketing Digital e Inteligência Artificial, DEV Agentes de IA Google e Intensivão de JavaScript.'
   },
   {
     termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css', 'mysql', 'n8n', 'python', 'automacao', 'automação', 'ia', 'chatbot', 'chatbox'],
@@ -303,16 +323,20 @@ const respostasLuh = [
     resposta: 'Python é um dos focos profissionais da Luana porque combina muito com automação, análise de dados, scripts e agentes de IA. Ela quer usar Python para criar soluções úteis, automatizar tarefas e conectar ferramentas de forma mais inteligente.'
   },
   {
-    termos: ['formacao', 'formação', 'curso', 'cursos', 'faculdade', 'estudo', 'estudos'],
-    resposta: 'Na parte de formação, a Luana está direcionando a carreira para tecnologia e vem combinando estudos com projetos práticos. Ela gosta de aprender construindo, então o portfólio funciona como uma vitrine viva do que ela está desenvolvendo.'
+    termos: ['formacao', 'formação', 'faculdade', 'estudo', 'estudos', 'engenharia de software', 'senai'],
+    resposta: 'Na formação, a Luana está cursando Bacharelado em Engenharia de Software pela Universidade Anhanguera, de 07/2025 a 06/2029. Ela também fez Processos Administrativos no SENAI Américo Rennê Giannetti entre 2011 e 2012, e concluiu o Ensino Médio na E.E. Leonina Mourthé De Araújo.'
   },
   {
-    termos: ['contato', 'contratar', 'linkedin', 'email', 'falar', 'chamar'],
-    resposta: 'Para falar com a Luana, o melhor caminho é usar os links de contato do próprio portfólio, como LinkedIn, GitHub ou WhatsApp, se estiver disponível na página. Ela está aberta a oportunidades e conversas profissionais na área de tecnologia.'
+    termos: ['contato', 'contratar', 'linkedin', 'email', 'e-mail', 'whatsapp', 'telefone', 'falar', 'chamar'],
+    resposta: 'Para falar com a Luana, o contato preferencial é por email ou WhatsApp: euluanamozer@gmail.com e (11) 99609-3403. Também dá para conhecer mais pelo LinkedIn linkedin.com/in/luanamozer, GitHub github.com/Luana-Mozer e YouTube youtube.com/@luanamozer.'
   },
   {
-    termos: ['quem', 'sobre', 'luana', 'luh', 'apresenta', 'apresentação'],
-    resposta: 'A Luana é uma profissional em crescimento na área de tecnologia, com uma base forte em atendimento, logística, organização e resolução de problemas. Hoje ela está direcionando essa experiência para automação de processos, bancos de dados, n8n, Python, agentes de IA e chatbots, criando soluções práticas para facilitar rotinas e melhorar fluxos de trabalho.'
+    termos: ['quem', 'sobre', 'luana', 'luh', 'apresenta', 'apresentação', 'curriculo', 'currículo', 'resumo'],
+    resposta: 'A Luana de Oliveira Mozer é estudante de Engenharia de Software, mora em São Paulo na Zona Leste e faz parte da diversidade como mulher transgênero. Ela tem experiência em atendimento, backoffice, análise de chamados e rotinas operacionais, além de projetos práticos em HTML, CSS, JavaScript, Python, Power BI, MySQL, hardware, redes e agentes de IA. Hoje ela busca crescer em desenvolvimento, tecnologia, automação e inteligência artificial.'
+  },
+  {
+    termos: ['idioma', 'idiomas', 'ingles', 'inglês', 'espanhol', 'portugues', 'português'],
+    resposta: 'Nos idiomas, a Luana tem Português nativo, Inglês B1 intermediário e Espanhol B1 intermediário.'
   },
   {
     termos: ['atual', 'atualmente', 'backoffice', 'atento'],
@@ -322,10 +346,10 @@ const respostasLuh = [
 
 const sugestoesLuh = [
   'Quais são suas experiências?',
-  'Quais tecnologias você sabe?',
+  'Quais cursos você fez?',
   'Você trabalha com automação?',
   'Você cria agentes de IA?',
-  'Como entro em contato?'
+  'Qual o melhor contato?'
 ];
 
 // Adiciona uma mensagem no chat, separando visualmente o que é meu assistente e o que é pergunta do visitante.
