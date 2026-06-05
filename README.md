@@ -1,47 +1,51 @@
 # Portfólio Luana Mozer
 
-Este é o meu portfólio profissional, criado para apresentar minha trajetória, meus projetos e meu direcionamento atual na área de tecnologia. A proposta do site é funcionar como uma vitrine prática: quem acessa consegue conhecer minha história, minhas experiências, meus estudos, meus projetos e também interagir com recursos que eu mesma fui implementando para deixar o portfólio mais completo.
+Este é o meu portfólio profissional. Eu criei este projeto para reunir minha apresentação, minha trajetória, meus estudos, minhas experiências e meus projetos em um só lugar.
+
+A ideia não foi fazer só uma página estática. Eu quis transformar o portfólio em uma experiência mais completa, com registro de visitas, integração com banco de dados, painel administrativo e uma assistente visual chamada Luh para responder dúvidas rápidas sobre mim.
 
 🔗 Acesse: https://luana-mozer.github.io/PORTIFOLIO/
 
 ## Objetivo do projeto
 
-Eu criei este portfólio para reunir em um só lugar:
+O portfólio foi feito para apresentar:
 
-- minha apresentação profissional;
-- minha experiência em atendimento, logística, backoffice e tecnologia;
+- minha trajetória profissional;
+- minha experiência com atendimento, logística, backoffice e tecnologia;
+- minha formação em Engenharia de Software;
+- meus cursos e habilidades;
 - meus projetos publicados;
-- minhas áreas de foco: automação de processos, MySQL, n8n, Python, agentes de IA e chatbots;
-- um formulário de acesso com registro de visitas;
+- meus focos atuais: automação de processos, MySQL, n8n, Python, agentes de IA e chatbots;
+- um formulário de entrada com registro de visitantes;
 - uma página administrativa para acompanhar os acessos;
-- uma assistente visual chamada Luh, que responde dúvidas sobre mim dentro do site.
+- o chat da Luh, que responde perguntas sobre mim dentro do próprio site.
 
-## Processo criativo
+## Processo de criação
 
-A ideia foi construir um portfólio que não fosse apenas uma página estática. Eu quis que ele mostrasse um pouco do meu lado visual, mas também minha evolução com lógica, integração, banco de dados e automação.
+Comecei montando a estrutura principal com HTML, CSS e JavaScript. Depois fui adicionando recursos conforme fui estudando e entendendo melhor como deixar o site mais útil.
 
-Primeiro organizei a estrutura principal em HTML, CSS e JavaScript. Depois fui adicionando recursos mais práticos, como troca de tema, navegação por painéis, linha do tempo profissional, formulário de entrada, registro no banco de dados e painel admin.
+O projeto hoje tem troca de tema, navegação por abas, linha do tempo profissional, seção de cursos, projetos, integração com banco de dados, painel admin e chatbox.
 
-Mais recentemente, também adicionei a personagem Luh, uma pequena assistente no canto da tela. Ela funciona como um chat de apoio para responder perguntas sobre minha trajetória, minhas experiências e meus focos profissionais.
+Também integrei o site com a Neon para registrar quem acessa o portfólio. Assim consigo acompanhar as visitas de forma organizada, sem depender de planilha manual.
 
-## Ferramentas e tecnologias usadas
+## Tecnologias usadas
 
 - **HTML5** para a estrutura das páginas.
 - **CSS3** para layout, responsividade, tema visual e animações.
 - **JavaScript** para interações, validações, chat da Luh e integração com APIs.
-- **GitHub Pages** para publicar o front-end.
-- **Neon Data API** para gravar e consultar visitas diretamente no banco.
-- **Neon Auth** para autenticar chamadas feitas para a Data API.
+- **GitHub Pages** para publicação do front-end.
+- **Neon Data API** para gravar e consultar os acessos.
+- **Neon Auth** para autenticar as chamadas feitas para a Data API.
 - **PostgreSQL/Neon** para armazenar as visitas.
-- **MySQL** como referência inicial de estudo e estrutura antiga de banco.
-- **Font Awesome** para os ícones.
-- **localStorage** para salvar preferências e dados locais necessários ao funcionamento.
+- **Node.js/Express** como backend local de apoio para testes.
+- **Font Awesome** para ícones.
+- **localStorage** para guardar preferências e dados técnicos necessários ao funcionamento.
 
 ## Estrutura de pastas
 
 ```txt
 PORTIFOLIO/
-├── .env.example            # Modelo seguro para variáveis locais
+├── .env.example            # Modelo de variáveis locais
 ├── admin.html              # Página administrativa de visitas
 ├── index.html              # Página principal do portfólio
 ├── server.js               # Backend local opcional para testes
@@ -53,8 +57,8 @@ PORTIFOLIO/
 ├── estilos/
 │   └── style.css           # Estilos principais do site
 ├── imagens/
-│   ├── luh-chat-avatar.png         # Avatar original da assistente Luh
-│   ├── luh-chat-avatar-recorte.png # Avatar recortado com fundo transparente para o chat
+│   ├── luh-chat-avatar.png
+│   ├── luh-chat-avatar-recorte.png
 │   └── imagens dos projetos e perfil
 └── scripts/
     ├── script.js           # Lógica principal do site
@@ -63,59 +67,62 @@ PORTIFOLIO/
 
 ## Página principal
 
-O arquivo `index.html` concentra a experiência principal do portfólio. Nele estão:
+O arquivo `index.html` concentra a experiência principal do portfólio. Nele ficam:
 
 - popup inicial de acesso;
 - ficha com foto, currículo e redes;
 - vídeo de apresentação;
-- seções de habilidades, formação, cursos e projetos;
-- linha do tempo profissional;
-- chat da Luh;
-- links para currículo, GitHub, LinkedIn e projetos.
-
-## Chat da Luh
-
-O chat da Luh fica no canto direito da tela, com a personagem em PNG transparente para não criar um bloco visual pesado. Em telas com mouse, o balão de convite aparece apenas ao passar o cursor ou focar no avatar. No celular, a janela abre dentro da área visível da tela para manter o campo de pergunta acessível.
-
-Ele responde perguntas sobre:
-
-- minhas experiências;
-- automação de processos;
-- MySQL;
-- n8n;
-- Python;
-- agentes de IA;
-- chatbots;
+- habilidades técnicas e comportamentais;
+- formação acadêmica;
+- cursos extras;
+- experiências profissionais;
 - projetos;
-- contato profissional.
+- chat da Luh;
+- links para currículo, LinkedIn, GitHub e projetos.
 
-As respostas foram escritas com um tom mais natural, como se fosse uma apresentação minha, sem parecer uma lista robótica.
+## Login e registro de visitas
 
-## Registro de visitas
-
-Quando uma pessoa acessa o site, o formulário pede:
+Ao acessar o site, a pessoa informa:
 
 - nome;
 - empresa.
 
-O botão de acesso só aparece depois que os dois campos são preenchidos. As mensagens do formulário ficam escondidas enquanto não houver erro, evitando uma faixa vazia na tela inicial.
+O botão de acesso só aparece quando os dois campos estão preenchidos. Se houver erro, a mensagem aparece apenas no momento necessário, sem deixar uma faixa vazia na tela.
 
-Depois disso, o site registra a visita na tabela `visitas_portfolio`, salvando também:
+Depois do envio, o site registra a visita na tabela `visitas_portfolio`.
 
-- `id` gerado automaticamente;
+Hoje o banco guarda:
+
+- `id`;
+- nome;
+- empresa;
 - data da visita;
-- horário de criação;
-- localização aproximada por IP, quando disponível;
-- IP quando disponível;
-- navegador quando disponível.
+- horário de entrada;
+- IP, quando disponível;
+- localização aproximada por IP;
+- navegador usado.
 
-Esses dados ajudam a acompanhar quem acessou o portfólio, sem mostrar informações técnicas no painel.
+A localização segue a ideia:
 
-## Admin
+```txt
+País, Estado, Cidade
+```
 
-O arquivo `admin.html` é a página administrativa do portfólio.
+Exemplos:
 
-Ele serve para consultar as visitas registradas no banco. A tabela foi deixada mais limpa e mostra apenas:
+```txt
+Brasil, São Paulo, São Paulo
+Brasil, Bahia, Salvador
+United States, California, Los Angeles
+```
+
+O horário é salvo a partir do momento de entrada da pessoa e exibido no painel administrativo no horário de São Paulo.
+
+## Painel administrativo
+
+O arquivo `admin.html` é a área onde acompanho as visitas registradas.
+
+Para deixar a leitura mais simples, a tabela mostra:
 
 - nome;
 - empresa;
@@ -123,13 +130,13 @@ Ele serve para consultar as visitas registradas no banco. A tabela foi deixada m
 - horário de São Paulo;
 - localização aproximada.
 
-O `id`, IP e navegador continuam no banco de dados, mas não aparecem na tela do admin para manter a visualização mais objetiva.
+O `id`, IP e navegador continuam no banco para consulta técnica, mas não aparecem na tabela principal.
 
 ## Banco de dados e Neon
 
-O site usa a **Neon Data API** para gravar e ler dados da tabela `visitas_portfolio`.
+O site publicado no GitHub Pages usa a **Neon Data API** para gravar e consultar a tabela `visitas_portfolio`.
 
-Também uso **Neon Auth** porque a Data API exige autenticação por JWT. O site cria uma sessão técnica automaticamente para conseguir enviar as informações ao banco de forma autenticada.
+Como a Data API precisa de autenticação, também usei a **Neon Auth**. O próprio JavaScript cria ou reaproveita uma sessão técnica para conseguir enviar os dados ao banco.
 
 As configurações principais ficam no começo de `scripts/script.js` e `scripts/admin.js`:
 
@@ -138,11 +145,29 @@ const neonDataApiUrl = 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon
 const neonAuthUrl = 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
 ```
 
-As permissões da tabela ficam documentadas em:
+A estrutura da tabela e as permissões ficam em:
 
 ```txt
 database/schema.sql
 ```
+
+## Chat da Luh
+
+A Luh é a assistente visual do portfólio. Ela aparece no cantinho da tela com um avatar em PNG transparente e abre uma janela de chat quando a pessoa clica.
+
+Ela responde perguntas sobre:
+
+- quem sou eu;
+- meu currículo;
+- experiências profissionais;
+- cursos;
+- projetos;
+- tecnologias;
+- automação;
+- agentes de IA;
+- contato profissional.
+
+As respostas foram escritas com base no conteúdo do site e no meu currículo em PDF. A intenção é ajudar quem acessa a encontrar informações importantes sem precisar procurar em todas as abas.
 
 ## Configuração necessária no Neon
 
@@ -152,15 +177,9 @@ Para o site funcionar publicado no GitHub Pages, a Neon Auth precisa aceitar a o
 https://luana-mozer.github.io
 ```
 
-Na Neon Data API, o schema `public` precisa estar exposto e a tabela `visitas_portfolio` precisa ter políticas RLS permitindo `SELECT` e `INSERT` para os papéis usados pela API.
+Na Neon Data API, o schema `public` precisa estar exposto e a tabela `visitas_portfolio` precisa permitir `SELECT` e `INSERT` para os papéis usados pela API.
 
-O SQL base está em:
-
-```txt
-database/schema.sql
-```
-
-Depois de alterar permissões ou tabela no Neon, é importante clicar em **Atualizar cache de esquema** na tela da Data API.
+Quando altero a tabela ou permissões, atualizo o cache de schema da Data API para a Neon reconhecer as mudanças.
 
 ## Como executar localmente
 
@@ -176,7 +195,7 @@ npm install
 copy .env.example .env
 ```
 
-3. Ajuste a variável `DATABASE_URL` apenas no arquivo `.env`, se for testar o backend local.
+3. Ajuste a variável `DATABASE_URL` no `.env`, se quiser testar com PostgreSQL/Neon.
 
 4. Rode:
 
@@ -190,7 +209,7 @@ npm start
 http://localhost:3000
 ```
 
-O site publicado no GitHub Pages usa a Neon Data API diretamente. O `server.js` fica como apoio para testes locais e estudo de backend.
+O site publicado usa a Neon Data API direto pelo front-end. O `server.js` fica como apoio para testes locais e estudo de backend.
 
 ## Publicação
 
@@ -200,17 +219,17 @@ O front-end é publicado pelo GitHub Pages a partir do repositório:
 https://github.com/Luana-Mozer/PORTIFOLIO
 ```
 
-Sempre que faço alterações, envio para a branch `main` e aguardo o GitHub Pages atualizar. Se a página ainda mostrar uma versão antiga, uso `Ctrl + F5` para limpar o cache do navegador.
+Quando faço alterações, envio para a branch `main` e aguardo o GitHub Pages atualizar. Se a página ainda mostrar uma versão antiga, faço uma atualização forçada no navegador com `Ctrl + F5`.
 
-## Observações importantes
+## Cuidados importantes
 
-- Nunca devo colocar senha real do banco no JavaScript do navegador.
-- A string `postgresql://...` deve ficar apenas em `.env` ou em ambiente seguro.
-- O arquivo `.env` não deve ser commitado.
-- O painel admin mostra só as informações necessárias para leitura rápida.
-- A estrutura do banco e permissões ficam documentadas em `database/schema.sql`.
+- Não colocar senha real do banco no JavaScript do navegador.
+- Manter a string `postgresql://...` apenas no `.env` ou em ambiente seguro.
+- Não versionar o arquivo `.env`.
+- Usar o painel admin só com as informações necessárias para leitura rápida.
+- Manter a estrutura do banco documentada em `database/schema.sql`.
 
-## O que aprendi com este projeto
+## O que aprendi
 
 Com este projeto eu pratiquei:
 
@@ -218,11 +237,13 @@ Com este projeto eu pratiquei:
 - criação de layout responsivo;
 - uso de CSS com animações e componentes visuais;
 - manipulação do DOM com JavaScript;
+- validação de formulário;
 - integração com API REST;
 - autenticação com Neon Auth;
 - gravação e leitura de dados no Neon;
-- políticas RLS no PostgreSQL;
-- criação de uma área administrativa;
-- construção de um chatbox contextual para apresentação profissional.
+- uso de PostgreSQL;
+- políticas RLS;
+- criação de painel administrativo;
+- construção de um chatbox contextual.
 
-Este portfólio representa minha evolução prática e meu foco atual: usar tecnologia para criar soluções úteis, automatizar processos e construir experiências digitais mais inteligentes.
+Este portfólio representa minha evolução prática na tecnologia. Ele junta apresentação profissional, banco de dados, integração com API, automação de registros e uma experiência mais interativa para quem acessa.
