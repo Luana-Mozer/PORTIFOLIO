@@ -7,12 +7,24 @@ CREATE TABLE IF NOT EXISTS public.visitas_portfolio (
   empresa VARCHAR(100) NOT NULL,
   data_visita DATE NOT NULL,
   ip VARCHAR(45) NULL,
+  localizacao VARCHAR(160) NULL,
   navegador VARCHAR(255) NULL,
   criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 DO $$
 BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_schema = 'public'
+      AND table_name = 'visitas_portfolio'
+      AND column_name = 'localizacao'
+  ) THEN
+    ALTER TABLE public.visitas_portfolio
+    ADD COLUMN localizacao VARCHAR(160) NULL;
+  END IF;
+
   IF EXISTS (
     SELECT 1
     FROM information_schema.columns
@@ -57,6 +69,10 @@ WITH CHECK (
   AND length(trim(nome)) <= 80
   AND length(trim(empresa)) >= 2
   AND length(trim(empresa)) <= 100
+  AND (
+    localizacao IS NULL
+    OR length(trim(localizacao)) <= 160
+  )
 );
 
 CREATE POLICY "Permitir leitura autenticada de visitas"
@@ -74,4 +90,8 @@ WITH CHECK (
   AND length(trim(nome)) <= 80
   AND length(trim(empresa)) >= 2
   AND length(trim(empresa)) <= 100
+  AND (
+    localizacao IS NULL
+    OR length(trim(localizacao)) <= 160
+  )
 );

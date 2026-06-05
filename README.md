@@ -105,6 +105,7 @@ Depois disso, o site registra a visita na tabela `visitas_portfolio`, salvando t
 - `id` gerado automaticamente;
 - data da visita;
 - horário de criação;
+- localização aproximada por IP, quando disponível;
 - IP quando disponível;
 - navegador quando disponível.
 
@@ -119,7 +120,8 @@ Ele serve para consultar as visitas registradas no banco. A tabela foi deixada m
 - nome;
 - empresa;
 - data;
-- hora.
+- horário de São Paulo;
+- localização aproximada.
 
 O `id`, IP e navegador continuam no banco de dados, mas não aparecem na tela do admin para manter a visualização mais objetiva.
 

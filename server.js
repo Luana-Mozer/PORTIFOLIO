@@ -117,6 +117,7 @@ async function prepararBanco() {
         empresa VARCHAR(100) NOT NULL,
         data_visita DATE NOT NULL,
         ip VARCHAR(45) NULL,
+        localizacao VARCHAR(160) NULL,
         navegador VARCHAR(255) NULL,
         criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
@@ -125,6 +126,16 @@ async function prepararBanco() {
     await pool.query(`
       DO $$
       BEGIN
+        IF NOT EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_name = 'visitas_portfolio'
+            AND column_name = 'localizacao'
+        ) THEN
+          ALTER TABLE visitas_portfolio
+          ADD COLUMN localizacao VARCHAR(160) NULL;
+        END IF;
+
         IF EXISTS (
           SELECT 1
           FROM information_schema.columns
@@ -170,11 +181,14 @@ async function prepararBanco() {
       empresa VARCHAR(100) NOT NULL,
       data_visita DATE NOT NULL,
       ip VARCHAR(45) NULL,
+      localizacao VARCHAR(160) NULL,
       navegador VARCHAR(255) NULL,
       criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (id)
     )
   `);
+
+  await pool.query('ALTER TABLE visitas_portfolio ADD COLUMN IF NOT EXISTS localizacao VARCHAR(160) NULL');
 }
 
 // Configuro JSON, CORS e arquivos estáticos para o front conseguir chamar a API local.
@@ -216,6 +230,7 @@ app.post('/api/visitas', async (req, res) => {
   const entradaVisitante = Number.isNaN(entradaInformada.getTime()) ? new Date() : entradaInformada;
   const dataVisita = dataSaoPaulo(entradaVisitante);
   const criadoEm = entradaVisitante.toISOString();
+  const localizacao = String(req.body.localizacao || 'Não identificada').trim().slice(0, 160);
 
   if (!nomeValido(nome)) {
     return res.status(400).json({ erro: 'Digite um nome válido' });
@@ -228,13 +243,13 @@ app.post('/api/visitas', async (req, res) => {
   try {
     if (usandoPostgres) {
       await pool.query(
-        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador, criado_em) VALUES ($1, $2, $3, $4, $5, $6)',
-        [nome, empresa, dataVisita, req.ip, req.get('user-agent') || null, criadoEm]
+        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, localizacao, navegador, criado_em) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [nome, empresa, dataVisita, req.ip, localizacao, req.get('user-agent') || null, criadoEm]
       );
     } else {
       await pool.execute(
-        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, navegador, criado_em) VALUES (?, ?, ?, ?, ?, ?)',
-        [nome, empresa, dataVisita, req.ip, req.get('user-agent') || null, criadoEm]
+        'INSERT INTO visitas_portfolio (nome, empresa, data_visita, ip, localizacao, navegador, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [nome, empresa, dataVisita, req.ip, localizacao, req.get('user-agent') || null, criadoEm]
       );
     }
 
@@ -250,13 +265,13 @@ app.get('/api/visitas', async (_req, res) => {
   try {
     if (usandoPostgres) {
       const resultado = await pool.query(
-        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+        'SELECT id, nome, empresa, TO_CHAR(data_visita, \'DD/MM/YYYY\') AS data_visita, ip, localizacao, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
       );
       return res.json(resultado.rows);
     }
 
     const [linhas] = await pool.query(
-      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, ip, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
+      'SELECT id, nome, empresa, DATE_FORMAT(data_visita, "%d/%m/%Y") AS data_visita, ip, localizacao, navegador, criado_em FROM visitas_portfolio ORDER BY criado_em DESC'
     );
 
     return res.json(linhas);

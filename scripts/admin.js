@@ -154,23 +154,21 @@ function formatarHora(dataHoraIso) {
     return '';
   }
 
-  const hora = data.toLocaleTimeString('pt-BR', {
+  return data.toLocaleTimeString('pt-BR', {
     timeZone: 'America/Sao_Paulo',
     hour: '2-digit',
     minute: '2-digit'
   });
-
-  return `${hora} (SP)`;
 }
 
-// Busco somente os campos que quero exibir no admin: nome, empresa, data e hora.
+// Busco somente os campos que quero exibir no admin: nome, empresa, data, hora e localizaÃ§Ã£o.
 async function buscarVisitas() {
   if (!urlApiVisitas) {
     throw new Error('API de visitas não configurada');
   }
 
   if (neonDataApiUrl) {
-    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em&order=criado_em.desc`, {
+    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`, {
       headers: await cabecalhosNeon()
     });
 
@@ -214,6 +212,7 @@ function exibirVisitas(visitas) {
       <td>${textoSeguro(visita.empresa)}</td>
       <td>${textoSeguro(visita.data_visita)}</td>
       <td>${textoSeguro(formatarHora(visita.criado_em))}</td>
+      <td>${textoSeguro(visita.localizacao || 'Não identificada')}</td>
     </tr>
   `).join('');
 

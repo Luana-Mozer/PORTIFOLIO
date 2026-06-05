@@ -198,7 +198,7 @@ async function registrarVisita(dadosAcesso) {
 
   if (neonDataApiUrl) {
     const entradaVisitante = new Date();
-    const ip = await obterIpVisitante();
+    const dadosLocalizacao = await obterLocalizacaoVisitante();
     const resposta = await fetch(urlApiVisitas, {
       method: 'POST',
       headers: await cabecalhosNeon(),
@@ -207,7 +207,8 @@ async function registrarVisita(dadosAcesso) {
         empresa: dadosAcesso.empresa,
         data_visita: dataSaoPaulo(entradaVisitante),
         criado_em: entradaVisitante.toISOString(),
-        ip,
+        ip: dadosLocalizacao.ip,
+        localizacao: dadosLocalizacao.localizacao,
         navegador: navigator.userAgent || null
       })
     });
@@ -225,7 +226,8 @@ async function registrarVisita(dadosAcesso) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       ...dadosAcesso,
-      criado_em: new Date().toISOString()
+      criado_em: new Date().toISOString(),
+      localizacao: 'Não identificada'
     })
   });
 
@@ -238,18 +240,34 @@ async function registrarVisita(dadosAcesso) {
   return resultado;
 }
 
-// O navegador não entrega o IP diretamente, então uso um serviço externo simples e deixo falhar sem bloquear o acesso.
-async function obterIpVisitante() {
+function montarLocalizacao(dados) {
+  const codigoPais = String(dados.country_code || dados.countryCode || '').toUpperCase();
+  const paisInformado = dados.country_name || dados.country || dados.countryName || '';
+  const pais = codigoPais === 'BR' || paisInformado === 'Brazil' ? 'Brasil' : paisInformado;
+  const cidade = dados.city || '';
+  const estado = dados.region_code || dados.regionCode || dados.region || dados.regionName || '';
+  const partes = [pais, cidade, estado]
+    .map((parte) => String(parte || '').trim())
+    .filter(Boolean);
+
+  return partes.length ? partes.join(', ') : 'Não identificada';
+}
+
+// Uso o IP público para estimar país, cidade e estado. Se falhar, o acesso continua normalmente.
+async function obterLocalizacaoVisitante() {
   try {
-    const resposta = await fetch('https://api.ipify.org?format=json');
+    const resposta = await fetch('https://ipapi.co/json/');
     if (!resposta.ok) {
-      return null;
+      return { ip: null, localizacao: 'Não identificada' };
     }
 
     const dados = await resposta.json();
-    return dados.ip || null;
+    return {
+      ip: dados.ip || null,
+      localizacao: montarLocalizacao(dados)
+    };
   } catch (_erro) {
-    return null;
+    return { ip: null, localizacao: 'Não identificada' };
   }
 }
 
