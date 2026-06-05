@@ -196,9 +196,10 @@ async function registrarVisita(dadosAcesso) {
     throw new Error('API de visitas não configurada');
   }
 
+  const entradaVisitante = new Date();
+  const dadosLocalizacao = await obterLocalizacaoVisitante();
+
   if (neonDataApiUrl) {
-    const entradaVisitante = new Date();
-    const dadosLocalizacao = await obterLocalizacaoVisitante();
     const resposta = await fetch(urlApiVisitas, {
       method: 'POST',
       headers: await cabecalhosNeon(),
@@ -226,8 +227,9 @@ async function registrarVisita(dadosAcesso) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       ...dadosAcesso,
-      criado_em: new Date().toISOString(),
-      localizacao: 'Não identificada'
+      criado_em: entradaVisitante.toISOString(),
+      ip: dadosLocalizacao.ip,
+      localizacao: dadosLocalizacao.localizacao
     })
   });
 
@@ -241,34 +243,109 @@ async function registrarVisita(dadosAcesso) {
 }
 
 function montarLocalizacao(dados) {
+  const estadosBrasil = {
+    AC: 'Acre',
+    AL: 'Alagoas',
+    AP: 'Amapá',
+    AM: 'Amazonas',
+    BA: 'Bahia',
+    CE: 'Ceará',
+    DF: 'Distrito Federal',
+    ES: 'Espírito Santo',
+    GO: 'Goiás',
+    MA: 'Maranhão',
+    MT: 'Mato Grosso',
+    MS: 'Mato Grosso do Sul',
+    MG: 'Minas Gerais',
+    PA: 'Pará',
+    PB: 'Paraíba',
+    PR: 'Paraná',
+    PE: 'Pernambuco',
+    PI: 'Piauí',
+    RJ: 'Rio de Janeiro',
+    RN: 'Rio Grande do Norte',
+    RS: 'Rio Grande do Sul',
+    RO: 'Rondônia',
+    RR: 'Roraima',
+    SC: 'Santa Catarina',
+    SP: 'São Paulo',
+    SE: 'Sergipe',
+    TO: 'Tocantins'
+  };
   const codigoPais = String(dados.country_code || dados.countryCode || '').toUpperCase();
   const paisInformado = dados.country_name || dados.country || dados.countryName || '';
-  const pais = codigoPais === 'BR' || paisInformado === 'Brazil' ? 'Brasil' : paisInformado;
-  const cidade = dados.city || '';
-  const estado = dados.region_code || dados.regionCode || dados.region || dados.regionName || '';
-  const partes = [pais, cidade, estado]
+  const pais = codigoPais === 'BR' || paisInformado === 'Brazil' || paisInformado === 'BR' ? 'Brasil' : paisInformado;
+  const cidade = dados.city || dados.city_name || '';
+  const codigoEstado = String(dados.region_code || dados.regionCode || '').toUpperCase();
+  const estadoInformado = dados.region || dados.regionName || dados.region_name || '';
+  const estado = pais === 'Brasil'
+    ? (estadosBrasil[codigoEstado] || estadoInformado)
+    : (estadoInformado || codigoEstado);
+  const partes = [pais, estado, cidade]
     .map((parte) => String(parte || '').trim())
     .filter(Boolean);
 
   return partes.length ? partes.join(', ') : 'Não identificada';
 }
 
+function localizacaoPorFuso() {
+  const fuso = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  if (fuso === 'America/Sao_Paulo') {
+    return 'Brasil, São Paulo, São Paulo';
+  }
+
+  if (fuso?.startsWith('America/')) {
+    return `Fuso da máquina: ${fuso}`;
+  }
+
+  return 'Não identificada';
+}
+
 // Uso o IP público para estimar país, cidade e estado. Se falhar, o acesso continua normalmente.
 async function obterLocalizacaoVisitante() {
-  try {
-    const resposta = await fetch('https://ipapi.co/json/');
-    if (!resposta.ok) {
-      return { ip: null, localizacao: 'Não identificada' };
+  const servicos = [
+    {
+      url: 'https://ipapi.co/json/',
+      adaptar: (dados) => ({
+        ip: dados.ip || null,
+        localizacao: montarLocalizacao(dados)
+      })
+    },
+    {
+      url: 'https://ipwho.is/',
+      adaptar: (dados) => ({
+        ip: dados.ip || null,
+        localizacao: montarLocalizacao({
+          country_name: dados.country,
+          country_code: dados.country_code,
+          city: dados.city,
+          region_code: dados.region_code,
+          region: dados.region
+        })
+      })
     }
+  ];
 
-    const dados = await resposta.json();
-    return {
-      ip: dados.ip || null,
-      localizacao: montarLocalizacao(dados)
-    };
-  } catch (_erro) {
-    return { ip: null, localizacao: 'Não identificada' };
+  for (const servico of servicos) {
+    try {
+      const resposta = await fetch(servico.url);
+      if (!resposta.ok) {
+        continue;
+      }
+
+      const dados = await resposta.json();
+      const resultado = servico.adaptar(dados);
+
+      if (resultado.localizacao && resultado.localizacao !== 'Não identificada') {
+        return resultado;
+      }
+    } catch (_erro) {
+      // Tento o próximo serviço antes de desistir.
+    }
   }
+
+  return { ip: null, localizacao: localizacaoPorFuso() };
 }
 
 // Comparo nome e empresa para descobrir se é uma visita repetida.
