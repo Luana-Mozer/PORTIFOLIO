@@ -637,6 +637,7 @@ function exibirMensagemLogin(mensagem, campo, tipo = 'erro') {
   if (mensagemLogin) {
     mensagemLogin.textContent = mensagem;
     mensagemLogin.classList.remove('login-mensagem--sucesso', 'login-mensagem--info', 'login-mensagem--erro');
+    mensagemLogin.hidden = !mensagem;
     if (mensagem) {
       mensagemLogin.classList.add(`login-mensagem--${tipo}`);
     }
@@ -701,7 +702,7 @@ function validarAcesso() {
     return null;
   }
 
-  exibirMensagemLogin('', null, 'info');
+  exibirMensagemLogin('', null);
   return { nome, empresa };
 }
 
@@ -711,15 +712,15 @@ function atualizarBotaoAcesso() {
     return;
   }
 
-  botaoAcessarSite.hidden = !campoNomeVisitante.value.trim();
+  const nomePreenchido = campoNomeVisitante.value.trim().length > 0;
+  const empresaPreenchida = campoEmpresaVisitante.value.trim().length > 0;
+  botaoAcessarSite.hidden = !(nomePreenchido && empresaPreenchida);
 }
 
 [campoNomeVisitante, campoEmpresaVisitante].forEach((input) => {
   ['input', 'change', 'blur'].forEach(evento => input?.addEventListener(evento, () => {
     input.classList.remove('invalido');
-    if (mensagemLogin) {
-      mensagemLogin.textContent = '';
-    }
+    exibirMensagemLogin('', null);
     atualizarBotaoAcesso();
   }));
 });

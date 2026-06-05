@@ -53,7 +53,8 @@ PORTIFOLIO/
 ├── estilos/
 │   └── style.css           # Estilos principais do site
 ├── imagens/
-│   ├── luh-chat-avatar.png # Avatar da assistente Luh
+│   ├── luh-chat-avatar.png         # Avatar original da assistente Luh
+│   ├── luh-chat-avatar-recorte.png # Avatar recortado com fundo transparente para o chat
 │   └── imagens dos projetos e perfil
 └── scripts/
     ├── script.js           # Lógica principal do site
@@ -74,7 +75,7 @@ O arquivo `index.html` concentra a experiência principal do portfólio. Nele es
 
 ## Chat da Luh
 
-O chat da Luh fica no canto direito da tela, no meio da altura da página. Ele foi criado para ser pequeno e não atrapalhar a navegação.
+O chat da Luh fica no canto direito da tela, com a personagem em PNG transparente para não criar um bloco visual pesado. Em telas com mouse, o balão de convite aparece apenas ao passar o cursor ou focar no avatar. No celular, a janela abre dentro da área visível da tela para manter o campo de pergunta acessível.
 
 Ele responde perguntas sobre:
 
@@ -96,6 +97,8 @@ Quando uma pessoa acessa o site, o formulário pede:
 
 - nome;
 - empresa.
+
+O botão de acesso só aparece depois que os dois campos são preenchidos. As mensagens do formulário ficam escondidas enquanto não houver erro, evitando uma faixa vazia na tela inicial.
 
 Depois disso, o site registra a visita na tabela `visitas_portfolio`, salvando também:
 
