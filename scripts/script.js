@@ -391,7 +391,7 @@ const respostasLuh = [
   },
   {
     termos: ['projeto', 'projetos', 'portfolio', 'portfólio', 'site', 'desenvolveu'],
-    resposta: 'Os principais projetos da Luana são: Portal Vila Industrial, um site institucional responsivo com abas, linha do tempo e mapa; Agente de IA, em Python, com triagem inteligente, RAG, LangChain e LangGraph; Réplica Apple Watch, interface front-end com HTML, CSS e JavaScript; Audio-Book, player interativo em JavaScript; interface de celular com iframe e links; e este Portfólio Pessoal, que apresenta trajetória, formação, cursos, experiências, projetos, login de visitantes, painel admin e a própria Luh.'
+    resposta: 'Os principais projetos da Luana são: Dashboard de Vendas no Power BI, com tratamento de dados no Power Query e visualização de faturamento, produtos, categorias e países; Portal Vila Industrial, um site institucional responsivo com abas, linha do tempo e mapa; Agente de IA, em Python, com triagem inteligente, RAG, LangChain e LangGraph; Réplica Apple Watch, interface front-end com HTML, CSS e JavaScript; Audio-Book, player interativo em JavaScript; interface de celular com iframe e links; e este Portfólio Pessoal, que apresenta trajetória, formação, cursos, experiências, projetos, login de visitantes, painel admin e a própria Luh.'
   },
   {
     termos: ['curso', 'cursos', 'certificado', 'certificados', 'qual curso', 'quais cursos'],
