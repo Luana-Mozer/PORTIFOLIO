@@ -391,7 +391,7 @@ const respostasLuh = [
   },
   {
     termos: ['projeto', 'projetos', 'portfolio', 'portfólio', 'site', 'desenvolveu'],
-    resposta: 'Os principais projetos da Luana são: Dashboard Financeiro no Power BI, com análise de receita, despesas, impostos, lucro, margem de lucro, bancos e transações; Dashboard de RH no Power BI, com análise de contratações, ativos, demissões, turnover, gênero, cidade, área e cargo; Dashboard de Produção no Power BI, com análise de produção individual por funcionário, mês, horas produtivas, horas paradas e rejeições; Dashboard de Vendas no Power BI, com tratamento de dados no Power Query e visualização de faturamento, produtos, categorias e países; Portal Vila Industrial, um site institucional responsivo com abas, linha do tempo e mapa; Agente de IA, em Python, com triagem inteligente, RAG, LangChain e LangGraph; Réplica Apple Watch, interface front-end com HTML, CSS e JavaScript; Audio-Book, player interativo em JavaScript; interface de celular com iframe e links; e este Portfólio Pessoal, que apresenta trajetória, formação, cursos, experiências, projetos, login de visitantes, painel admin e a própria Luh.'
+    resposta: 'Os principais projetos da Luana são: Automação com Python, com cadastro automático de produtos por CSV, interface gráfica, pausa, interrupção e executável; Dashboard Financeiro no Power BI, com análise de receita, despesas, impostos, lucro, margem de lucro, bancos e transações; Dashboard de RH no Power BI, com análise de contratações, ativos, demissões, turnover, gênero, cidade, área e cargo; Dashboard de Produção no Power BI, com análise de produção individual por funcionário, mês, horas produtivas, horas paradas e rejeições; Dashboard de Vendas no Power BI, com tratamento de dados no Power Query e visualização de faturamento, produtos, categorias e países; Portal Vila Industrial, um site institucional responsivo com abas, linha do tempo e mapa; Agente de IA, em Python, com triagem inteligente, RAG, LangChain e LangGraph; Réplica Apple Watch, interface front-end com HTML, CSS e JavaScript; Audio-Book, player interativo em JavaScript; interface de celular com iframe e links; e este Portfólio Pessoal, que apresenta trajetória, formação, cursos, experiências, projetos, login de visitantes, painel admin e a própria Luh.'
   },
   {
     termos: ['curso', 'cursos', 'certificado', 'certificados', 'qual curso', 'quais cursos'],
@@ -403,7 +403,7 @@ const respostasLuh = [
   },
   {
     termos: ['automacao', 'automação', 'processo', 'processos', 'fluxo', 'fluxos', 'n8n'],
-    resposta: 'Essa é uma das áreas que mais combinam com a Luana. Ela tem interesse em automação de processos usando ferramentas como n8n para criar fluxos, integrar sistemas e diminuir tarefas repetitivas. A ideia é usar tecnologia para deixar rotinas mais rápidas, organizadas e menos manuais.'
+    resposta: 'Essa é uma das áreas que mais combinam com a Luana. Ela tem interesse em automação de processos usando ferramentas como n8n e Python para criar fluxos, integrar sistemas e diminuir tarefas repetitivas. Um exemplo prático é o projeto Automação com Python, em que ela criou uma ferramenta com interface gráfica, leitura de CSV, controle por botões e executável para automatizar cadastro de produtos.'
   },
   {
     termos: ['inteligencia artificial', 'inteligência artificial', 'agente', 'agentes', 'ia', 'chatbot', 'chatbox'],
