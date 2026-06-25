@@ -3,6 +3,8 @@ const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aas
 const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
+const neonAuthTimeoutMs = 12000;
+const neonAuthTentativas = 2;
 
 // Escolho a origem dos dados conforme o ambiente em que o admin estiver aberto.
 const urlApiVisitas = (() => {
@@ -14,12 +16,12 @@ const urlApiVisitas = (() => {
     return mesmaOrigem ? '/api/visitas' : 'http://localhost:3000/api/visitas';
   }
 
-  if (neonDataApiUrl) {
-    return `${neonDataApiUrl.replace(/\/$/, '')}/visitas_portfolio`;
-  }
-
   if (backendApiUrl) {
     return `${backendApiUrl.replace(/\/$/, '')}/api/visitas`;
+  }
+
+  if (neonDataApiUrl) {
+    return `${neonDataApiUrl.replace(/\/$/, '')}/visitas_portfolio`;
   }
 
   return null;
@@ -39,10 +41,64 @@ function textoSeguro(valor) {
     .replaceAll("'", '&#39;');
 }
 
+function aguardar(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchComTimeout(url, opcoes = {}, timeoutMs = neonAuthTimeoutMs) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(url, {
+      ...opcoes,
+      signal: controller.signal
+    });
+  } catch (erro) {
+    if (erro.name === 'AbortError') {
+      throw new Error('Tempo limite excedido ao conectar com a Neon Auth');
+    }
+
+    throw erro;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function fetchAuth(url, opcoes = {}) {
+  let ultimoErro = null;
+
+  for (let tentativa = 1; tentativa <= neonAuthTentativas; tentativa += 1) {
+    try {
+      return await fetchComTimeout(url, opcoes);
+    } catch (erro) {
+      ultimoErro = erro;
+      if (tentativa < neonAuthTentativas) {
+        await aguardar(700 * tentativa);
+      }
+    }
+  }
+
+  throw ultimoErro;
+}
+
+function extrairTokenNeon(dadosAuth) {
+  return dadosAuth?.data?.session?.access_token
+    || dadosAuth?.session?.access_token
+    || dadosAuth?.access_token
+    || dadosAuth?.token
+    || null;
+}
+
 // A Neon Data API precisa de JWT, então eu reaproveito a mesma autenticação técnica do site.
 async function obterTokenNeon() {
   if (neonDataApiToken) {
     return neonDataApiToken;
+  }
+
+  const tokenSalvo = localStorage.getItem('neon_auth_jwt');
+  if (tokenSalvo) {
+    return tokenSalvo;
   }
 
   const origemAtual = window.location.origin;
@@ -53,13 +109,22 @@ async function obterTokenNeon() {
   };
 
   // Tento usar uma sessão existente antes de criar uma nova.
-  const sessaoAtual = await fetch(`${neonAuthUrl}/get-session`, {
+  const sessaoAtual = await fetchAuth(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
   const tokenAtual = sessaoAtual.headers.get('set-auth-jwt');
 
   if (tokenAtual) {
+    localStorage.setItem('neon_auth_jwt', tokenAtual);
     return tokenAtual;
+  }
+
+  const dadosSessaoAtual = await sessaoAtual.json().catch(() => ({}));
+  const tokenSessaoAtual = extrairTokenNeon(dadosSessaoAtual);
+
+  if (tokenSessaoAtual) {
+    localStorage.setItem('neon_auth_jwt', tokenSessaoAtual);
+    return tokenSessaoAtual;
   }
 
   // Guardo credenciais técnicas no navegador para o admin não precisar pedir login manual.
@@ -69,8 +134,9 @@ async function obterTokenNeon() {
     password: crypto.randomUUID(),
     name: 'Visitante Portfolio'
   };
+  let credenciaisAutenticadas = credenciais;
 
-  const autenticar = (endpoint, dados) => fetch(`${neonAuthUrl}/${endpoint}`, {
+  const autenticar = (endpoint, dados) => fetchAuth(`${neonAuthUrl}/${endpoint}`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -90,26 +156,39 @@ async function obterTokenNeon() {
 
     respostaAuth = await autenticar('sign-up/email', novasCredenciais);
     if (respostaAuth.ok) {
+      credenciaisAutenticadas = novasCredenciais;
       localStorage.setItem('neon_auth_visitante', JSON.stringify(novasCredenciais));
     }
   }
 
   if (!respostaAuth.ok) {
     localStorage.removeItem('neon_auth_visitante');
+    localStorage.removeItem('neon_auth_jwt');
     throw new Error(`Não foi possível criar sessão na Neon Auth: ${await lerErroAuth(respostaAuth)}`);
   }
 
-  localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciais));
+  const dadosAuth = await respostaAuth.json().catch(() => ({}));
+  const tokenAuth = respostaAuth.headers.get('set-auth-jwt') || extrairTokenNeon(dadosAuth);
 
-  const novaSessao = await fetch(`${neonAuthUrl}/get-session`, {
+  if (tokenAuth) {
+    localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciaisAutenticadas));
+    localStorage.setItem('neon_auth_jwt', tokenAuth);
+    return tokenAuth;
+  }
+
+  localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciaisAutenticadas));
+
+  const novaSessao = await fetchAuth(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
-  const novoToken = novaSessao.headers.get('set-auth-jwt');
+  const dadosNovaSessao = await novaSessao.json().catch(() => ({}));
+  const novoToken = novaSessao.headers.get('set-auth-jwt') || extrairTokenNeon(dadosNovaSessao);
 
   if (!novoToken) {
     throw new Error('A Neon Auth não retornou um token JWT');
   }
 
+  localStorage.setItem('neon_auth_jwt', novoToken);
   return novoToken;
 }
 
@@ -121,6 +200,25 @@ async function cabecalhosNeon() {
   headers.Authorization = `Bearer ${await obterTokenNeon()}`;
 
   return headers;
+}
+
+async function fetchNeonApi(url, opcoes = {}) {
+  const montarOpcoes = async () => ({
+    ...opcoes,
+    headers: {
+      ...(opcoes.headers || {}),
+      ...(await cabecalhosNeon())
+    }
+  });
+
+  let resposta = await fetch(url, await montarOpcoes());
+
+  if (resposta.status === 401) {
+    localStorage.removeItem('neon_auth_jwt');
+    resposta = await fetch(url, await montarOpcoes());
+  }
+
+  return resposta;
 }
 
 // Deixo a data no formato brasileiro para a leitura do painel ficar mais rápida.
@@ -167,10 +265,8 @@ async function buscarVisitas() {
     throw new Error('API de visitas não configurada');
   }
 
-  if (neonDataApiUrl) {
-    const resposta = await fetch(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`, {
-      headers: await cabecalhosNeon()
-    });
+  if (neonDataApiUrl && urlApiVisitas.includes('/rest/v1/')) {
+    const resposta = await fetchNeonApi(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`);
 
     if (!resposta.ok) {
       throw new Error(`Erro ${resposta.status}`);
