@@ -100,8 +100,13 @@ function extrairTokenNeon(dadosAuth) {
   return dadosAuth?.data?.session?.access_token
     || dadosAuth?.session?.access_token
     || dadosAuth?.access_token
-    || dadosAuth?.token
     || null;
+}
+
+// A Data API aceita JWT (cabecalho.payload.assinatura), não o token opaco
+// de sessão que a Neon Auth também devolve no cadastro.
+function tokenPareceJwt(token) {
+  return typeof token === 'string' && token.split('.').length === 3;
 }
 
 // A Neon Data API exige um JWT. Esta função cria ou reaproveita uma sessão técnica da Neon Auth.
@@ -111,9 +116,10 @@ async function obterTokenNeon() {
   }
 
   const tokenSalvo = localStorage.getItem('neon_auth_jwt');
-  if (tokenSalvo) {
+  if (tokenPareceJwt(tokenSalvo)) {
     return tokenSalvo;
   }
+  localStorage.removeItem('neon_auth_jwt');
 
   const origemAtual = window.location.origin;
   const lerErroAuth = async (resposta) => {
