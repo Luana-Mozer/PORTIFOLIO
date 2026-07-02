@@ -1,0 +1,30 @@
+name: Limpar visitas mensalmente
+
+on:
+  schedule:
+    # O GitHub Actions usa UTC: 03:00 UTC = 00:00 em São Paulo.
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: limpar-visitas-mensalmente
+  cancel-in-progress: false
+
+jobs:
+  limpar-visitas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Apagar registros de visitas
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          test -n "$DATABASE_URL" || {
+            echo "O segredo DATABASE_URL não está configurado."
+            exit 1
+          }
+
+          psql "$DATABASE_URL" \
+            --set=ON_ERROR_STOP=1 \
+            --command="DELETE FROM public.visitas_portfolio;"
