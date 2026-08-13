@@ -109,6 +109,19 @@ function tokenPareceJwt(token) {
   return typeof token === 'string' && token.split('.').length === 3;
 }
 
+// A Neon Auth pode devolver também um token de sessão opaco no cabeçalho.
+// A Data API só aceita JWT, então nunca salvo nem reutilizo o token opaco.
+function obterJwtNeon(resposta, dadosAuth) {
+  const tokenCabecalho = resposta?.headers?.get('set-auth-jwt');
+  const tokenResposta = extrairTokenNeon(dadosAuth);
+
+  if (tokenPareceJwt(tokenCabecalho)) {
+    return tokenCabecalho;
+  }
+
+  return tokenPareceJwt(tokenResposta) ? tokenResposta : null;
+}
+
 // A Neon Data API exige um JWT. Esta função cria ou reaproveita uma sessão técnica da Neon Auth.
 async function obterTokenNeon() {
   if (neonDataApiToken) {
@@ -132,19 +145,12 @@ async function obterTokenNeon() {
   const sessaoAtual = await fetchAuth(`${neonAuthUrl}/get-session`, {
     credentials: 'include'
   });
-  const tokenAtual = sessaoAtual.headers.get('set-auth-jwt');
+  const dadosSessaoAtual = await sessaoAtual.json().catch(() => ({}));
+  const tokenAtual = obterJwtNeon(sessaoAtual, dadosSessaoAtual);
 
   if (tokenAtual) {
     localStorage.setItem('neon_auth_jwt', tokenAtual);
     return tokenAtual;
-  }
-
-  const dadosSessaoAtual = await sessaoAtual.json().catch(() => ({}));
-  const tokenSessaoAtual = extrairTokenNeon(dadosSessaoAtual);
-
-  if (tokenSessaoAtual) {
-    localStorage.setItem('neon_auth_jwt', tokenSessaoAtual);
-    return tokenSessaoAtual;
   }
 
   // Se ainda não existir sessão, salvo credenciais técnicas no navegador para autenticar as próximas chamadas.
@@ -188,7 +194,7 @@ async function obterTokenNeon() {
   }
 
   const dadosAuth = await respostaAuth.json().catch(() => ({}));
-  const tokenAuth = respostaAuth.headers.get('set-auth-jwt') || extrairTokenNeon(dadosAuth);
+  const tokenAuth = obterJwtNeon(respostaAuth, dadosAuth);
 
   if (tokenAuth) {
     localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciaisAutenticadas));
@@ -202,7 +208,7 @@ async function obterTokenNeon() {
     credentials: 'include'
   });
   const dadosNovaSessao = await novaSessao.json().catch(() => ({}));
-  const novoToken = novaSessao.headers.get('set-auth-jwt') || extrairTokenNeon(dadosNovaSessao);
+  const novoToken = obterJwtNeon(novaSessao, dadosNovaSessao);
 
   if (!novoToken) {
     throw new Error('A Neon Auth não retornou um token JWT');
