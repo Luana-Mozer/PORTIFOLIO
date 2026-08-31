@@ -1,6 +1,7 @@
 // Configurações que uso no painel para buscar as visitas direto pela Neon Data API.
 const neonDataApiUrl = window.NEON_DATA_API_URL || 'https://ep-aged-band-ac33aasw.apirest.sa-east-1.aws.neon.tech/neondb/rest/v1';
 const neonAuthUrl = window.NEON_AUTH_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth';
+const neonJwksUrl = window.NEON_JWKS_URL || 'https://ep-aged-band-ac33aasw.neonauth.sa-east-1.aws.neon.tech/neondb/auth/.well-known/jwks.json';
 const neonDataApiToken = window.NEON_DATA_API_TOKEN || '';
 const backendApiUrl = window.PORTFOLIO_API_URL || '';
 const neonAuthTimeoutMs = 12000;
