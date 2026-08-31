@@ -457,22 +457,9 @@ async function obterLocalizacaoVisitante() {
 
 // Comparo nome e empresa para descobrir se é uma visita repetida.
 async function existeAcessoAnterior(nome, empresa) {
-  if (!urlApiVisitas) {
-    return false;
-  }
-
-  try {
-    const visitas = await buscarVisitas();
-    const nomeNormalizado = normalizarComparacao(nome);
-    const empresaNormalizada = normalizarComparacao(empresa);
-
-    return visitas.some((visita) =>
-      normalizarComparacao(visita.nome) === nomeNormalizado
-      && normalizarComparacao(visita.empresa) === empresaNormalizada
-    );
-  } catch (erro) {
-    return false;
-  }
+  // A lista de visitas contém dados pessoais e não é exposta ao navegador.
+  // O registro continua normalmente; retornos são verificados no painel protegido.
+  return false;
 }
 
 // Mensagem que aparece depois que a visita é registrada com sucesso.
