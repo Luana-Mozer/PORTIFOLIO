@@ -20,6 +20,13 @@ async function aplicarSchema() {
     await client.connect();
     const schema = fs.readFileSync(path.join(__dirname, '..', 'database', 'schema.sql'), 'utf8');
     await client.query(schema);
+    await client.query('SELECT pg_notify($1, $2)', ['pgrst', 'reload schema']);
+    const permissao = await client.query(`
+      SELECT has_table_privilege('authenticated', 'public.visitas_portfolio', 'INSERT') AS pode_inserir
+    `);
+    if (!permissao.rows[0].pode_inserir) {
+      throw new Error('O papel authenticated não recebeu permissão de INSERT.');
+    }
     console.log('Schema de visitas aplicado com sucesso.');
   } finally {
     await client.end();

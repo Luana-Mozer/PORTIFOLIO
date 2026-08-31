@@ -41,14 +41,17 @@ END $$;
 
 ALTER TABLE public.visitas_portfolio ENABLE ROW LEVEL SECURITY;
 
-GRANT USAGE ON SCHEMA public TO authenticated;
-GRANT INSERT ON public.visitas_portfolio TO authenticated;
-GRANT USAGE, SELECT ON SEQUENCE public.visitas_portfolio_id_seq TO authenticated;
+-- A Data API valida o JWT, mas usa o papel público interno do PostgREST
+-- para conferir estes privilégios de escrita.
+GRANT USAGE ON SCHEMA public TO PUBLIC;
+GRANT INSERT ON public.visitas_portfolio TO PUBLIC;
+GRANT USAGE, SELECT ON SEQUENCE public.visitas_portfolio_id_seq TO PUBLIC;
 
 -- Dados de visitantes não podem ser lidos publicamente. O painel deve consultar
 -- pelo backend, usando a credencial privada DATABASE_URL.
 REVOKE ALL ON public.visitas_portfolio FROM PUBLIC;
-REVOKE SELECT ON public.visitas_portfolio FROM authenticated;
+GRANT INSERT ON public.visitas_portfolio TO PUBLIC;
+REVOKE SELECT ON public.visitas_portfolio FROM PUBLIC;
 
 DROP POLICY IF EXISTS "Permitir leitura publica de visitas" ON public.visitas_portfolio;
 DROP POLICY IF EXISTS "Permitir cadastro publico de visitas" ON public.visitas_portfolio;
@@ -58,7 +61,7 @@ DROP POLICY IF EXISTS "Permitir cadastro autenticado de visitas" ON public.visit
 CREATE POLICY "Permitir cadastro autenticado de visitas"
 ON public.visitas_portfolio
 FOR INSERT
-TO authenticated
+TO PUBLIC
 WITH CHECK (
   length(trim(nome)) >= 2
   AND length(trim(nome)) <= 80
