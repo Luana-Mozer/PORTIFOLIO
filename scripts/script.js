@@ -968,7 +968,11 @@ formularioAcesso?.addEventListener('submit', async (evento) => {
     console.error('Erro ao registrar visita:', erro);
     popupAcesso?.classList.add('oculto');
     body.classList.remove('acesso-bloqueado');
-    mostrarToast('Acesso liberado. Nao consegui registrar a visita agora por instabilidade na Neon.', 'erro');
+    const semPermissao = /permission denied|erro 403/i.test(String(erro?.message || ''));
+    const mensagemErro = semPermissao
+      ? 'Acesso liberado. O registro de visitas está bloqueado pela permissão da Data API da Neon.'
+      : 'Acesso liberado. Não consegui registrar a visita agora. Tente novamente mais tarde.';
+    mostrarToast(mensagemErro, 'erro');
   } finally {
     botaoAcessarSite.disabled = false;
     botaoAcessarSite.textContent = 'Acessar site';
