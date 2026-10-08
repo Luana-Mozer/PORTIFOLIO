@@ -64,11 +64,5 @@ FOR INSERT
 TO PUBLIC
 WITH CHECK (
   length(trim(nome)) >= 2
-  AND length(trim(nome)) <= 80
   AND length(trim(empresa)) >= 2
-  AND length(trim(empresa)) <= 100
-  AND (
-    localizacao IS NULL
-    OR length(trim(localizacao)) <= 160
-  )
 );
