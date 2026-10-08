@@ -110,6 +110,20 @@ function tokenPareceJwt(token) {
   return typeof token === 'string' && token.split('.').length === 3;
 }
 
+// Descarto o JWT antes do vencimento para evitar que uma visita use uma
+// credencial expirada guardada por uma sessao anterior do navegador.
+function tokenJwtExpirado(token) {
+  if (!tokenPareceJwt(token)) return true;
+
+  try {
+    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const dados = JSON.parse(atob(payload.padEnd(Math.ceil(payload.length / 4) * 4, '=')));
+    return typeof dados.exp !== 'number' || dados.exp * 1000 <= Date.now() + 60_000;
+  } catch (_erro) {
+    return true;
+  }
+}
+
 // A Neon Auth pode devolver também um token de sessão opaco no cabeçalho.
 // A Data API só aceita JWT, então nunca salvo nem reutilizo o token opaco.
 function obterJwtNeon(resposta, dadosAuth) {
@@ -130,7 +144,7 @@ async function obterTokenNeon() {
   }
 
   const tokenSalvo = localStorage.getItem('neon_auth_jwt');
-  if (tokenPareceJwt(tokenSalvo)) {
+  if (tokenPareceJwt(tokenSalvo) && !tokenJwtExpirado(tokenSalvo)) {
     return tokenSalvo;
   }
   localStorage.removeItem('neon_auth_jwt');
@@ -149,7 +163,7 @@ async function obterTokenNeon() {
   const dadosSessaoAtual = await sessaoAtual.json().catch(() => ({}));
   const tokenAtual = obterJwtNeon(sessaoAtual, dadosSessaoAtual);
 
-  if (tokenAtual) {
+  if (tokenAtual && !tokenJwtExpirado(tokenAtual)) {
     localStorage.setItem('neon_auth_jwt', tokenAtual);
     return tokenAtual;
   }
@@ -197,7 +211,7 @@ async function obterTokenNeon() {
   const dadosAuth = await respostaAuth.json().catch(() => ({}));
   const tokenAuth = obterJwtNeon(respostaAuth, dadosAuth);
 
-  if (tokenAuth) {
+  if (tokenAuth && !tokenJwtExpirado(tokenAuth)) {
     localStorage.setItem('neon_auth_visitante', JSON.stringify(credenciaisAutenticadas));
     localStorage.setItem('neon_auth_jwt', tokenAuth);
     return tokenAuth;
@@ -211,7 +225,7 @@ async function obterTokenNeon() {
   const dadosNovaSessao = await novaSessao.json().catch(() => ({}));
   const novoToken = obterJwtNeon(novaSessao, dadosNovaSessao);
 
-  if (!novoToken) {
+  if (!novoToken || tokenJwtExpirado(novoToken)) {
     throw new Error('A Neon Auth não retornou um token JWT');
   }
 
@@ -241,7 +255,16 @@ async function fetchNeonApi(url, opcoes = {}) {
 
   let resposta = await fetch(url, await montarOpcoes());
 
-  if (resposta.status === 401) {
+  let erroResposta = {};
+  if (!resposta.ok && [400, 401].includes(resposta.status)) {
+    erroResposta = await resposta.clone().json().catch(() => ({}));
+  }
+  const detalheErro = JSON.stringify(erroResposta).toLowerCase();
+  const tokenExpirado = detalheErro.includes('jwt token has expired')
+    || detalheErro.includes('jwt_expired')
+    || detalheErro.includes('pgrst301');
+
+  if (resposta.status === 401 || tokenExpirado) {
     localStorage.removeItem('neon_auth_jwt');
     resposta = await fetch(url, await montarOpcoes());
   }
@@ -958,7 +981,15 @@ formularioAcesso?.addEventListener('submit', async (evento) => {
   botaoAcessarSite.textContent = 'Registrando...';
 
   try {
-    const acessoAnterior = await existeAcessoAnterior(dadosAcesso.nome, dadosAcesso.empresa);
+    // A leitura serve somente para personalizar a saudacao; uma falha nela
+    // nao deve impedir que a visita seja gravada.
+    let acessoAnterior = false;
+    try {
+      acessoAnterior = await existeAcessoAnterior(dadosAcesso.nome, dadosAcesso.empresa);
+    } catch (erroLeitura) {
+      console.warn('Nao foi possivel consultar visitas anteriores:', erroLeitura);
+    }
+
     await registrarVisita(dadosAcesso);
 
     const mensagem = mensagemBoasVindas(dadosAcesso.nome, dadosAcesso.empresa, acessoAnterior);
