@@ -26,6 +26,8 @@ Comecei montando a estrutura principal com HTML, CSS e JavaScript. Depois fui ad
 
 O projeto hoje tem troca de tema, navegação por abas, linha do tempo profissional, seção de cursos, projetos, integração com banco de dados, painel admin e chatbox.
 
+Na página inicial, a seção **Publicações** exibe abaixo do vídeo de apresentação as publicações selecionadas do LinkedIn. Cada publicação tem um link para abrir o post original caso a incorporação não esteja disponível. O rodapé fica logo abaixo do cartão de informações na lateral esquerda.
+
 Também integrei o site com a Neon para registrar quem acessa o portfólio. Assim consigo acompanhar as visitas de forma organizada, sem depender de planilha manual.
 
 ## Tecnologias usadas
@@ -72,6 +74,7 @@ O arquivo `index.html` concentra a experiência principal do portfólio. Nele fi
 - popup inicial de acesso;
 - ficha com foto, currículo e redes;
 - vídeo de apresentação;
+- publicações selecionadas do LinkedIn, logo abaixo do vídeo;
 - habilidades técnicas e comportamentais;
 - formação acadêmica;
 - cursos extras;
@@ -79,6 +82,8 @@ O arquivo `index.html` concentra a experiência principal do portfólio. Nele fi
 - projetos;
 - chat da Luh;
 - links para currículo, LinkedIn, GitHub e projetos.
+
+As publicações são incorporadas individualmente a partir dos links do LinkedIn. Elas precisam estar públicas e permitir incorporação para aparecerem dentro do portfólio; o link direto continua disponível em cada cartão.
 
 ## Login e registro de visitas
 
