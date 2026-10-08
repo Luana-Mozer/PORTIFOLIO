@@ -398,6 +398,63 @@ div#video-container iframe {
   height: 100%;
   border-radius: 10px;
 }
+#publicacoes {
+  max-width: 1000px;
+  margin: 3rem auto 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--texto) 18%, transparent);
+}
+.publicacoes-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+#publicacoes .publicacoes-cabecalho h2 {
+  margin: 0 0 0.35rem;
+  color: var(--destaque);
+  text-align: left;
+}
+.publicacoes-cabecalho p {
+  color: var(--texto);
+}
+.publicacoes-cabecalho > a,
+.publicacao-linkedin > a {
+  color: var(--destaque);
+  font-weight: 700;
+  text-decoration: none;
+}
+.publicacoes-cabecalho > a:hover,
+.publicacao-linkedin > a:hover {
+  text-decoration: underline;
+}
+.publicacoes-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 1.25rem;
+}
+.publicacao-linkedin {
+  min-width: 0;
+  padding: 0.75rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--texto) 14%, transparent);
+  border-radius: 14px;
+  background: var(--fundo-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.publicacao-linkedin iframe {
+  display: block;
+  width: 100%;
+  height: 620px;
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
+}
+.publicacao-linkedin > a {
+  display: inline-block;
+  margin: 0.75rem 0.25rem 0.25rem;
+}
 /* Secao de habilidades */
 #skill-container {
   display: grid;
