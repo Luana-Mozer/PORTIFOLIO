@@ -500,6 +500,10 @@ function mensagemBoasVindas(nome, empresa, retorno) {
 // Base de respostas da Luh. Eu deixei os textos com um tom mais natural e voltado aos meus focos profissionais.
 const respostasLuh = [
   {
+    termos: ['objetivo', 'objetivos', 'meta profissional', 'metas profissionais', 'área de interesse', 'areas de interesse', 'área que busca', 'áreas que busca'],
+    resposta: 'Os objetivos profissionais da Luana incluem oportunidades em automação, desenvolvimento e análise de dados. Ela quer aplicar Python, Excel avançado, Power BI e MySQL para tratar dados, gerar análises e apoiar decisões, além de criar soluções que reduzam tarefas manuais.'
+  },
+  {
     termos: ['experiencia', 'experiências', 'trabalho', 'trabalhou', 'carreira', 'profissional'],
     resposta: 'Ah, ótima pergunta! A Luana tem uma trajetória bem prática e diversa. Ela já passou por logística, atendimento, estoque, operações e hoje atua como Analista Backoffice, lidando com chamados, documentos, processos financeiros e suporte a alunos. Essa mistura mostra alguém organizada, adaptável e acostumada a resolver problema de verdade no dia a dia.'
   },
@@ -516,8 +520,8 @@ const respostasLuh = [
     resposta: 'Na aba de cursos, a Luana tem: n8n (agentes de IA), Python AI, Automação e Dados, Teste de Inglês B1 Intermediário, Analytics & Inteligência Artificial, Hardware, Rede de computadores, Excel, Algoritmos e Lógica de Programação, Power BI, MySQL, HTML5 + CSS3, Fundamentos e masterclass Python, Marketing Digital e Inteligência Artificial, DEV Agentes de IA Google e Intensivão de JavaScript.'
   },
   {
-    termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css', 'mysql', 'n8n', 'python', 'automacao', 'automação', 'ia', 'chatbot', 'chatbox'],
-    resposta: 'O foco profissional da Luana está bem voltado para automação de processos, MySQL, n8n, Python, agentes de IA e chatbots. Ela gosta de criar soluções que conectam sistemas, organizam dados e reduzem trabalho manual. Front-end entra como apoio para apresentar essas soluções de forma clara, mas o coração do interesse dela está em automação e inteligência aplicada.'
+    termos: ['skill', 'skills', 'tecnologia', 'tecnologias', 'programacao', 'programação', 'javascript', 'html', 'css', 'mysql', 'excel', 'power bi', 'dados', 'analise', 'análise', 'python', 'n8n', 'automacao', 'automação', 'ia', 'chatbot', 'chatbox'],
+    resposta: 'O foco profissional da Luana reúne automação, desenvolvimento e análise de dados. Ela tem conhecimentos em tratamento e análise de dados com Python, Excel avançado, Power BI e MySQL, além de Python para automação, n8n e agentes de IA. Gosta de transformar dados em informações úteis, criar dashboards e automatizar tarefas.'
   },
   {
     termos: ['automacao', 'automação', 'processo', 'processos', 'fluxo', 'fluxos', 'n8n'],
@@ -529,11 +533,11 @@ const respostasLuh = [
   },
   {
     termos: ['mysql', 'banco', 'dados', 'database', 'sql'],
-    resposta: 'Na parte de dados, a Luana tem foco em MySQL e modelagem prática para guardar, consultar e organizar informações. Ela também vem trabalhando com integração entre site, API e banco, como o cadastro de visitas do portfólio, que registra informações em banco de dados.'
+    resposta: 'Luana tem conhecimentos em análise e tratamento de dados com Python, incluindo Pandas, Excel avançado, Power BI e MySQL. Usa essas ferramentas para organizar e consultar dados, explorar informações e criar dashboards. Também tem experiência prática com integração entre site, API e banco de dados.'
   },
   {
     termos: ['python', 'pyhton'],
-    resposta: 'Python é um dos focos profissionais da Luana porque combina muito com automação, análise de dados, scripts e agentes de IA. Ela quer usar Python para criar soluções úteis, automatizar tarefas e conectar ferramentas de forma mais inteligente.'
+    resposta: 'Luana usa Python em automação e análise de dados. Com Pandas, consegue tratar e organizar bases para explorar informações; também desenvolve scripts e projetos com visualizações. Seus objetivos incluem crescer em análise de dados, automação e desenvolvimento.'
   },
   {
     termos: ['formacao', 'formação', 'faculdade', 'estudo', 'estudos', 'engenharia de software', 'senai'],
@@ -545,7 +549,7 @@ const respostasLuh = [
   },
   {
     termos: ['quem', 'sobre', 'luana', 'luh', 'apresenta', 'apresentação', 'curriculo', 'currículo', 'resumo'],
-    resposta: 'A Luana de Oliveira Mozer é estudante de Engenharia de Software, mora em São Paulo na Zona Leste e faz parte da diversidade como mulher transgênero. Ela tem experiência em atendimento, backoffice, análise de chamados e rotinas operacionais, além de projetos práticos em HTML, CSS, JavaScript, Python, Power BI, MySQL, hardware, redes e agentes de IA. Hoje ela busca crescer em desenvolvimento, tecnologia, automação e inteligência artificial.'
+    resposta: 'A Luana de Oliveira Mozer é estudante de Engenharia de Software, mora em São Paulo na Zona Leste e faz parte da diversidade como mulher transgênero. Ela tem experiência em atendimento, backoffice, análise de chamados e rotinas operacionais, além de projetos práticos em Python, Power BI, MySQL e desenvolvimento web. Seus objetivos profissionais incluem automação, desenvolvimento e análise de dados. Tem conhecimentos em tratamento e análise de dados com Python, Excel avançado, Power BI e MySQL.'
   },
   {
     termos: ['idioma', 'idiomas', 'ingles', 'inglês', 'espanhol', 'portugues', 'português'],
@@ -560,6 +564,8 @@ const respostasLuh = [
 const sugestoesLuh = [
   'Quais são suas experiências?',
   'Quais cursos você fez?',
+  'Quais são seus objetivos profissionais?',
+  'Quais ferramentas você usa para análise de dados?',
   'Você trabalha com automação?',
   'Você cria agentes de IA?',
   'Qual o melhor contato?'
