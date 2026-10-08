@@ -43,25 +43,29 @@ ALTER TABLE public.visitas_portfolio ENABLE ROW LEVEL SECURITY;
 
 -- A Data API da Neon usa o papel público do PostgREST para validar o JWT e
 -- permitir que o front-end consiga inserir e listar visitas do portfólio.
-GRANT USAGE ON SCHEMA public TO PUBLIC;
-GRANT INSERT, SELECT ON public.visitas_portfolio TO PUBLIC;
-GRANT USAGE, SELECT ON SEQUENCE public.visitas_portfolio_id_seq TO PUBLIC;
+GRANT USAGE ON SCHEMA public TO anonymous, authenticated;
+GRANT INSERT ON public.visitas_portfolio TO anonymous, authenticated;
+GRANT USAGE, SELECT ON SEQUENCE public.visitas_portfolio_id_seq TO anonymous, authenticated;
+REVOKE SELECT ON public.visitas_portfolio FROM PUBLIC, anonymous, authenticated;
+GRANT SELECT (nome, empresa, data_visita, criado_em, localizacao)
+ON public.visitas_portfolio TO authenticated;
 
+DROP POLICY IF EXISTS "Permitir registro publico de visitas" ON public.visitas_portfolio;
 DROP POLICY IF EXISTS "Permitir leitura publica de visitas" ON public.visitas_portfolio;
 DROP POLICY IF EXISTS "Permitir cadastro publico de visitas" ON public.visitas_portfolio;
 DROP POLICY IF EXISTS "Permitir leitura autenticada de visitas" ON public.visitas_portfolio;
 DROP POLICY IF EXISTS "Permitir cadastro autenticado de visitas" ON public.visitas_portfolio;
 
-CREATE POLICY "Permitir leitura publica de visitas"
+CREATE POLICY "Permitir leitura autenticada de visitas"
 ON public.visitas_portfolio
 FOR SELECT
-TO PUBLIC
+TO authenticated
 USING (true);
 
 CREATE POLICY "Permitir cadastro publico de visitas"
 ON public.visitas_portfolio
 FOR INSERT
-TO PUBLIC
+TO anonymous, authenticated
 WITH CHECK (
   length(trim(nome)) >= 2
   AND length(trim(empresa)) >= 2

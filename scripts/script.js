@@ -302,7 +302,7 @@ async function buscarVisitas() {
   }
 
   if (neonDataApiUrl && urlApiVisitas.includes('/rest/v1/')) {
-    const resposta = await fetchNeonApi(`${urlApiVisitas}?select=id,nome,empresa,data_visita,ip,navegador,criado_em&order=criado_em.desc`);
+    const resposta = await fetchNeonApi(`${urlApiVisitas}?select=nome,empresa`);
 
     if (!resposta.ok) {
       throw new Error(`Erro ${resposta.status}`);
@@ -482,9 +482,15 @@ async function obterLocalizacaoVisitante() {
 
 // Comparo nome e empresa para descobrir se é uma visita repetida.
 async function existeAcessoAnterior(nome, empresa) {
-  // A lista de visitas contém dados pessoais e não é exposta ao navegador.
-  // O registro continua normalmente; retornos são verificados no painel protegido.
-  return false;
+  // Consulto apenas nome e empresa para personalizar a saudação.
+  const visitas = await buscarVisitas();
+  const nomeBuscado = normalizarComparacao(nome);
+  const empresaBuscada = normalizarComparacao(empresa);
+
+  return visitas.some((visita) =>
+    normalizarComparacao(visita.nome) === nomeBuscado
+    && normalizarComparacao(visita.empresa) === empresaBuscada
+  );
 }
 
 // Mensagem que aparece depois que a visita é registrada com sucesso.

@@ -302,7 +302,7 @@ async function buscarVisitas() {
   }
 
   if (neonDataApiUrl && urlApiVisitas.includes('/rest/v1/')) {
-    const resposta = await fetchNeonApi(`${urlApiVisitas}?select=id,nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`);
+    const resposta = await fetchNeonApi(`${urlApiVisitas}?select=nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`);
 
     if (!resposta.ok) {
       throw new Error(`Erro ${resposta.status}`);
