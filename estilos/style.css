@@ -941,8 +941,8 @@ footer {
   color: var(--texto-inverso);
   text-align: center;
   padding: 0px 6px;
-  width: calc(100% - 40px);
-  margin: 10px 20px 0;
+  width: 100%;
+  margin: 0;
   border-radius: 8px;
   opacity: 0.9;
   font-size: 0.72rem;
@@ -1043,8 +1043,13 @@ footer a {
     min-height: 44px;
   }
   footer {
-    width: min(var(--main-max), calc(100% - 24px));
-    margin: 10px auto 0;
+    width: 100%;
+  }
+  #barra-lateral {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -1342,11 +1347,17 @@ body.acesso-bloqueado .luh-chat {
     gap: var(--layout-gap);
     width: min(var(--main-max), calc(100% - var(--page-pad)));
   }
-  section#ficha {
+  #barra-lateral {
     width: var(--sidebar-width);
     position: fixed;
     top: 20px;
     left: max(20px, calc((100vw - min(var(--main-max), calc(100vw - var(--page-pad)))) / 2));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  section#ficha {
+    width: 100%;
   }
   section#detalhes {
     grid-column: 2 / 3;
@@ -1370,11 +1381,7 @@ body.acesso-bloqueado .luh-chat {
     margin: 0 20px 20px;
   }
   footer {
-    width: calc(var(--sidebar-width) - 20px);
-    position: fixed;
-    left: calc(max(20px, calc((100vw - min(var(--main-max), calc(100vw - var(--page-pad)))) / 2)) + 10px);
-    bottom: 16px;
-    margin: 0;
+    width: 100%;
   }
   #formacao #forma-container {
     grid-template-columns: repeat(3, minmax(0, 1fr));
