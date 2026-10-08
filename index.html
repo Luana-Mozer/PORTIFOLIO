@@ -23,11 +23,11 @@
                     <div class="login-campos">
                         <div class="login-campo">
                             <label for="nome-visitante">Nome</label>
-                            <input type="text" id="nome-visitante" name="nome-visitante" placeholder="Ex: Luana Mozer" autocomplete="name" required>
+                            <input type="text" id="nome-visitante" name="nome-visitante" placeholder="Ex: Luana Mozer" autocomplete="name" maxlength="80" required>
                         </div>
                         <div class="login-campo">
                             <label for="empresa-visitante">Empresa</label>
-                            <input type="text" id="empresa-visitante" name="empresa-visitante" placeholder="Ex: Mozer Engenharia" autocomplete="organization" required>
+                            <input type="text" id="empresa-visitante" name="empresa-visitante" placeholder="Ex: Mozer Engenharia" autocomplete="organization" maxlength="100" required>
                         </div>
                     </div>
                     <p id="login-mensagem" class="login-mensagem" aria-live="polite" hidden></p>
@@ -866,6 +866,6 @@
                 </aside>
                 <!-- Script principal -->
                 <script src="scripts/config.js?v=3"></script>
-                <script src="scripts/script.js?v=6"></script>
+                <script src="scripts/script.js?v=7"></script>
             </body>
         </html>

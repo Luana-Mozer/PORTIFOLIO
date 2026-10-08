@@ -416,7 +416,7 @@ function montarLocalizacao(dados) {
     .map((parte) => String(parte || '').trim())
     .filter(Boolean);
 
-  return partes.length ? partes.join(', ') : 'Não identificada';
+  return partes.length ? partes.join(', ').slice(0, 160) : 'Não identificada';
 }
 
 function localizacaoPorFuso() {
@@ -872,7 +872,7 @@ function nomeValido(nome) {
 function empresaValida(empresa) {
   // Empresa deve ter pelo menos 2 caracteres
   const valor = String(empresa || '').trim();
-  return valor.length >= 2;
+  return valor.length >= 2 && valor.length <= 100;
 }
 
 // Mostro mensagens de erro ou sucesso no formulário de entrada.
