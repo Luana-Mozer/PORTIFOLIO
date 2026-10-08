@@ -236,7 +236,8 @@ async function obterTokenNeon() {
 async function cabecalhosNeon() {
   const headers = {
     'Content-Type': 'application/json',
-    Prefer: 'return=representation'
+    // O POST de visitas não precisa retornar a linha; assim evitamos exigir uma política SELECT para inserir.
+    Prefer: 'return=minimal'
   };
 
   headers.Authorization = `Bearer ${await obterTokenNeon()}`;
