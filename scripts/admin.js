@@ -241,7 +241,7 @@ async function fetchNeonApi(url, opcoes = {}) {
   let resposta = await fetch(url, await montarOpcoes());
 
   let erroResposta = {};
-  if (!resposta.ok && [400, 401].includes(resposta.status)) {
+  if (!resposta.ok && [400, 401, 403].includes(resposta.status)) {
     erroResposta = await resposta.clone().json().catch(() => ({}));
   }
   const detalheErro = JSON.stringify(erroResposta).toLowerCase();
@@ -249,7 +249,7 @@ async function fetchNeonApi(url, opcoes = {}) {
     || detalheErro.includes('jwt_expired')
     || detalheErro.includes('pgrst301');
 
-  if (resposta.status === 401 || tokenExpirado) {
+  if ([401, 403].includes(resposta.status) || tokenExpirado) {
     localStorage.removeItem('neon_auth_jwt');
     resposta = await fetch(url, await montarOpcoes());
   }
@@ -305,7 +305,8 @@ async function buscarVisitas() {
     const resposta = await fetchNeonApi(`${urlApiVisitas}?select=nome,empresa,data_visita,criado_em,localizacao&order=criado_em.desc`);
 
     if (!resposta.ok) {
-      throw new Error(`Erro ${resposta.status}`);
+      const erro = await resposta.json().catch(() => ({}));
+      throw new Error(`Neon Data API ${resposta.status}: ${erro.message || erro.details || 'falha ao consultar visitas'}`);
     }
 
     const visitas = await resposta.json();
@@ -358,7 +359,7 @@ async function carregarVisitas() {
     const visitas = await buscarVisitas();
     exibirVisitas(visitas);
   } catch (erro) {
-    exibirErro('Erro ao carregar visitas. Configure e habilite a Neon Data API.');
+    exibirErro(`Erro ao carregar visitas: ${erro.message}`);
     console.error('Erro ao carregar visitas:', erro);
   }
 }
